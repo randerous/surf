@@ -9,5 +9,9 @@ public
 		features
 			Args: refined to feature group TIME_Arg_IO::GetTimeArgs;
 			LocalDatas: refined to feature group TIME_Base_IO::SysTimeInput;
+		annex agree{**
+		   guarantee "Get local time":  
+		   Args.a.CurrentTime = LocalDatas.Time2;
+		**};
 	end GetTime;
 end TIME_Processor;

@@ -83,6 +83,12 @@ public
 		features
 			DefaultResult: in data port Base_Types::Integer;
 			Result: out data port Base_Types::Integer;
+			
+		annex agree {**
+				--the result shows the status of execution of service or cmd, 
+				--should be a fixed value for error report
+			guarantee "check result": Result = DefaultResult;
+		**};
 	end Checker;
 --------------------------Task-----------------------------
 	abstract Task extends Generic::FunctionProcessor

@@ -10,7 +10,11 @@ public
 	with Surf_Medium;
 		
 	process Surf
-
+	
+	-- no real meaning, jues AGREE tool needs annex clause in component type
+	annex agree{**
+		
+	**};
 	end Surf;
 	
 	process implementation Surf.impl
@@ -52,5 +56,7 @@ public
 			TIME_Default_SendEvent: feature group TIME.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.TIME_Default;
 			HS_Default_SendEvent:  feature group HS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.HS_Default;
 			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
+			
+	   
 end Surf.impl;
 end Surf;

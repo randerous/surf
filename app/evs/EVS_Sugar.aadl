@@ -41,6 +41,14 @@ public
 			
 			EVSAPIIn: refined to feature group EVSAPIInput;
 			ESAPIIn: refined to feature group ESAPIInput;
+		annex agree{**
+			guarantee "keep evs msg forward":
+			EVSAPI.SendEventArgs.Default.AppId =  EVSAPIIn.SendEventCollection.Default.AppId
+			and
+			EVSAPI.SendEventArgs.Default.EvtId =  EVSAPIIn.SendEventCollection.Default.EvtId
+			and
+			EVSAPI.SendEventArgs.Default.EvtType =  EVSAPIIn.SendEventCollection.Default.EvtType;
+		**};
 	end Medium;
 	-------------------------------Checker-------------------------------
 	abstract Checker extends Component::Checker

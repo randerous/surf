@@ -15,6 +15,9 @@ public
 			AppRecord: feature group ES_Base_IO::AppRecordInput;
 			
 			HSControlCommand: out data port Base_Types::Integer;
+		annex agree{**
+			
+		**};
 	end ESAPP;
 	
 	thread implementation ESAPP.impl extends Component::Component.default

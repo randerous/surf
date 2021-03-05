@@ -18,5 +18,8 @@ public
 		features
 			MsgInput: feature group MsgInput;
 			MsgOutput: feature group MsgOutput;
+		annex agree{**
+			guarantee "transform msg": MsgOutput.a.Msg = MsgInput.a.Msg;
+		**};
 	end Medium;
 end Core_Sugar;

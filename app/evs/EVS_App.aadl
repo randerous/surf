@@ -7,6 +7,9 @@ public
 		features
 			EVSAPI: refined to feature group EVS_Sugar::EVSAPIOutput;
 			ESAPI: refined to feature group EVS_Sugar::ESAPIOutput;
+		annex agree{**
+			
+		**};
 	end EVSAPP;
 	
 	thread implementation EVSAPP.impl extends Component::Component.default

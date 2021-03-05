@@ -10,7 +10,7 @@ public
 	
 	feature group SysTimeInput
 		features
-			Time: in data port Core_Types::struct.CFE_TIME_SysTime_t;
+			Time2: in data port Core_Types::struct.CFE_TIME_SysTime_t;
 	inverse of SysTimeOutput
 	end SysTimeInput;
 ------------------------------Reference---------------------------------

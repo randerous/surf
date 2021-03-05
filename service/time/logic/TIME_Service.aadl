@@ -11,12 +11,12 @@ public
 
 	abstract implementation Service.impl
 		subcomponents
-			GetTime: abstract TIME_Processor::GetTime;
-			
+			GetTime: abstract TIME_Processor::GetTime;			
 			ShareData: abstract ShareData;
 		connections
 			GetTimeArg: feature group GetTimeArgs <-> GetTime.Args;
 			GetTimeLocalData: feature group ShareData.OldSysTimeData -> GetTime.LocalDatas;
+		
 	end Service.impl;
 	
 	----------------ShareData can add processor result
@@ -24,6 +24,10 @@ public
 		features
 			OldSysTimeData: feature group TIME_Base_IO::SysTimeOutput;
 			OldReferenceData: feature group TIME_Base_IO::ReferenceOutput;
+		
+		annex agree{**
+			
+		**};
 	end ShareData;
 
 end TIME_Service;
