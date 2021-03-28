@@ -10,6 +10,11 @@ public
 		features
 			Command: in data port Core_Types::struct.CFE_SB_Msg_t;
 			Default: out data port Core_Types::struct.CFE_SB_Msg_t;
+		-- for choosing which app to be the target,but no for now
+		annex agree{**
+			guarantee "equal": Default = Command;
+		**};
+		
 	end CommandRouter;
 
 --------------------CommandProcessor can be extended with necessary api and data features;--------------
@@ -18,6 +23,9 @@ public
 			Command: refined to in data port Core_Types::struct.CFE_SB_Msg_t;
 			Result: refined to out data port Base_Types::Integer;
 			SendEvent: feature group EVS_Interface::R_SendEvent;
+		annex agree{**
+			
+		**};
 	end DefaultCommandProcessor;
 	
 ---------------------grammar sugar-------------------------

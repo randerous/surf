@@ -11,7 +11,7 @@ public
 		
 	process Surf
 	
-	-- no real meaning, jues AGREE tool needs annex clause in component type
+	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
 		
 	**};
@@ -57,6 +57,41 @@ public
 			HS_Default_SendEvent:  feature group HS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.HS_Default;
 			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
 			
+			annex agree{**
+			--0: running 1: restart  ÖØÆô 2: wait
+			--
+			eq SUCCESS: int = 0;
+			eq ERR_APPID: int = 1;--AppId£¬
+			
+			eq INVALID_PIPE: int = 2;--
+			eq BAD_ARGUMENT: int = 3;--
+			eq MAX_PIPES_MET: int = 4;--
+			eq PIPE_CR_ERR: int = 5;--
+			
+			eq MAX_MSGS_MET: int = 6;--
+			eq MAX_DESTS_MET: int = 7;--
+			eq BUF_ALOC_ERR: int = 8;--¢ï
+			
+			eq MSG_TOO_BIG: int = 9;
+			
+			eq APP_ILLEGAL_APP_ID: int = 10;-- 
+			eq UNKNOWN_FILTER: int = 11;--
+			eq ERR_BUFFER: int = 12;--
+			
+			eq APP_NOT_REGISTERED: int = 13; --=
+			
+			eq NO_MESSAGE: int = 14; --
+			eq TIME_OUT: int = 15;--
+			eq PIPE_RD_ERR: int = 16;--
+			
+ 
+			
+		
+--			
+--			guarantee "GetTime": true -> TIME_API.GetTime.Valid = true => 
+--			TIME_API.GetTime.Result = SUCCESS;
+
+**};
 	   
 end Surf.impl;
 end Surf;

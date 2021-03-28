@@ -29,7 +29,12 @@ public
 		features
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_RestartApp;
-
+	
+	--here the appId for restart need to be different for each core app and common app
+	--e.g. core : 0-4, common : > 4
+	--now, treating sb's appId as 1
+	--this is for change the appstate to 1:restart
+	--0: running 1: restart, 2:waiting
 	feature group R_RestartApp extends Generic::Require_Generic_Function_API
 		features
 			AppId: out data port Base_Types::Unsigned_32;

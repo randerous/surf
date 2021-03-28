@@ -10,12 +10,28 @@ public
 	thread ESAPP extends Component::Component
 		features
 			EVSAPI: refined to feature group ES_Sugar::EVSAPIOutput;
-			ESAPI: refined to feature group ES_Sugar::ESAPIOutput;
-			
+			ESAPI: refined to feature group ES_Sugar::ESAPIOutput;			
 			AppRecord: feature group ES_Base_IO::AppRecordInput;
 			
+			--control common app
+			--send cmd to app, app control its state, something ridiculous,need to change
 			HSControlCommand: out data port Base_Types::Integer;
 		annex agree{**
+			-- cmd to call * RestartApp
+			guarantee "cmd to call * RestartApp": true ->  (Command.MsgId = 0 and Command.EvtId = 0) =>
+			ESAPI.RestartAppArgs.RestartApp.AppId = Command.AppId;
+			
+			--check appstate, send event to restart
+			guarantee "check es": true ->  AppRecord.ES.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 0;
+			guarantee "check sb": true ->  AppRecord.SB.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 1;
+			guarantee "check evs": true ->  AppRecord.EVS.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 2; 
+			guarantee "check time": true ->  AppRecord.Time1.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 3;			
+			guarantee "check hs": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 5;
 			
 		**};
 	end ESAPP;

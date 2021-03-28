@@ -11,6 +11,32 @@ public
 			ESAPI: refined to feature group HS_Sugar::ESAPIOutput;
 			
 			AppRecord: feature group ES_Base_IO::AppRecordInput;
+		annex agree{**
+			--MonitorApplications
+			--there should be more monitor threads running at same time
+			--need to control concurrency for all monitors!!!
+			
+			guarantee "monitor es, send a cmd to restart es whenever es stuck": true-> 
+			(AppRecord.ES.StateRecord.AppTimer = pre(AppRecord.ES.StateRecord.AppTimer)) =>
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
+			
+			guarantee "monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
+			(AppRecord.SB.StateRecord.AppTimer = pre(AppRecord.SB.StateRecord.AppTimer)) =>
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 1;
+			
+			guarantee "monitor evs, send a cmd to restart evs whenever evs stuck": true-> 
+			(AppRecord.EVS.StateRecord.AppTimer = pre(AppRecord.EVS.StateRecord.AppTimer)) =>
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 2;
+			
+			guarantee "monitor TIME, send a cmd to restart TIME whenever TIME stuck": true-> 
+			(AppRecord.Time1.StateRecord.AppTimer = pre(AppRecord.Time1.StateRecord.AppTimer)) =>
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 3;
+			
+			guarantee "monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
+			(AppRecord.HS_APP.StateRecord.AppTimer = pre(AppRecord.HS_APP.StateRecord.AppTimer)) =>
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
+			
+		**};
 	end HSAPP;
 	
 	thread implementation HSAPP.impl extends Component::AppComponent.default

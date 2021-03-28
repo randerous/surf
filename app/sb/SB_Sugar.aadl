@@ -41,6 +41,13 @@ public
 			
 			EVSAPIIn: refined to feature group EVSAPIInput;
 			ESAPIIn: refined to feature group ESAPIInput;
+		annex agree{**
+			guarantee "deliver to EVS": 
+			EVSAPI.SendEventArgs.Default.EvtId = EVSAPIIn.SendEventCollection.Default.EvtId;
+			
+			
+			
+		**};
 	end Medium;
 	-------------------------------Checker-------------------------------
 	abstract Checker extends Component::Checker
