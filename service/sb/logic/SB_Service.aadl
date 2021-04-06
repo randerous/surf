@@ -17,7 +17,11 @@ public
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
 --			RcvMsg: feature group SB_Interface::P_RcvMsg;
 	end Service;
-
+--
+--
+--     SB consist of :
+--     shareData: store and maintain all used pipe statues and all route info.
+--     all functions can read it from the connection from  local data to old pipe or old route, respectively 
 	abstract implementation Service.impl
 		subcomponents
 			CreatePipe: abstract SB_Processor::CreatePipe;
@@ -48,9 +52,24 @@ public
 			SendMsgLocalData: feature group ShareData.OldRouteData -> SendMsg.LocalDatas;
 --			SendMsgResult: feature group SendMsg.Results -> ShareData.SendMsgResult;
 			SendMsgOutMsg: feature group SendMsg.OutMsgs -> OutMsgs;
+		
+				annex agree {**
+			-->* CreatePipe
+			-->在SB服务中创建管道，即__使能__SB服务中的该APP指定的__管道__。
+			-->* DeletePipe
+			-->在SB服务中删除管道，即__不使能__SB服务中的该APP指定的__管道__。
+			-->* Subscribe
+			-->在SB服务中绑定管道和消息，即__使能__SB服务中的该APP指定的消息和管道的__路由项__。
+			-->* Unsubscribe
+			-->在SB服务中解绑管道和消息，即__不使能__SB服务中的该APP指定的消息和管道的__路由项__。
+			-->* SendMsg
+			-->传入消息，按照路由表路由消息。
+			
+		**};
 	end Service.impl;
 
 ----------------ShareData can add processor result
+--store and maintain pipe and route info
 	abstract ShareData
 		features
 			OldPipeData: feature group SB_Base_IO::PipeOutput;
@@ -60,6 +79,7 @@ public
 			SubscribeResult: feature group SB_Result_IO::SubscribeResult;
 			UnsubscribeResult: feature group SB_Result_IO::UnsubscribeResult;
 			SendMsgResult: feature group SB_Result_IO::SendMsgResult;
+		
 	end ShareData;
 
 end SB_Service;

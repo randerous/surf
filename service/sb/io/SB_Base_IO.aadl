@@ -21,7 +21,11 @@ public
 			TIME_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
 	inverse of PipeOutput
 	end PipeInput;
-	
+
+--    for return value
+--    SUCCESS:0
+--    SB_BAD_ARGUMENT:3
+--    SB_MAX_PIPES_MET:4 
 	feature group PipeReturnValue
 		features
 			ES_CmdPipe: out data port Base_Types::Integer;
@@ -30,6 +34,8 @@ public
 			TIME_CmdPipe: out data port Base_Types::Integer;
 	end PipeReturnValue;
 
+---awfully bad name, evaluateValue, 
+---actually, just the return value on whether cmd is executed successfully
 	feature group PipeEvaluteValue
 		features
 			ES_CmdPipe: in data port Base_Types::Integer;
