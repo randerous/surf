@@ -28,6 +28,7 @@ public
 --    SB_MAX_PIPES_MET:4 
 	feature group PipeReturnValue
 		features
+--			No supporting for concurrent calls to CreatePipe, No need to distinguish them .
 			ES_CmdPipe: out data port Base_Types::Integer;
 			SB_CmdPipe: out data port Base_Types::Integer;
 			EVS_CmdPipe: out data port Base_Types::Integer;
