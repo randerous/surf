@@ -14,7 +14,7 @@ public
 	end PipeOutput;
 
 	feature group PipeInput
-		features
+		features   
 			ES_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
 			SB_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
 			EVS_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
