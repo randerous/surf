@@ -21,17 +21,17 @@ public
 			--    SB_BAD_ARGUMENT:3 
 			eq SUCCESS : int = 0;
 			eq SB_BAD_ARGUMENT: int  = 3;
-			eq SB_MAX_PIPES_MET: int = 4;
 			eq maxDepth: int = 512;
 			
 			eq Check_Args_False : bool = Args.a.Depth > maxDepth or Args.a.Depth   <= 0;
 			
+			guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;
 			guarantee "send error event when getting in trouble by return error num":
 			true-> (Args.a.In_Used = true and Check_Args_False = true) =>
 			 Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
 			
 			guarantee "activiate es pipe when call create basing on localData":  
-			true->(Check_Args_False = false and Args.a.AppId = 0) =>
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 0) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 0 and 
 			Results.Output.ES_CmdPipe.AppId = 0 and 
@@ -39,7 +39,7 @@ public
 			Results.Output.ES_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate sb pipe when call create basing on localData":  
-			true->(Check_Args_False = false and Args.a.AppId = 1) =>
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 1) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 1 and 
 			Results.Output.SB_CmdPipe.AppId = 1 and 
@@ -47,7 +47,7 @@ public
 			Results.Output.SB_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate evs pipe when call create basing on localData":  
-			true->(Check_Args_False = false and Args.a.AppId = 1) =>
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 2) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 2 and 
 			Results.Output.EVS_CmdPipe.AppId = 2 and 
@@ -55,7 +55,7 @@ public
 			Results.Output.EVS_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate time pipe when call create basing on localData":  
-			true->(Check_Args_False = false and Args.a.AppId = 1) =>
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 3 and 
 			Results.Output.TIME_CmdPipe.AppId = 3 and 
@@ -71,6 +71,41 @@ public
 			Args: refined to feature group SB_Arg_IO::DeletePipeArgs;
 			Results: refined to feature group SB_Result_IO::DeletePipeOutput;
 			LocalDatas: refined to feature group SB_Base_IO::PipeInput;
+		annex agree{**
+			--error num is defined in Results defining.
+			--    for return value
+			--    SUCCESS:0
+			--    SB_BAD_ARGUMENT:3 
+			eq SUCCESS : int = 0;
+			eq SB_BAD_ARGUMENT: int  = 3;
+			eq Check_Args_False : bool = Args.a.PipeId > 3 or Args.a.PipeId   < 0;
+			
+			guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;
+			guarantee "send error event when getting in trouble by return error num":
+			true-> (Args.a.In_Used = true and Check_Args_False = true) =>
+			 Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
+			
+			guarantee "delete es pipe when call delete basing on localData":  
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 0) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 0 ;
+			
+			 
+			guarantee "delete sb pipe when call delete basing on localData":  
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 1) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 1 ;
+			
+			guarantee "delete evs pipe when call delete basing on localData":  
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 2) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 2 ;
+			
+			guarantee "delete time pipe when call delete basing on localData":  
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 3 ;
+		**};
 	end DeletePipe;
 	
 	abstract Subscribe extends Generic::FunctionProcessor

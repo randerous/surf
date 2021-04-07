@@ -93,7 +93,56 @@ public
 			SubscribeResult: feature group SB_Result_IO::SubscribeResult;
 			UnsubscribeResult: feature group SB_Result_IO::UnsubscribeResult;
 			SendMsgResult: feature group SB_Result_IO::SendMsgResult;
-		
+		annex agree {**
+			--error num is defined in Results defining.
+			--    for return value
+			--    SUCCESS:0
+			--    SB_BAD_ARGUMENT:3 
+			eq SUCCESS : int = 0;
+			eq SB_BAD_ARGUMENT: int  = 3;
+			eq SB_MAX_PIPES_MET: int = 4;	
+			
+			eq Pipe_Changed : bool = (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS )or
+						(DeletePipeResult.EvaluteValue.Cmd_Called = SUCCESS);
+--		    respectively manage each pipe;
+			guarantee "manage ES_Cmd_Pipe": true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 0)
+			then (OldPipeData.ES_CmdPipe  = CreatePipeResult.Input.ES_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 0)
+			then (OldPipeData.ES_CmdPipe.InUse = false)
+			else OldPipeData.ES_CmdPipe = pre(OldPipeData.ES_CmdPipe) ;
+			
+			
+			guarantee "manage SB_Cmd_Pipe": true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 1)
+			then (OldPipeData.SB_CmdPipe  = CreatePipeResult.Input.SB_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 1)
+			then (OldPipeData.SB_CmdPipe.InUse = false)
+			else OldPipeData.SB_CmdPipe = pre(OldPipeData.SB_CmdPipe) ;
+			
+			guarantee "manage EVS_Cmd_Pipe": true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 2)
+			then (OldPipeData.EVS_CmdPipe  = CreatePipeResult.Input.EVS_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 2)
+			then (OldPipeData.EVS_CmdPipe.InUse = false)
+			else OldPipeData.EVS_CmdPipe = pre(OldPipeData.EVS_CmdPipe) ;
+			
+			guarantee "manage TIME_Cmd_Pipe": true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 3)
+			then (OldPipeData.TIME_CmdPipe  = CreatePipeResult.Input.TIME_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 3)
+			then (OldPipeData.TIME_CmdPipe.InUse = false)
+			else OldPipeData.TIME_CmdPipe = pre(OldPipeData.TIME_CmdPipe) ;
+	 
+		**};
 	end ShareData;
 
 end SB_Service;

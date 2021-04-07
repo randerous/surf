@@ -12,3 +12,10 @@ now,
 App State:
 this is for change the appstate to 1:restart
 	--0: running 1: restart, 2:waiting
+
+MsgId 
+for all events, msgid is same, but different evtID
+	now set msgId 0 for type event, 
+	RestartAPP cmd is set to 0 for evtID
+	
+each call function inherts from generic ,with call return interface

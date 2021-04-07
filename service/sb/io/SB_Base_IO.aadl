@@ -51,7 +51,7 @@ public
 --			EVS_CmdPipe: in data port Base_Types::Integer;
 --			TIME_CmdPipe: in data port Base_Types::Integer;
 			Modified_PipeId: in data port Base_Types::Integer;
-			Cmd_Called: in data port Base_Types::Boolean;
+			Cmd_Called: in data port Base_Types::Integer;
 	inverse of PipeReturnValue
 	end PipeEvaluteValue;
 	
