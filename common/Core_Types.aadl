@@ -55,7 +55,7 @@ public
 		subcomponents
 			InUse: data Base_Types::boolean;
 			PipeId: data Base_Types::Unsigned_8;
-			PipeName: data Base_Types::boolean;
+			PipeName: data Base_Types::String;
 			AppName: data Base_Types::boolean;
 			Spare: data Base_Types::Unsigned_16;
 			AppId: data Base_Types::Unsigned_32;

@@ -14,21 +14,54 @@ public
 			Results: refined to feature group SB_Result_IO::CreatePipeOutput;
 			LocalDatas: refined to feature group SB_Base_IO::PipeInput;
 		
-		annex agree{**
-			
-			guarantee "activiate pipe when call create basing on localData": true;
-			
+		annex agree{**			
 			--error num is defined in Results defining.
 			--    for return value
 			--    SUCCESS:0
-			--    SB_BAD_ARGUMENT:3
-			--    SB_MAX_PIPES_MET:4 
-			eq  SUCCESS : int = 0;
+			--    SB_BAD_ARGUMENT:3 
+			eq SUCCESS : int = 0;
 			eq SB_BAD_ARGUMENT: int  = 3;
 			eq SB_MAX_PIPES_MET: int = 4;
 			eq maxDepth: int = 512;
+			
+			eq Check_Args_False : bool = Args.a.Depth > maxDepth or Args.a.Depth   <= 0;
+			
 			guarantee "send error event when getting in trouble by return error num":
-			true->(Args.a.Depth > maxDepth or Args.a.Depth   <= 0) => Results.ReturnValue.ES_CmdPipe = SB_BAD_ARGUMENT;
+			true-> (Args.a.In_Used = true and Check_Args_False = true) =>
+			 Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
+			
+			guarantee "activiate es pipe when call create basing on localData":  
+			true->(Check_Args_False = false and Args.a.AppId = 0) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 0 and 
+			Results.Output.ES_CmdPipe.AppId = 0 and 
+			Results.Output.ES_CmdPipe.PipeId = Args.a.PipeId and 
+			Results.Output.ES_CmdPipe.QueueDepth = Args.a.Depth ; 
+			
+			guarantee "activiate sb pipe when call create basing on localData":  
+			true->(Check_Args_False = false and Args.a.AppId = 1) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 1 and 
+			Results.Output.SB_CmdPipe.AppId = 1 and 
+			Results.Output.SB_CmdPipe.PipeId = Args.a.PipeId and 
+			Results.Output.SB_CmdPipe.QueueDepth = Args.a.Depth ; 
+			
+			guarantee "activiate evs pipe when call create basing on localData":  
+			true->(Check_Args_False = false and Args.a.AppId = 1) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 2 and 
+			Results.Output.EVS_CmdPipe.AppId = 2 and 
+			Results.Output.EVS_CmdPipe.PipeId = Args.a.PipeId and 
+			Results.Output.EVS_CmdPipe.QueueDepth = Args.a.Depth ; 
+			
+			guarantee "activiate time pipe when call create basing on localData":  
+			true->(Check_Args_False = false and Args.a.AppId = 1) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 3 and 
+			Results.Output.TIME_CmdPipe.AppId = 3 and 
+			Results.Output.TIME_CmdPipe.PipeId = Args.a.PipeId and 
+			Results.Output.TIME_CmdPipe.QueueDepth = Args.a.Depth ; 
+			
 			
 		**};
 	end CreatePipe;

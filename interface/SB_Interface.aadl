@@ -9,6 +9,7 @@ public
 --------------------------------------------------------------------------
 	feature group P_CreatePipe extends Generic::Provide_Generic_Function_API
 		features
+			In_Used: in data port Base_Types::Boolean;
 			AppId: in data port Base_Types::Unsigned_32;
 			PipeId: in data port Base_Types::Unsigned_8;
 			Depth: in data port Base_Types::Unsigned_16;
@@ -17,6 +18,7 @@ public
 
 	feature group R_CreatePipe extends Generic::Require_Generic_Function_API
 		features
+			In_Used: out data port Base_Types::Boolean;
 			AppId: out data port Base_Types::Unsigned_32;
 			PipeId: out data port Base_Types::Unsigned_8;
 			Depth: out data port Base_Types::Unsigned_16;
@@ -29,12 +31,14 @@ public
 --------------------------------------------------------------------------
 	feature group P_DeletePipe extends Generic::Provide_Generic_Function_API
 		features
+			In_Used: in data port Base_Types::Boolean;
 			PipeId: in data port Base_Types::Unsigned_8;
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_DeletePipe;
 
 	feature group R_DeletePipe extends Generic::Require_Generic_Function_API
 		features
+			In_Used: out data port Base_Types::Boolean;
 			PipeId: out data port Base_Types::Unsigned_8;
 			AppId: out data port Base_Types::Unsigned_32;
 	inverse of P_DeletePipe
@@ -45,12 +49,14 @@ public
 --------------------------------------------------------------------------
 	feature group P_Subscribe extends Generic::Provide_Generic_Function_API
 		features
+			In_Used: in data port Base_Types::Boolean;
 			MsgId: in data port Base_Types::Unsigned_16;
 			PipeId: in data port Base_Types::Unsigned_8;
 	end P_Subscribe;
 
 	feature group R_Subscribe extends Generic::Require_Generic_Function_API
 		features
+			In_Used: out data port Base_Types::Boolean;
 			MsgId: out data port Base_Types::Unsigned_16;
 			PipeId: out data port Base_Types::Unsigned_8;
 	inverse of P_Subscribe
@@ -61,12 +67,14 @@ public
 --------------------------------------------------------------------------
 	feature group P_Unsubscribe extends Generic::Provide_Generic_Function_API
 		features
+			In_Used: in data port Base_Types::Boolean;
 			MsgId: in data port Base_Types::Unsigned_16;
 			PipeId: in data port Base_Types::Unsigned_8;
 	end P_Unsubscribe;
 
 	feature group R_Unsubscribe extends Generic::Require_Generic_Function_API
 		features
+			In_Used: out data port Base_Types::Boolean;
 			MsgId: out data port Base_Types::Unsigned_16;
 			PipeId: out data port Base_Types::Unsigned_8;
 	inverse of P_Unsubscribe

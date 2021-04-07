@@ -16,12 +16,25 @@ public
 			
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
 --			RcvMsg: feature group SB_Interface::P_RcvMsg;
+
+			annex agree{**
+--				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				assume "No Create and Delete pipe at the same time": not(CreatePipeArgs.a.In_Used = true
+					and DeletePipeArgs.a.In_Used = true
+				);
+				
+				assume "No Subscribe and UnSubscribe at the same time": not(SubscribeArgs.a.In_Used = true
+					and UnsubscribeArgs.a.In_Used = true
+				);
+			**};
 	end Service;
---
---
+ 
 --     SB consist of :
 --     shareData: store and maintain all used pipe statues and all route info.
 --     all functions can read it from the connection from  local data to old pipe or old route, respectively 
+--	   we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+--       so we can choose which info  will be store in share data  by call result.
+--       the result will only be concerning with the cmd called.
 	abstract implementation Service.impl
 		subcomponents
 			CreatePipe: abstract SB_Processor::CreatePipe;
@@ -53,7 +66,8 @@ public
 --			SendMsgResult: feature group SendMsg.Results -> ShareData.SendMsgResult;
 			SendMsgOutMsg: feature group SendMsg.OutMsgs -> OutMsgs;
 		
-				annex agree {**
+			annex agree 
+			{**
 			-->* CreatePipe
 			-->在SB服务中创建管道，即__使能__SB服务中的该APP指定的__管道__。
 			-->* DeletePipe
@@ -64,8 +78,8 @@ public
 			-->在SB服务中解绑管道和消息，即__不使能__SB服务中的该APP指定的消息和管道的__路由项__。
 			-->* SendMsg
 			-->传入消息，按照路由表路由消息。
-			
-		**};
+				
+			**};
 	end Service.impl;
 
 ----------------ShareData can add processor result

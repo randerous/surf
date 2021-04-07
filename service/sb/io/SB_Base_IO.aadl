@@ -23,26 +23,35 @@ public
 	end PipeInput;
 
 --    for return value
+---   UnCalled: -1;
 --    SUCCESS:0
---    SB_BAD_ARGUMENT:3
---    SB_MAX_PIPES_MET:4 
+--    SB_BAD_ARGUMENT:3 
+--we just need a sign to determine whether cmd is create or del,
+--so just need add a bool value sign to express it.
+
 	feature group PipeReturnValue
 		features
 --			No supporting for concurrent calls to CreatePipe, No need to distinguish them .
-			ES_CmdPipe: out data port Base_Types::Integer;
-			SB_CmdPipe: out data port Base_Types::Integer;
-			EVS_CmdPipe: out data port Base_Types::Integer;
-			TIME_CmdPipe: out data port Base_Types::Integer;
+			
+--			ES_CmdPipe: out data port Base_Types::Integer;
+--			SB_CmdPipe: out data port Base_Types::Integer;
+--			EVS_CmdPipe: out data port Base_Types::Integer;
+--			TIME_CmdPipe: out data port Base_Types::Integer;
+--			
+			Modified_PipeId: out data port Base_Types::Integer;
+			Cmd_Called: out data port Base_Types::Integer;
 	end PipeReturnValue;
 
 ---awfully bad name, evaluateValue, 
 ---actually, just the return value on whether cmd is executed successfully
 	feature group PipeEvaluteValue
 		features
-			ES_CmdPipe: in data port Base_Types::Integer;
-			SB_CmdPipe: in data port Base_Types::Integer;
-			EVS_CmdPipe: in data port Base_Types::Integer;
-			TIME_CmdPipe: in data port Base_Types::Integer;
+--			ES_CmdPipe: in data port Base_Types::Integer;
+--			SB_CmdPipe: in data port Base_Types::Integer;
+--			EVS_CmdPipe: in data port Base_Types::Integer;
+--			TIME_CmdPipe: in data port Base_Types::Integer;
+			Modified_PipeId: in data port Base_Types::Integer;
+			Cmd_Called: in data port Base_Types::Boolean;
 	inverse of PipeReturnValue
 	end PipeEvaluteValue;
 	
@@ -66,18 +75,22 @@ public
 	
 	feature group RouteReturnValue
 		features
-			ES_CmdPipe_ES_Command: out data port Base_Types::Integer;
-			SB_CmdPipe_SB_Command: out data port Base_Types::Integer;
-			EVS_CmdPipe_EVS_Command: out data port Base_Types::Integer;
-			TIME_CmdPipe_TIME_Command: out data port Base_Types::Integer;
+--			ES_CmdPipe_ES_Command: out data port Base_Types::Integer;
+--			SB_CmdPipe_SB_Command: out data port Base_Types::Integer;
+--			EVS_CmdPipe_EVS_Command: out data port Base_Types::Integer;
+--			TIME_CmdPipe_TIME_Command: out data port Base_Types::Integer;
+			Modified_RouteId: out data port Base_Types::Integer;
+			Cmd_Called: out data port Base_Types::Boolean;
 	end RouteReturnValue;
 
 	feature group RouteEvaluteValue
 		features
-			ES_CmdPipe_ES_Command: in data port Base_Types::Integer;
-			SB_CmdPipe_SB_Command: in data port Base_Types::Integer;
-			EVS_CmdPipe_EVS_Command: in data port Base_Types::Integer;
-			TIME_CmdPipe_TIME_Command: in data port Base_Types::Integer;
+--			ES_CmdPipe_ES_Command: in data port Base_Types::Integer;
+--			SB_CmdPipe_SB_Command: in data port Base_Types::Integer;
+--			EVS_CmdPipe_EVS_Command: in data port Base_Types::Integer;
+--			TIME_CmdPipe_TIME_Command: in data port Base_Types::Integer;
+			Modified_RouteId: in data port Base_Types::Integer;
+			Cmd_Called: in data port Base_Types::Boolean;
 	inverse of RouteReturnValue
 	end RouteEvaluteValue;
 end SB_Base_IO;
