@@ -24,7 +24,7 @@ public
 					and DeleteAppArgs.a.In_Used = false
 					and RestartAppArgs.ES_RestartApp.In_Used = false
 				)
-				or
+				or 
 				(	
 					RegisterAppArgs.a.In_Used = false
 					and DeleteAppArgs.a.In_Used = true
