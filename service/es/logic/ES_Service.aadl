@@ -4,6 +4,7 @@ public
 	with ES_Processor;
 	with ES_Result_IO;
 	with ES_Base_IO;
+	with Base_Types;
 	
 	abstract Service
 		features
@@ -12,7 +13,40 @@ public
 			DeleteAppArgs: feature group ES_Arg_IO::DeleteAppArgs;
 			RunLoopArgs: feature group ES_Arg_IO::RunLoopArgs;
 			
+			---restartsurf should be implemented
+			RestartSurf: in data port Base_Types::Boolean;
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
+		annex agree{**
+--				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				assume "Neither  of Register and Delete  and Restart at the same time": 
+				(	
+					RegisterAppArgs.a.In_Used = true
+					and DeleteAppArgs.a.In_Used = false
+					and RestartAppArgs.ES_RestartApp.In_Used = false
+				)
+				or
+				(	
+					RegisterAppArgs.a.In_Used = false
+					and DeleteAppArgs.a.In_Used = true
+					and RestartAppArgs.ES_RestartApp.In_Used = false
+				)
+				or 
+				(	
+					RegisterAppArgs.a.In_Used = false
+					and DeleteAppArgs.a.In_Used = false
+					and RestartAppArgs.ES_RestartApp.In_Used = true
+				)
+				or
+				(	
+					RegisterAppArgs.a.In_Used = false
+					and DeleteAppArgs.a.In_Used = false
+					and RestartAppArgs.ES_RestartApp.In_Used = false
+				);
+				
+		 
+			 
+				
+		**};
 	end Service;
 
 	abstract implementation Service.impl

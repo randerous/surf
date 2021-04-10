@@ -63,7 +63,7 @@ public
 			Results.Output.TIME_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate HS pipe when call create basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 5) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 5 and 
 			Results.Output.HS_CmdPipe.AppId = 5 and 
@@ -114,7 +114,7 @@ public
 			Results.ReturnValue.Modified_PipeId = 3 ;
 			
 			guarantee "delete hs pipe when call delete basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 5) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 5 ;
 		**};
@@ -311,7 +311,6 @@ public
 			LocalDatas: refined to feature group SB_Base_IO::RouteInput;
 			
 		annex agree{**
-			 
 				guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;			
 				--there need to be sth rules to check args,
 				eq SUCCESS : int = 0;
@@ -503,7 +502,7 @@ public
 	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
 	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
 	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
 	    	);
 	    	
 	    	guarantee  "send core msg": true -> 
@@ -512,7 +511,7 @@ public
 	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
 	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
 	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
 	    	); 
 	    	
 	    	
@@ -522,7 +521,7 @@ public
 	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
 	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
 	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
 	    	);  
 	    **};
 	end SendMsg;

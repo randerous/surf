@@ -65,7 +65,7 @@ public
 	end AppRecordInput;
 
 	feature group AppRecordReturnValue
-		features
+		features 
 			ES: out data port Base_Types::Integer;
 			SB: out data port Base_Types::Integer;
 			EVS: out data port Base_Types::Integer;

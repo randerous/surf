@@ -5,6 +5,7 @@ public
 	abstract struct
 	end struct;
 
+--task for heart beating checking
 -----------------------------ES------------------------------------
 	abstract implementation struct.CFE_ES_TaskRecord_t
 		subcomponents
@@ -15,6 +16,7 @@ public
 			TaskName: data Base_Types::boolean;
 	end struct.CFE_ES_TaskRecord_t;
 
+--appRecord for app state 
 	abstract implementation struct.CFE_ES_AppRecord_t
 		subcomponents
 			RecordUsed: data Base_Types::Boolean;

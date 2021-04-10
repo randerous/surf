@@ -8,6 +8,7 @@ public
 
 -- the safety duty align to SB ,
 -- that is simple ensuring the correctness of delivering msg
+-- deliver msg to who subscribed that msg
 	abstract Service
 		features
 			CreatePipeArgs: feature group SB_Arg_IO::CreatePipeArgs;
@@ -28,6 +29,28 @@ public
 				assume "No Subscribe and UnSubscribe at the same time": not(SubscribeArgs.a.In_Used = true
 					and UnsubscribeArgs.a.In_Used = true
 				);
+				--hs subscribe event always
+				eq HS_CANCEL_SUB_EVENT : bool =  (
+					UnsubscribeArgs.a.In_Used = true 
+					and UnsubscribeArgs.a.PipeId = 5
+					and UnsubscribeArgs.a.MsgId = 0
+				);
+				eq DEL_HS_PIPE : bool =  (DeletePipeArgs.a.In_Used = true and DeletePipeArgs.a.AppId = 5);
+				
+				--initially, we set the pipe for hs active,and make it subscribe event, and keep it  on
+				assume "keep hs monitoring event": 
+				(
+					(CreatePipeArgs.a.In_Used = true and CreatePipeArgs.a.AppId = 5) and 
+					(SubscribeArgs.a.In_Used = true and SubscribeArgs.a.MsgId = 0 and SubscribeArgs.a.PipeId = 5)
+				) -> not(HS_CANCEL_SUB_EVENT or DEL_HS_PIPE);
+				
+				
+				guarantee "Hs should get all event": true -> 
+				(
+					(SendMsgArgs.a.Msg.MsgId = 0) => OutMsgs.HS_CmdPipe_HS_Command.MsgId = 0
+				);
+				guarantee "deliver msg to who subscribed that msg" : true;
+				
 			**};
 	end Service;
  
@@ -70,18 +93,7 @@ public
 		
 			annex agree 
 			{**
-				
 			
-			-->* CreatePipe
-			-->在SB服务中创建管道，即__使能__SB服务中的该APP指定的__管道__。
-			-->* DeletePipe
-			-->在SB服务中删除管道，即__不使能__SB服务中的该APP指定的__管道__。
-			-->* Subscribe
-			-->在SB服务中绑定管道和消息，即__使能__SB服务中的该APP指定的消息和管道的__路由项__。
-			-->* Unsubscribe
-			-->在SB服务中解绑管道和消息，即__不使能__SB服务中的该APP指定的消息和管道的__路由项__。
-			-->* SendMsg
-			-->传入消息，按照路由表路由消息。
 				
 			**};
 	end Service.impl;
@@ -151,7 +163,7 @@ public
 			then (OldPipeData.TIME_CmdPipe.InUse = false)
 			else OldPipeData.TIME_CmdPipe = pre(OldPipeData.TIME_CmdPipe) ;
 			
-			guarantee "manage HS_Cmd_Pipe": OldPipeData.HS_CmdPipe.InUse = false -> 
+			guarantee "manage HS_Cmd_Pipe": OldPipeData.HS_CmdPipe.InUse = true -> 
 			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				CreatePipeResult.EvaluteValue.Modified_PipeId = 5)
 			then (OldPipeData.HS_CmdPipe  = CreatePipeResult.Input.HS_CmdPipe)
@@ -164,14 +176,14 @@ public
 		   eq Router_Changed : bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
 						(UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS);
 --		    respectively manage each router;
---initially, set each subscription   into false
+--initially, set each subscription   into false, but for hs , true for monitor event always
 			guarantee "initialize all subscription to event into false mode":
 			(
 				OldRouteData.Event_Router.RouteList.ES_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.EVS_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.TIME_Pipe = false and 
-				OldRouteData.Event_Router.RouteList.HS_Pipe = false 
+				OldRouteData.Event_Router.RouteList.HS_Pipe = true 
 			) -> true;
 			
 			guarantee "initialize all subscription to core msg into false mode":

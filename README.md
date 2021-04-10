@@ -25,19 +25,29 @@ MsgId 1: for core app's msg
 MsgId 2: for sample app's msg
 
 TO do:	
-each call function inherts from generic ,with call return interface,
+1 each call function inherts from generic ,with call return interface,
 That can be used to connect subcomponet function to surf
 top model,but haven't been implemented.
 
+
+2 add a restart surf api to es , for hs
+but need to implement
 # 安全性机制相关
 1 HS的异常事件监听机制
-由SB服务提供，可由HS订阅所有的事件，这样HS可监听到异常事件，但具体实现不明
+由SB服务提供，可由HS订阅所有的事件，这样HS可监听到异常事件，
+
+在SB服务中，假设了在初始的时刻，HS订阅事件，且激活管道，并且保持这样的监听状态
 
 SB服务提供了转发事件的机制
 
 2 HS的APP活性监测机制
 由ES服务提供，由ES负责更新APP的心跳计数器，并将结果推送至HS
 
+每个APP为了维持自己的活性，需要在每次执行结束后调用runloop激活心跳。需要为每个核心服务新增一个，虽然实际的代码实现不是用的同一个。
 
 3 三冗余机制
 已知的，已经在surf中完成的有sb中的subscribe，
+
+
+4 日志信息
+重启信息会被保留在日志中，这个并没有添加

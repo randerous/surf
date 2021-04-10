@@ -18,6 +18,8 @@ public
 	feature group DeleteAppArgs
 --		features
 --			ES_ScanAppTable_ES: feature group ES_Interface::P_DeleteApp;
+		features
+			a: feature group ES_Interface::P_DeleteApp;
 	end DeleteAppArgs;
 	
 	feature group RunLoopArgs

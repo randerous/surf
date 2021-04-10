@@ -16,6 +16,15 @@ public
 			--there should be more monitor threads running at same time
 			--need to control concurrency for all monitors!!!
 			
+			eq EVS_ERROR: int = 3;
+			eq ERR_REPORT: int = 5;
+			guarantee "monitor event, send error Msg for reporting":
+			true -> 
+			(	
+				(Command.MsgId = 0 and Command.EvtId = EVS_ERROR)
+				=> EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
+			);
+			
 			guarantee "monitor es, send a cmd to restart es whenever es stuck": true-> 
 			(AppRecord.ES.StateRecord.AppTimer = pre(AppRecord.ES.StateRecord.AppTimer)) =>
 			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
