@@ -62,6 +62,13 @@ public
 			Results.Output.TIME_CmdPipe.PipeId = Args.a.PipeId and 
 			Results.Output.TIME_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
+			guarantee "activiate HS pipe when call create basing on localData":  
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 5 and 
+			Results.Output.HS_CmdPipe.AppId = 5 and 
+			Results.Output.HS_CmdPipe.PipeId = Args.a.PipeId and 
+			Results.Output.HS_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 		**};
 	end CreatePipe;
@@ -105,6 +112,11 @@ public
 			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 3 ;
+			
+			guarantee "delete hs pipe when call delete basing on localData":  
+			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_PipeId = 5 ;
 		**};
 	end DeletePipe;
 	
@@ -152,37 +164,37 @@ public
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 1 and Args.a.MsgId = 0)
 				 	then (Results.Output.Event_Router.RouteList.SB_Pipe = true
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 2 and Args.a.MsgId = 0)
 				 	then (Results.Output.Event_Router.RouteList.EVS_Pipe = true
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 3 and Args.a.MsgId = 0)
 				 	then (Results.Output.Event_Router.RouteList.TIME_Pipe = true
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 5 and Args.a.MsgId = 0)
-				 	then (Results.Output.Event_Router.RouteList.Sample_APP_Pipe = true
+				 	then (Results.Output.Event_Router.RouteList.HS_Pipe = true
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
 				 	)
-				 	else (Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	else (Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
@@ -200,37 +212,37 @@ public
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 1 and Args.a.MsgId = 1)
 				 	then (Results.Output.Core_Msg_Router.RouteList.SB_Pipe = true
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 2 and Args.a.MsgId = 1)
 				 	then (Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = true
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 3 and Args.a.MsgId = 1)
 				 	then (Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = true
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 5 and Args.a.MsgId = 1)
-				 	then (Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = true
+				 	then (Results.Output.Core_Msg_Router.RouteList.HS_Pipe = true
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
 				 	)
-				 	else (Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	else (Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
@@ -249,37 +261,37 @@ public
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 1 and Args.a.MsgId = 2)
 				 	then (Results.Output.Common_Msg_Router.RouteList.SB_Pipe = true
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 2 and Args.a.MsgId = 2)
 				 	then (Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = true
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 3 and Args.a.MsgId = 2)
 				 	then (Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = true
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 5 and Args.a.MsgId = 2)
-				 	then (Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = true
+				 	then (Results.Output.Common_Msg_Router.RouteList.HS_Pipe = true
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
 				 	)
-				 	else (Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	else (Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
@@ -323,37 +335,37 @@ public
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 1 and Args.a.MsgId = 0)
 				 	then (Results.Output.Event_Router.RouteList.SB_Pipe = false
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 2 and Args.a.MsgId = 0)
 				 	then (Results.Output.Event_Router.RouteList.EVS_Pipe = false
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 3 and Args.a.MsgId = 0)
 				 	then (Results.Output.Event_Router.RouteList.TIME_Pipe = false
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
-				 	 and Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 5 and Args.a.MsgId = 0)
-				 	then (Results.Output.Event_Router.RouteList.Sample_APP_Pipe = false
+				 	then (Results.Output.Event_Router.RouteList.HS_Pipe = false
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.TIME_Pipe = pre(LocalDatas.Event_Router.RouteList.TIME_Pipe)
 				 	)
-				 	else (Results.Output.Event_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Event_Router.RouteList.Sample_APP_Pipe)
+				 	else (Results.Output.Event_Router.RouteList.HS_Pipe = pre(LocalDatas.Event_Router.RouteList.HS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.EVS_Pipe = pre(LocalDatas.Event_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.ES_Pipe = pre(LocalDatas.Event_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Event_Router.RouteList.SB_Pipe = pre(LocalDatas.Event_Router.RouteList.SB_Pipe)
@@ -371,37 +383,37 @@ public
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 1 and Args.a.MsgId = 1)
 				 	then (Results.Output.Core_Msg_Router.RouteList.SB_Pipe = false
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 2 and Args.a.MsgId = 1)
 				 	then (Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = false
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 3 and Args.a.MsgId = 1)
 				 	then (Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = false
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
-				 	 and Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 5 and Args.a.MsgId = 1)
-				 	then (Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = false
+				 	then (Results.Output.Core_Msg_Router.RouteList.HS_Pipe = false
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.TIME_Pipe)
 				 	)
-				 	else (Results.Output.Core_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	else (Results.Output.Core_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.HS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Core_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Core_Msg_Router.RouteList.SB_Pipe)
@@ -410,7 +422,7 @@ public
 				 );
 				 
 				 
-				 guarantee "delete msg router entry for common msg":
+				guarantee "delete msg router entry for common msg":
 				true-> (Args.a.In_Used = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
@@ -420,37 +432,37 @@ public
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 1 and Args.a.MsgId = 2)
 				 	then (Results.Output.Common_Msg_Router.RouteList.SB_Pipe = false
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 2 and Args.a.MsgId = 2)
 				 	then (Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = false
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 3 and Args.a.MsgId = 2)
 				 	then (Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = false
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
-				 	 and Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	 and Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	)
 				 	else if(Args.a.PipeId = 5 and Args.a.MsgId = 2)
-				 	then (Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = false
+				 	then (Results.Output.Common_Msg_Router.RouteList.HS_Pipe = false
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.TIME_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.TIME_Pipe)
 				 	)
-				 	else (Results.Output.Common_Msg_Router.RouteList.Sample_APP_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.Sample_APP_Pipe)
+				 	else (Results.Output.Common_Msg_Router.RouteList.HS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.HS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.EVS_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.EVS_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.ES_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.ES_Pipe)
 				 	 and Results.Output.Common_Msg_Router.RouteList.SB_Pipe = pre(LocalDatas.Common_Msg_Router.RouteList.SB_Pipe)
@@ -466,6 +478,53 @@ public
 --			Results: refined to feature group SB_Result_IO::SendMsgOutput;
 			LocalDatas: refined to feature group SB_Base_IO::RouteInput;
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
+			
+	    annex agree{**
+	    	eq MSGID_INVALID: bool = Args.a.Msg.MsgId < 0 or  Args.a.Msg.MsgId > 2;
+	    	--msgId = -1 denotes: No msg
+	    	guarantee "check msgId validaty": 
+	    	(OutMsgs.ES_CmdPipe_ES_Command.MsgId = -1 and 
+	    		OutMsgs.SB_CmdPipe_SB_Command.MsgId = -1 and 
+	    		OutMsgs.EVS_CmdPipe_EVS_Command.MsgId = -1 and 
+	    		OutMsgs.TIME_CmdPipe_TIME_Command.MsgId = -1 and 
+	    		OutMsgs.HS_CmdPipe_HS_Command.MsgId = -1   ) 
+	    	-> 
+	    	MSGID_INVALID =>(
+	    		OutMsgs.ES_CmdPipe_ES_Command.MsgId = -1 and 
+	    		OutMsgs.SB_CmdPipe_SB_Command.MsgId = -1 and 
+	    		OutMsgs.EVS_CmdPipe_EVS_Command.MsgId = -1 and 
+	    		OutMsgs.TIME_CmdPipe_TIME_Command.MsgId = -1 and 
+	    		OutMsgs.HS_CmdPipe_HS_Command.MsgId = -1     		
+	    	);
+	    	
+	    	guarantee  "send event": true -> 
+	    	Args.a.Msg.MsgId = 0 =>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	);
+	    	
+	    	guarantee  "send core msg": true -> 
+	    	Args.a.Msg.MsgId = 1 =>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	); 
+	    	
+	    	
+	    	guarantee  "send common msg": true -> 
+	    	Args.a.Msg.MsgId = 2 =>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	);  
+	    **};
 	end SendMsg;
 	
 end SB_Processor;

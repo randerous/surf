@@ -11,6 +11,7 @@ public
 			SB_CmdPipe: out data port Core_Types::struct.CFE_SB_PipeD_t;
 			EVS_CmdPipe: out data port Core_Types::struct.CFE_SB_PipeD_t;
 			TIME_CmdPipe: out data port Core_Types::struct.CFE_SB_PipeD_t;
+			HS_CmdPipe: out data port Core_Types::struct.CFE_SB_PipeD_t;
 	end PipeOutput;
 
 	feature group PipeInput
@@ -19,6 +20,7 @@ public
 			SB_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
 			EVS_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
 			TIME_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
+			HS_CmdPipe: in data port Core_Types::struct.CFE_SB_PipeD_t;
 	inverse of PipeOutput
 	end PipeInput;
 

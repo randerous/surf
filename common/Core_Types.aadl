@@ -115,7 +115,7 @@ public
 			SB_Pipe: data Base_Types::Boolean;
 			EVS_Pipe: data Base_Types::Boolean;
 			TIME_Pipe: data Base_Types::Boolean;
-			
+			HS_Pipe: data Base_Types::Boolean;
 			Sample_APP_Pipe: data Base_Types::Boolean;
 			
 			
@@ -123,6 +123,7 @@ public
 	
 	abstract implementation struct.CFE_SB_Msg_t
 		subcomponents
+			--MsgId = -1 denotes null, No msg
 			--for all events, msgid is same, but different evtID
 			--now set msgId 0 for type event, 
 			--RestartAPP cmd is set to 0 for evtID

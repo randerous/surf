@@ -6,6 +6,8 @@ public
 	with SB_Arg_IO;
 	with SB_Route_Table;
 
+-- the safety duty align to SB ,
+-- that is simple ensuring the correctness of delivering msg
 	abstract Service
 		features
 			CreatePipeArgs: feature group SB_Arg_IO::CreatePipeArgs;
@@ -68,6 +70,8 @@ public
 		
 			annex agree 
 			{**
+				
+			
 			-->* CreatePipe
 			-->在SB服务中创建管道，即__使能__SB服务中的该APP指定的__管道__。
 			-->* DeletePipe
@@ -147,6 +151,15 @@ public
 			then (OldPipeData.TIME_CmdPipe.InUse = false)
 			else OldPipeData.TIME_CmdPipe = pre(OldPipeData.TIME_CmdPipe) ;
 			
+			guarantee "manage HS_Cmd_Pipe": OldPipeData.HS_CmdPipe.InUse = false -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 5)
+			then (OldPipeData.HS_CmdPipe  = CreatePipeResult.Input.HS_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 5)
+			then (OldPipeData.HS_CmdPipe.InUse = false)
+			else OldPipeData.HS_CmdPipe = pre(OldPipeData.HS_CmdPipe) ;
+			
 			
 		   eq Router_Changed : bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
 						(UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS);
@@ -158,7 +171,7 @@ public
 				OldRouteData.Event_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.EVS_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.TIME_Pipe = false and 
-				OldRouteData.Event_Router.RouteList.Sample_APP_Pipe = false 
+				OldRouteData.Event_Router.RouteList.HS_Pipe = false 
 			) -> true;
 			
 			guarantee "initialize all subscription to core msg into false mode":
@@ -167,7 +180,7 @@ public
 				OldRouteData.Core_Msg_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Core_Msg_Router.RouteList.EVS_Pipe = false and 
 				OldRouteData.Core_Msg_Router.RouteList.TIME_Pipe = false and 
-				OldRouteData.Core_Msg_Router.RouteList.Sample_APP_Pipe = false 
+				OldRouteData.Core_Msg_Router.RouteList.HS_Pipe = false 
 			) -> true;
 			
 			guarantee "initialize all subscription to common msg into false mode":
@@ -176,7 +189,7 @@ public
 				OldRouteData.Common_Msg_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Common_Msg_Router.RouteList.EVS_Pipe = false and 
 				OldRouteData.Common_Msg_Router.RouteList.TIME_Pipe = false and 
-				OldRouteData.Common_Msg_Router.RouteList.Sample_APP_Pipe = false 
+				OldRouteData.Common_Msg_Router.RouteList.HS_Pipe = false 
 			) -> true;
 			
 			guarantee "manage event router": true -> 
