@@ -86,6 +86,10 @@ public
 			AppName: data Base_Types::boolean;
 	end struct.CFE_SB_SenderId_t;
 	
+	--router entry 
+	--for each Event, has a list of  pipes that subscribed it.
+	--Destinations denote the sum of pipes
+	--RouteList denote a link list to store pipes' name
 	abstract implementation struct.CFE_SB_RouteEntry_t
 		subcomponents
 			MsgId: data Base_Types::Unsigned_16;
@@ -94,15 +98,27 @@ public
 			RouteList: data struct.CFE_SB_DestinationD_t;
 	end struct.CFE_SB_RouteEntry_t;
 	
+	
+	--the struct is so far to express list, in Lustre, it can't descripe a dynamic behavior
+	--we need set static varibles for activiating
 	abstract implementation struct.CFE_SB_DestinationD_t
 		subcomponents
-			PipeId: data Base_Types::Unsigned_8;
-			Active: data Base_Types::Unsigned_8;
-			MsgId2PipeLim: data Base_Types::Unsigned_16;
-			BuffCount: data Base_Types::Unsigned_16;
-			DestCnt: data Base_Types::Unsigned_16;
-			Scope: data Base_Types::Unsigned_8;
-			Spare: data Base_Types::Unsigned_8[3];
+--			PipeId: data Base_Types::Unsigned_8;
+--			Active: data Base_Types::Unsigned_8;
+--			MsgId2PipeLim: data Base_Types::Unsigned_16;
+--			BuffCount: data Base_Types::Unsigned_16;
+--			DestCnt: data Base_Types::Unsigned_16;
+--			Scope: data Base_Types::Unsigned_8;
+--			Spare: data Base_Types::Unsigned_8[3];
+			
+			ES_Pipe: data Base_Types::Boolean;
+			SB_Pipe: data Base_Types::Boolean;
+			EVS_Pipe: data Base_Types::Boolean;
+			TIME_Pipe: data Base_Types::Boolean;
+			
+			Sample_APP_Pipe: data Base_Types::Boolean;
+			
+			
 	end struct.CFE_SB_DestinationD_t;
 	
 	abstract implementation struct.CFE_SB_Msg_t

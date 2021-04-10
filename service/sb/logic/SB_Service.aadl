@@ -84,6 +84,10 @@ public
 
 ----------------ShareData can add processor result
 --store and maintain pipe and route info
+
+--Note:
+--call to modify route or pipe, will be updated in ShareData in this time ,based on last OldData.,
+--so, whenever a  call try to modify sth, it should base the last data. 
 	abstract ShareData
 		features
 			OldPipeData: feature group SB_Base_IO::PipeOutput;
@@ -105,7 +109,8 @@ public
 			eq Pipe_Changed : bool = (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS )or
 						(DeletePipeResult.EvaluteValue.Cmd_Called = SUCCESS);
 --		    respectively manage each pipe;
-			guarantee "manage ES_Cmd_Pipe": true -> 
+--initially, set pipe inuse into false
+			guarantee "manage ES_Cmd_Pipe": OldPipeData.ES_CmdPipe.InUse = false -> 
 			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				CreatePipeResult.EvaluteValue.Modified_PipeId = 0)
 			then (OldPipeData.ES_CmdPipe  = CreatePipeResult.Input.ES_CmdPipe)
@@ -115,7 +120,7 @@ public
 			else OldPipeData.ES_CmdPipe = pre(OldPipeData.ES_CmdPipe) ;
 			
 			
-			guarantee "manage SB_Cmd_Pipe": true -> 
+			guarantee "manage SB_Cmd_Pipe": OldPipeData.SB_CmdPipe.InUse = false -> 
 			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				CreatePipeResult.EvaluteValue.Modified_PipeId = 1)
 			then (OldPipeData.SB_CmdPipe  = CreatePipeResult.Input.SB_CmdPipe)
@@ -124,7 +129,7 @@ public
 			then (OldPipeData.SB_CmdPipe.InUse = false)
 			else OldPipeData.SB_CmdPipe = pre(OldPipeData.SB_CmdPipe) ;
 			
-			guarantee "manage EVS_Cmd_Pipe": true -> 
+			guarantee "manage EVS_Cmd_Pipe": OldPipeData.EVS_CmdPipe.InUse = false -> 
 			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				CreatePipeResult.EvaluteValue.Modified_PipeId = 2)
 			then (OldPipeData.EVS_CmdPipe  = CreatePipeResult.Input.EVS_CmdPipe)
@@ -133,7 +138,7 @@ public
 			then (OldPipeData.EVS_CmdPipe.InUse = false)
 			else OldPipeData.EVS_CmdPipe = pre(OldPipeData.EVS_CmdPipe) ;
 			
-			guarantee "manage TIME_Cmd_Pipe": true -> 
+			guarantee "manage TIME_Cmd_Pipe": OldPipeData.TIME_CmdPipe.InUse = false -> 
 			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				CreatePipeResult.EvaluteValue.Modified_PipeId = 3)
 			then (OldPipeData.TIME_CmdPipe  = CreatePipeResult.Input.TIME_CmdPipe)
@@ -141,6 +146,67 @@ public
 				CreatePipeResult.EvaluteValue.Modified_PipeId = 3)
 			then (OldPipeData.TIME_CmdPipe.InUse = false)
 			else OldPipeData.TIME_CmdPipe = pre(OldPipeData.TIME_CmdPipe) ;
+			
+			
+		   eq Router_Changed : bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
+						(UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS);
+--		    respectively manage each router;
+--initially, set each subscription   into false
+			guarantee "initialize all subscription to event into false mode":
+			(
+				OldRouteData.Event_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.Sample_APP_Pipe = false 
+			) -> true;
+			
+			guarantee "initialize all subscription to core msg into false mode":
+			(
+				OldRouteData.Core_Msg_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.Sample_APP_Pipe = false 
+			) -> true;
+			
+			guarantee "initialize all subscription to common msg into false mode":
+			(
+				OldRouteData.Common_Msg_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.Sample_APP_Pipe = false 
+			) -> true;
+			
+			guarantee "manage event router": true -> 
+			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Event_Router  = SubscribeResult.Input.Event_Router)
+			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Event_Router  = UnsubscribeResult.Input.Event_Router)
+			else OldRouteData.Event_Router = pre(OldRouteData.Event_Router);
+			
+			
+			guarantee "manage core msg router": true -> 
+			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Core_Msg_Router  = SubscribeResult.Input.Core_Msg_Router)
+			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Core_Msg_Router  = UnsubscribeResult.Input.Core_Msg_Router)
+			else OldRouteData.Core_Msg_Router = pre(OldRouteData.Core_Msg_Router);
+			
+			
+			guarantee "manage common msg router": true -> 
+			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Common_Msg_Router  = SubscribeResult.Input.Common_Msg_Router)
+			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Common_Msg_Router  = UnsubscribeResult.Input.Common_Msg_Router)
+			else OldRouteData.Common_Msg_Router = pre(OldRouteData.Common_Msg_Router);
 	 
 		**};
 	end ShareData;

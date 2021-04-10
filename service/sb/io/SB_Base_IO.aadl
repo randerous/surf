@@ -54,22 +54,35 @@ public
 			Cmd_Called: in data port Base_Types::Integer;
 	inverse of PipeReturnValue
 	end PipeEvaluteValue;
-	
+
+
+--route should record each subscription enrty for all msg
+--for implementing route table
+--we should cut msgId into three classes
+--MsgId 0: for event
+--MsgId 1: for core app's msg 
+--MsgId 2: for sample app's msg
 ------------------------------Route---------------------------------
 	feature group RouteOutput
 		features
-			ES_CmdPipe_ES_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
-			SB_CmdPipe_SB_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
-			EVS_CmdPipe_EVS_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
-			TIME_CmdPipe_TIME_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			ES_CmdPipe_ES_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			SB_CmdPipe_SB_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			EVS_CmdPipe_EVS_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			TIME_CmdPipe_TIME_Command: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+			Event_Router: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+			Core_Msg_Router: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
+			Common_Msg_Router: out data port Core_Types::struct.CFE_SB_RouteEntry_t;
 	end RouteOutput;
 
 	feature group RouteInput
 		features
-			ES_CmdPipe_ES_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
-			SB_CmdPipe_SB_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
-			EVS_CmdPipe_EVS_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
-			TIME_CmdPipe_TIME_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			ES_CmdPipe_ES_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			SB_CmdPipe_SB_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			EVS_CmdPipe_EVS_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+--			TIME_CmdPipe_TIME_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+			Event_Router: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+			Core_Msg_Router: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
+			Common_Msg_Router: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
 	inverse of RouteOutput
 	end RouteInput;
 	
@@ -80,7 +93,7 @@ public
 --			EVS_CmdPipe_EVS_Command: out data port Base_Types::Integer;
 --			TIME_CmdPipe_TIME_Command: out data port Base_Types::Integer;
 			Modified_RouteId: out data port Base_Types::Integer;
-			Cmd_Called: out data port Base_Types::Boolean;
+			Cmd_Called: out data port Base_Types::Integer;
 	end RouteReturnValue;
 
 	feature group RouteEvaluteValue
@@ -90,7 +103,7 @@ public
 --			EVS_CmdPipe_EVS_Command: in data port Base_Types::Integer;
 --			TIME_CmdPipe_TIME_Command: in data port Base_Types::Integer;
 			Modified_RouteId: in data port Base_Types::Integer;
-			Cmd_Called: in data port Base_Types::Boolean;
+			Cmd_Called: in data port Base_Types::Integer;
 	inverse of RouteReturnValue
 	end RouteEvaluteValue;
 end SB_Base_IO;

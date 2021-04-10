@@ -47,6 +47,8 @@ public
 --------------------------------------------------------------------------
 ------------------------------Subscribe-----------------------------------
 --------------------------------------------------------------------------
+--func(msgID,pipeID) 
+--means, for each entry including mapping like: (pipeID subscribe MsgID), send msg to responding pipes.
 	feature group P_Subscribe extends Generic::Provide_Generic_Function_API
 		features
 			In_Used: in data port Base_Types::Boolean;
