@@ -66,6 +66,9 @@ public
 --------------------------------------------------------------------------
 ------------------------------RunLoop-----------------------------------
 --------------------------------------------------------------------------
+--purpose: update the counter of appId,
+-- and check app's state, then set appcontrolRequest for es,
+-- if, controlRequest is exit/error, es will delete appId 
 	feature group P_RunLoop extends Generic::Provide_Generic_Function_API
 		features
 			In_Used: in data port Base_Types::Boolean;

@@ -3,14 +3,17 @@ public
 	with Core_Types;
 	with Base_Types;
 	--------all feature groups can add "in|out data port [type];" corresponding to its direction and data type
-	
+	--here time to be changed into time1, because:
+	--in Lustre, sth_time will be explained as a clock for a node, 
+	--From aadl to lustre, app.Record.time will be app_Record_time, that represents the clock for node app_record
+	--However, to be honest, there is no such node. Maybe the intend is to avoid something with any trouble
 ------------------------------TaskRecord---------------------------------
 	feature group TaskRecordOutput
 		features
 			ES: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
 			SB: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
 			EVS: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			Time1: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
+			TIME1: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
 			HS_APP: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
 	end TaskRecordOutput;
 
@@ -19,7 +22,7 @@ public
 			ES: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
 			SB: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
 			EVS: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			Time1: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
+			TIME1: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
 			HS_APP: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
 	inverse of TaskRecordOutput
 	end TaskRecordInput;
@@ -29,7 +32,7 @@ public
 			ES: out data port Base_Types::Integer;
 			SB: out data port Base_Types::Integer;
 			EVS: out data port Base_Types::Integer;
-			Time1: out data port Base_Types::Integer;
+			TIME1: out data port Base_Types::Integer;
 			HS_APP: out data port Base_Types::Integer;
 	end TaskRecordReturnValue;
 
@@ -38,7 +41,7 @@ public
 			ES: in data port Base_Types::Integer;
 			SB: in data port Base_Types::Integer;
 			EVS: in data port Base_Types::Integer;
-			Time1: in data port Base_Types::Integer;
+			TIME1: in data port Base_Types::Integer;
 			HS_APP: in data port Base_Types::Integer;
 	inverse of TaskRecordReturnValue
 	end TaskRecordEvaluteValue;
@@ -49,7 +52,7 @@ public
 			ES: out data port Core_Types::struct.CFE_ES_AppRecord_t;
 			SB: out data port Core_Types::struct.CFE_ES_AppRecord_t;
 			EVS: out data port Core_Types::struct.CFE_ES_AppRecord_t;
-			Time1: out data port Core_Types::struct.CFE_ES_AppRecord_t;
+			TIME1: out data port Core_Types::struct.CFE_ES_AppRecord_t;
 			HS_APP: out data port Core_Types::struct.CFE_ES_AppRecord_t;
 	end AppRecordOutput;
 
@@ -59,7 +62,7 @@ public
 			ES: in data port Core_Types::struct.CFE_ES_AppRecord_t;
 			SB: in data port Core_Types::struct.CFE_ES_AppRecord_t;
 			EVS: in data port Core_Types::struct.CFE_ES_AppRecord_t;
-			Time1: in data port Core_Types::struct.CFE_ES_AppRecord_t;
+			TIME1: in data port Core_Types::struct.CFE_ES_AppRecord_t;
 			HS_APP: in data port Core_Types::struct.CFE_ES_AppRecord_t;
 	inverse of AppRecordOutput
 	end AppRecordInput;
@@ -69,7 +72,7 @@ public
 			ES: out data port Base_Types::Integer;
 			SB: out data port Base_Types::Integer;
 			EVS: out data port Base_Types::Integer;
-			Time1: out data port Base_Types::Integer;
+			TIME1: out data port Base_Types::Integer;
 			HS_APP: out data port Base_Types::Integer;
 	end AppRecordReturnValue;
 
@@ -78,7 +81,7 @@ public
 			ES: in data port Base_Types::Integer;
 			SB: in data port Base_Types::Integer;
 			EVS: in data port Base_Types::Integer;
-			Time1: in data port Base_Types::Integer;
+			TIME1: in data port Base_Types::Integer;
 			HS_APP: in data port Base_Types::Integer;
 	inverse of AppRecordReturnValue
 	end AppRecordEvaluteValue;

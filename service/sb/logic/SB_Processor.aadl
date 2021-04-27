@@ -34,7 +34,7 @@ public
 			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 0) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 0 and 
-			Results.Output.ES_CmdPipe.AppId = 0 and 
+			Results.Output.ES_CmdPipe.AppId = 0  and 
 			Results.Output.ES_CmdPipe.PipeId = Args.a.PipeId and 
 			Results.Output.ES_CmdPipe.QueueDepth = Args.a.Depth ; 
 			

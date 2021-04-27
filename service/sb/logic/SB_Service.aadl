@@ -45,6 +45,7 @@ public
 				) -> not(HS_CANCEL_SUB_EVENT or DEL_HS_PIPE);
 				
 				
+				--here the property maybe need some lemmas , 
 				guarantee "Hs should get all event": true -> 
 				(
 					(SendMsgArgs.a.Msg.MsgId = 0) => OutMsgs.HS_CmdPipe_HS_Command.MsgId = 0

@@ -28,7 +28,7 @@ public
 			EVSAPI.SendEventArgs.RestartApp.AppId = 1;
 			guarantee "check evs": true ->  AppRecord.EVS.StateRecord.AppState = 1 => 
 			EVSAPI.SendEventArgs.RestartApp.AppId = 2; 
-			guarantee "check time": true ->  AppRecord.Time1.StateRecord.AppState = 1 => 
+			guarantee "check time": true ->  AppRecord.TIME1.StateRecord.AppState = 1 => 
 			EVSAPI.SendEventArgs.RestartApp.AppId = 3;			
 			guarantee "check hs": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
 			EVSAPI.SendEventArgs.RestartApp.AppId = 5;

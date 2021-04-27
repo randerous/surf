@@ -25,6 +25,7 @@ MsgId 1: for core app's msg
 MsgId 2: for sample app's msg
 
 TO do:	
+### there seem not to be  a function to let es really restart app
 1 each call function inherts from generic ,with call return interface,
 That can be used to connect subcomponet function to surf
 top model,but haven't been implemented.

@@ -18,29 +18,40 @@ public
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
 		annex agree{**
 --				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
-				assume "Neither  of Register and Delete  and Restart at the same time": 
+				assume "No two of Register and Delete  and Restart at the same time": 
 				(	
 					RegisterAppArgs.a.In_Used = true
 					and DeleteAppArgs.a.In_Used = false
 					and RestartAppArgs.ES_RestartApp.In_Used = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
 				)
 				or 
 				(	
 					RegisterAppArgs.a.In_Used = false
 					and DeleteAppArgs.a.In_Used = true
 					and RestartAppArgs.ES_RestartApp.In_Used = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
 				)
 				or 
 				(	
 					RegisterAppArgs.a.In_Used = false
 					and DeleteAppArgs.a.In_Used = false
 					and RestartAppArgs.ES_RestartApp.In_Used = true
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
 				)
 				or
 				(	
 					RegisterAppArgs.a.In_Used = false
 					and DeleteAppArgs.a.In_Used = false
 					and RestartAppArgs.ES_RestartApp.In_Used = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = true
+				)
+				or
+				(	
+					RegisterAppArgs.a.In_Used = false
+					and DeleteAppArgs.a.In_Used = false
+					and RestartAppArgs.ES_RestartApp.In_Used = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
 				);
 				
 		 
@@ -83,6 +94,7 @@ public
 	end Service.impl;
 
 	----------------ShareData can add processor result
+	-- maintain appstate
 	abstract ShareData
 		features
 			OldTaskRecordData: feature group ES_Base_IO::TaskRecordOutput;

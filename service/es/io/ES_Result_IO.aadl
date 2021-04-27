@@ -5,7 +5,13 @@ public
 	
 	with Generic;
 	with ES_Base_IO;
-	
+	with Base_Types;
+--    for return value
+---   UnCalled: -1;
+--    SUCCESS:0
+--    SB_BAD_ARGUMENT:3 
+--we just need a sign to determine whether cmd is create or del,
+--so just need add a bool value sign to express it.	
 	feature group Input
 		features
 			TaskRecord: feature group ES_Base_IO::TaskRecordInput;
@@ -19,20 +25,35 @@ public
 	inverse of Input
 	end Output;
 	
+	--exactly, We don't need put such heavy burden on  part function, 
+	--We hope the part function can be more specific and 
+	--can  more concentrate on the changed part, not all whole struct 
+--    for return value
+---   UnCalled: -1;
+--    SUCCESS:0
+--    SB_BAD_ARGUMENT:3 
+-- 	  CFE_ES_ERR_APP_REGISTER: 17;
+--we just need a sign to determine whether Task is registered or del,
+--so just need add a bool value sign to express it.	
 	feature group ReturnValue
 		features
-			TaskRecord: feature group ES_Base_IO::TaskRecordReturnValue;
-			AppRecord: feature group ES_Base_IO::AppRecordReturnValue;
+--			TaskRecord: feature group ES_Base_IO::TaskRecordReturnValue;
+--			AppRecord: feature group ES_Base_IO::AppRecordReturnValue;
+            Cmd_Called: out data port Base_Types::Integer;
+            Modified_Id: out data port Base_Types::Integer; 
 	end ReturnValue;
 
 	feature group EvaluteValue
 		features
-			TaskRecord: feature group ES_Base_IO::TaskRecordEvaluteValue;
-			AppRecord: feature group ES_Base_IO::TaskRecordEvaluteValue;
+--			TaskRecord: feature group ES_Base_IO::TaskRecordEvaluteValue;
+--			AppRecord: feature group ES_Base_IO::TaskRecordEvaluteValue;
+ 			Cmd_Called: in data port Base_Types::Integer;
+            Modified_Id: in data port Base_Types::Integer; 
 	inverse of ReturnValue
 	end EvaluteValue;
 	
 -----------------------------------Input----------------------------------
+--features below are supported for shareData, to get result from the specific function
 	feature group RegisterAppResult extends Generic::ShareDataInput
 		features
 			Input: refined to feature group Input;
@@ -58,6 +79,7 @@ public
 	end RunLoopResult;
 	
 -----------------------------------Output----------------------------------
+--for es's specific funcion
 	feature group RegisterAppOutput extends Generic::ServiceProcessorOutput
 		features
 			Output: refined to feature group Output;

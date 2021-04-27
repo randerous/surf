@@ -13,7 +13,7 @@ public
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
-		
+		guarantee "test": true;
 	**};
 	end Surf;
 	
@@ -83,6 +83,9 @@ public
 			eq NO_MESSAGE: int = 14; --
 			eq TIME_OUT: int = 15;--
 			eq PIPE_RD_ERR: int = 16;--
+			
+			
+			
 			
  
 			

@@ -11,7 +11,7 @@ public
 	feature group RestartAppArgs
 		features
 			ES_RestartApp: feature group ES_Interface::P_RestartApp;
-			HS_MonitorApplications_SB: feature group ES_Interface::P_RestartApp;
+			HS_MonitorApplications_RestartApp: feature group ES_Interface::P_RestartApp;
 --			ES_ScanAppTable_ES: feature group ES_Interface::P_RestartApp;
 	end RestartAppArgs;
 	
@@ -21,6 +21,8 @@ public
 		features
 			a: feature group ES_Interface::P_DeleteApp;
 	end DeleteAppArgs;
+
+-- why the feature is called HS?
 	
 	feature group RunLoopArgs
 		features

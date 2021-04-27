@@ -26,7 +26,7 @@ public
 			);
 			
 			guarantee "monitor es, send a cmd to restart es whenever es stuck": true-> 
-			(AppRecord.ES.StateRecord.AppTimer = pre(AppRecord.ES.StateRecord.AppTimer)) =>
+--			(AppRecord.ES.StateRecord.AppTimer = pre(AppRecord.ES.StateRecord.AppTimer)) =>
 			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
 			
 			guarantee "monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
@@ -38,7 +38,7 @@ public
 			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 2;
 			
 			guarantee "monitor TIME, send a cmd to restart TIME whenever TIME stuck": true-> 
-			(AppRecord.Time1.StateRecord.AppTimer = pre(AppRecord.Time1.StateRecord.AppTimer)) =>
+			(AppRecord.TIME1.StateRecord.AppTimer = pre(AppRecord.TIME1.StateRecord.AppTimer)) =>
 			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 3;
 			
 			guarantee "monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 

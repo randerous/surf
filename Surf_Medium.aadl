@@ -35,7 +35,7 @@ public
 			TIME_CmdPipe_TIME_Command: out data port Core_Types::struct.CFE_SB_Msg_t;
 			HS_CmdPipe_HS_Command: out data port Core_Types::struct.CFE_SB_Msg_t;
 --			EVS_EVENT_MSG: out data port Core_Types::struct.CFE_SB_Msg_t;
-        -- for transfer cmd msg to target app
+        -- for transfer cmd msg to target app 
         annex agree{**
         	guarantee  "to target es": ES_CmdPipe_ES_Command = MsgInput.ES_CmdPipe_ES_Command;
         	guarantee  "to target sb": SB_CmdPipe_SB_Command = MsgInput.SB_CmdPipe_SB_Command;
