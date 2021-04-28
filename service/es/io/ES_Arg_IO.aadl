@@ -23,7 +23,9 @@ public
 	end DeleteAppArgs;
 
 -- why the feature is called HS?
-	
+-- oh, that is because we only have only one common app, hs, if any other, can add to it.
+-- actually, we need to add more interface to common app, for concurrent access.
+--Runloop will be executed every cycle by each common app
 	feature group RunLoopArgs
 		features
 			HS: feature group ES_Interface::P_RunLoop;

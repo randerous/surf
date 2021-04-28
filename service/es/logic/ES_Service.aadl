@@ -103,5 +103,12 @@ public
 			RestartAppResult: feature group ES_Result_IO::RestartAppResult;
 			DeleteAppResult: feature group ES_Result_IO::DeleteAppResult;
 			RunLoopResult: feature group ES_Result_IO::RunLoopResult;
+			
+			annex agree{**
+				--No register, restart, delete happened at the same time 
+				--Note that cooperation with Runloop.
+				
+				
+			**};
 	end ShareData;
 end ES_Service;

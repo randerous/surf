@@ -144,6 +144,60 @@ public
 			Args: refined to feature group ES_Arg_IO::DeleteAppArgs;
 			Results: refined to feature group ES_Result_IO::DeleteAppOutput;
 			LocalDatas: refined to feature group ES_Result_IO::Input;
+			
+		annex agree{**
+			--core service support the stable running of surf
+			--Normally, we don't hope it down.
+			--So, if delete  appId is in [0,3], there will be an exception to be reported.
+			--In fact, the delete cmd is very important. 
+			eq SUCCESS : int = 0; 
+			eq MAX_APPID : int  = 512;
+			eq ES_ERR_APPID: int = 1;
+			eq DELETE_CORE: int = 22; 			 
+			
+			guarantee "return null for No Call ": Args.a.In_Used = false  => 
+			Results.ReturnValue.Cmd_Called = -1;
+			
+			--when delete app, we need to check
+			--(1) whether appId is core service
+			--	  if yes, return  ES_ERR_APPID,(is set to RESTART_CORE) 
+			--		perhaps, we need to change it to be different from common app's Error
+			--(2) whether the state of appId is running, 
+			--    if yes, then change its appControlRequest to Delete, then wait esApp to change its runstate
+			---   if not, return ES_ERR_APPID
+			 
+			eq check_is_core: bool = Args.a.AppId < 4 and Args.a.AppId >= 0 ;
+			
+			guarantee "Cannot delete core app": true -> 
+			(Args.a.In_Used = true and  check_is_core)
+			=> Results.ReturnValue.Cmd_Called = DELETE_CORE;
+			
+			--0: running 1: restart, 2:waitting
+			eq running : int = 0;
+			eq restart : int = 1;
+			eq waitting: int = 2;
+			eq initializating : int = 4;
+			guarantee "Cannot delete app that is not running": true -> 
+			(Args.a.In_Used = true and  not check_is_core and Args.a.AppId = 5
+			and LocalDatas.AppRecord.HS_APP.StateRecord.AppState <> running)
+			=> Results.ReturnValue.Cmd_Called = ES_ERR_APPID;
+			
+			eq SYS_DELETE : int = 6;
+			eq TIME_OUT: int = 5;
+			--there is something strange; there need to be some other common app to delete;
+			guarantee "delete hs app ": true -> 
+			(Args.a.In_Used = true and  not check_is_core and Args.a.AppId = 5
+			and LocalDatas.AppRecord.HS_APP.StateRecord.AppState = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 5
+			  and Results.Output.AppRecord.HS_APP.RecordUsed = pre(LocalDatas.AppRecord.HS_APP.RecordUsed)
+			  and Results.Output.AppRecord.HS_APP.AppType = pre(LocalDatas.AppRecord.HS_APP.AppType) 
+			  and Results.Output.AppRecord.HS_APP.StartParams = pre(LocalDatas.AppRecord.HS_APP.StartParams) 
+			  and Results.Output.AppRecord.HS_APP.TaskInfo = pre(LocalDatas.AppRecord.HS_APP.TaskInfo) 
+			  and Results.Output.AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_DELETE
+			  and Results.Output.AppRecord.HS_APP.StateRecord.AppState = waitting
+			  and Results.Output.AppRecord.HS_APP.StateRecord.AppTimer = TIME_OUT;
+		**};
 	end DeleteApp;
 	
 	abstract RunLoop extends Generic::FunctionProcessor
@@ -151,5 +205,52 @@ public
 			Args: refined to feature group ES_Arg_IO::RunLoopArgs;
 			Results: refined to feature group ES_Result_IO::RunLoopOutput;
 			LocalDatas: refined to feature group ES_Result_IO::Input;
+		annex agree{**
+			--actually, it will only be called by hs.
+			--it is used for update the heart beating of common app.
+			--And result info will be checked by hs and es. now there is still buggy.
+			--But no time left to modify, sucks.
+			
+			eq SUCCESS : int = 0; 
+			eq MAX_APPID : int  = 512;
+			eq ES_ERR_APPID: int = 1; 		 
+			
+			eq EXCEPTION_APP_CONTROL: int = 24;
+			eq CFE_ES_APP_STATE_INITIALIZING : int = 4;
+			guarantee "return null for No Call ": Args.HS.In_Used = false  => 
+			Results.ReturnValue.Cmd_Called = -1;
+			
+			
+			--When unexpected call to runloop, i.e. appControlRequest != APP_RUN, send an exception
+			--actually, its TaskRecord maybe accessed by both runLoop and RegisterAPP
+			--if both happened at the same time, we can enable both by modification of different field of the struct
+			eq SYS_RUN: int = 1;
+			eq EXCEPTION_CONTROLCMD : bool = pre(LocalDatas.AppRecord.HS_APP.StateRecord.AppControlRequest) <> SYS_RUN;
+			--we only need to record heart beating.
+			
+			
+			guarantee "check args": true-> EXCEPTION_CONTROLCMD => 
+				Results.ReturnValue.Cmd_Called = EXCEPTION_APP_CONTROL;
+				
+			guarantee "update hs heart beating when called": true ->
+			Args.HS.In_Used = true  and not EXCEPTION_CONTROLCMD => 
+			Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 5
+			and Results.Output.TaskRecord.HS_APP.ExecutionCounter = pre(LocalDatas.TaskRecord.HS_APP.ExecutionCounter)+1;
+			
+			
+			--0: running 1: restart, 2:waitting
+			eq running : int = 0;
+			eq restart : int = 1;
+			eq waitting: int = 2;
+			eq initializating : int = 4;
+			guarantee "change hs appstate from initializing to running": true ->
+			Args.HS.In_Used = true  and not EXCEPTION_CONTROLCMD and
+ 			pre(LocalDatas.AppRecord.HS_APP.StateRecord.AppState = initializating) => 
+			Results.Output.AppRecord.HS_APP.StateRecord.AppState = running;
+			
+				
+			
+		**};
 	end RunLoop;
 end ES_Processor;

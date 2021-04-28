@@ -41,7 +41,7 @@ public
 	abstract implementation struct.CFE_ES_AppState_t
 		subcomponents
 			AppControlRequest: data Base_Types::Unsigned_32;
-			AppState: data Base_Types::Unsigned_32;--0: running 1: restart, 2:waiting
+			AppState: data Base_Types::Unsigned_32;--0: running 1: restart, 2:waiting, 4: initializing
 			AppTimer: data Base_Types::Integer_32;
 	end struct.CFE_ES_AppState_t;
 

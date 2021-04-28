@@ -12,7 +12,7 @@ now,
 
 App State:
 this is for change the appstate to 1:restart
-	--0: running 1: restart, 2:waiting
+	--0: running 1: restart, 2:waiting, 4: initialazing
 
 MsgId 
 for all events, msgid is same, but different evtID
