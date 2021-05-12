@@ -25,11 +25,13 @@ MsgId 1: for core app's msg
 MsgId 2: for sample app's msg
 
 TO do:	
+### newList
+add maintain function to es
+but the guarantee to test is left.
 ### there seem not to be  a function to let es really restart app
 1 each call function inherts from generic ,with call return interface,
 That can be used to connect subcomponet function to surf
 top model,but haven't been implemented.
-
 
 2 add a restart surf api to es , for hs
 but need to implement
@@ -51,15 +53,37 @@ task : execCounter，心跳
 应当由appstate控制app的功能执行是否正常，
 ## HS
 HS获取到app信息则，用es中的计数器更新HS中的计数器，且这时调用条件为HS中计数器和ES中计数器不相等，说明HS未能检测到app信息已经过去了几个cycle
-获取不到则递减CheckInCounter，若检测余数减少到0，则采取用户预定义的动作，哦哦，这里可以有重启处理器、重启app、发送错误事件、无动作
+获取不到则递减CheckInCounter，若检测余数减少到0，则采取用户预定义的动作，这里可以有重启处理器、重启app、发送错误事件、无动作
 HS同时还在主循环中喂看门狗
 ### 可和SEU引起的组件崩溃联系到一起，通过影响runloop更新，通过appstate对app功能的控制，来体现由于seu导致组件崩溃，功能失效
+
+## EVS_task
+### initial
+这个初始化的时候订阅了这些消息不知道有啥用
+CFE_ES_RegisterApp->EVS_GetAppID->CFE_EVS_Register->CFE_SB_CreatePipe
+/* Subscribe to command and telemetry requests coming in on the command pipe */
+   Status = CFE_SB_SubscribeEx(CFE_EVS_CMD_MID, CFE_EVS_GlobalData.EVS_CommandPipe,
+                               CFE_SB_Default_Qos, CFE_EVS_MSG_LIMIT);
+ CFE_SB_SubscribeEx(CFE_EVS_SEND_HK_MID, CFE_EVS_GlobalData.EVS_CommandPipe,
+                               CFE_SB_Default_Qos, CFE_EVS_MSG_LIMIT);
+
+### CFE_ES_IncrementTaskCounter
+各个核心服务的app调用这个函数直接对计数器增加，其实这个和核心服务库好像没什么关系，
+
+## ES_API
+### ES的两个数据结构appRecord和taskRecord
+appRecord维护app的运行状态、待执行的控制状态指令
+taskRecord维护心跳计数器
 ### CFE_ES_RunLoop 
+会修改appRecord中的状态和taskRecord中的心跳计数器
+Runstatus由app自身设置值，一般都为run，初始化失败时会设置为error，这里其实可以先不考虑error的情况，（这里并没有建模初始化一个app的详细过程，或者说把这个初始化过程分摊到多个服务的共享数据的初始化中了，默认都初始化成功了。
 Check for Exit, Restart, or Reload commands
 本函数主要检查调用者APP的运行状态。通常每个APP在初始化后，会进入主程序循环状态，而每次循环，都会通过CFE_ES_RunLoop来检查当前APP的运行状态。
 对该APP的主任务执行计数加一，并根据RunStatus来执行不同的操作。当RunStatus为CFE_ES_RUNSTATUS_APP_RUN时，且AppState为CFE_ES_APP_STATE_INITIALIZING，则将AppState设置为CFE_ES_APP_STATE_RUNNING；
 当RunStatus为CFE_ES_RUNSTATUS_APP_EXIT或者CFE_ES_RUNSTATUS_APP_ERROR是，则将RunStatus赋值给AppControlRequest变量；
 如果RunStatus不为以上三种类型的话，则将AppControlRequest设置为CFE_ES_RUNSTATUS_APP_ERROR，之后这个APP就会被ES服务所删除。
+
+
 
 ### CFE_RESTART_APP
  如果APP的类型类型是CFE_ES_APP_TYPE_CORE或者APP当前的状态不为CFE_ES_APP_STATE_RUNNING，则不能重启；否则话则将此APP的AppControlRequest属性设置为CFE_ES_RUNSTATUS_SYS_RESTART，将属性AppState设置为CFE_ES_APP_STATE_WAITING即可。函数最后释放信号量并返回。

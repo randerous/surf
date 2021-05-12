@@ -48,7 +48,7 @@ public
 			
 			------------------------------Function call----------------------
 			ES_RestartApp_RestartApp: feature group ES.ESAPI.RestartAppArgs.RestartApp <-> Core.ESAPI.RestartAppArgs.ES_RestartApp;
-			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB <-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_SB;
+			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB <-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp;
 			
 			ES_Default_SendEvent: feature group ES.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.ES_Default;
 			SB_Default_SendEvent: feature group SB.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.SB_Default;

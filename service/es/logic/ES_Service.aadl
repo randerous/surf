@@ -54,7 +54,15 @@ public
 					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
 				);
 				
-		 
+				eq RESART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = true 
+									and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used.AppId = 5;
+				eq RESART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.In_Used = true 
+									and RestartAppArgs.ES_RestartApp.In_Used.AppId = 5;	
+				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.In_Used = true and DeleteAppArgs.a.AppId = 5 ;								
+				-- runloop should be called in every cycle, other than restart or delete app
+		 		assume "runloop should be called in every cycle, other than restart or delete app": true ->
+		 		  not (RESART_HS_CMD_1 or RESART_HS_CMD_2) and not (DELETE_HS_CMD) => 
+		 		  RunLoopArgs.HS.In_Used = true and  RunLoopArgs.HS.AppId = 5;
 			 
 				
 		**};
@@ -99,14 +107,80 @@ public
 		features
 			OldTaskRecordData: feature group ES_Base_IO::TaskRecordOutput;
 			OldAppRecordData: feature group ES_Base_IO::AppRecordOutput;
-			RegisterAppResult: feature group ES_Result_IO::RegisterAppResult;
-			RestartAppResult: feature group ES_Result_IO::RestartAppResult;
-			DeleteAppResult: feature group ES_Result_IO::DeleteAppResult;
-			RunLoopResult: feature group ES_Result_IO::RunLoopResult;
+			RegisterAppResult: feature group ES_Result_IO::RegisterAppResult;--modify taskRecord, Inused
+			RestartAppResult: feature group ES_Result_IO::RestartAppResult;--modify appRecord, all
+			DeleteAppResult: feature group ES_Result_IO::DeleteAppResult;--modify appRecord, all
+			RunLoopResult: feature group ES_Result_IO::RunLoopResult;--both modify,taskRecord for counter, appRecord for stateRecord.appstate
 			
 			annex agree{**
 				--No register, restart, delete happened at the same time 
 				--Note that cooperation with Runloop.
+				
+				-- core service should be always on service
+				guarantee "manage ES_TaskRecord":  OldTaskRecordData.ES.RecordUsed = true and OldTaskRecordData.ES.TaskId = 0 ;													 
+				guarantee "manage ES_TaskRecord_counter": 	OldTaskRecordData.ES.ExecutionCounter = 0 ->
+												OldTaskRecordData.ES.ExecutionCounter = pre(OldTaskRecordData.ES.ExecutionCounter) +1;
+				guarantee "manage SB_TaskRecord":  OldTaskRecordData.SB.RecordUsed = true and OldTaskRecordData.SB.TaskId = 1;
+				guarantee "manage SB_TaskRecord_counter": 	OldTaskRecordData.SB.ExecutionCounter = 0 ->
+												OldTaskRecordData.SB.ExecutionCounter = pre(OldTaskRecordData.SB.ExecutionCounter) +1;
+				guarantee "manage EVS_TaskRecord":  OldTaskRecordData.EVS.RecordUsed = true and OldTaskRecordData.EVS.TaskId = 2;
+				guarantee "manage EVS_TaskRecord_counter": 	OldTaskRecordData.EVS.ExecutionCounter = 0 ->
+												OldTaskRecordData.EVS.ExecutionCounter = pre(OldTaskRecordData.EVS.ExecutionCounter) +1;
+				guarantee "manage TIME_TaskRecord":  OldTaskRecordData.TIME1.RecordUsed = true and OldTaskRecordData.TIME1.TaskId = 3;
+				guarantee "manage TIME_TaskRecord_counter":  OldTaskRecordData.TIME1.ExecutionCounter = 0 ->
+												OldTaskRecordData.TIME1.ExecutionCounter = pre(OldTaskRecordData.TIME1.ExecutionCounter) +1;
+				-- common appRecord manager
+				-- actually , only a app hs 
+				
+				 eq SUCCESS : int = 0;  
+				guarantee "manage HS_TaskRecord": OldTaskRecordData.HS_APP.RecordUsed = false  and 
+				OldTaskRecordData.HS_APP.ExecutionCounter = 0 -> 
+				(if RegisterAppResult.EvaluteValue.Cmd_Called = SUCCESS and  RegisterAppResult.EvaluteValue.Modified_Id = 5
+					then OldTaskRecordData.HS_APP.RecordUsed = true
+					else OldTaskRecordData.HS_APP.RecordUsed = pre(OldTaskRecordData.HS_APP.RecordUsed )
+				)
+				and 
+				(if RunLoopResult.EvaluteValue.Cmd_Called = SUCCESS and  RunLoopResult.EvaluteValue.Modified_Id = 5
+					then OldTaskRecordData.HS_APP.ExecutionCounter = pre(OldTaskRecordData.HS_APP.ExecutionCounter ) +1
+					else OldTaskRecordData.HS_APP.ExecutionCounter = pre(OldTaskRecordData.HS_APP.ExecutionCounter )
+				);
+				--Notice, there will not be runloop when restart or delete this app
+				-- for simplity, we set appRecords  activiated.
+				
+				 
+				guarantee "manage HS_AppRecord for restart app": true -> 
+				(RestartAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and RestartAppResult.EvaluteValue.Modified_Id = 5) 
+				=> 
+				OldAppRecordData.HS_APP = pre(RestartAppResult.Input.AppRecord.HS_APP);
+				
+				guarantee "manage HS_AppRecord for delete app": true -> 
+				(DeleteAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and DeleteAppResult.EvaluteValue.Modified_Id = 5) 
+				=> 
+				OldAppRecordData.HS_APP = pre(DeleteAppResult.Input.AppRecord.HS_APP);
+				
+				
+				--0: running 1: restart, 2:waitting
+				eq running : int = 0;
+				eq restart : int = 1;
+				eq waitting: int = 2;
+				eq initializating : int = 4;
+				guarantee "manage HS_AppRecord for runloop": true -> 
+				(RunLoopResult.EvaluteValue.Cmd_Called = SUCCESS
+				and RunLoopResult.EvaluteValue.Modified_Id = 5) 
+				=> 
+				OldAppRecordData.HS_APP.StateRecord.AppState = running
+			  and OldAppRecordData.HS_APP.RecordUsed = pre(OldAppRecordData.HS_APP.RecordUsed)
+			  and OldAppRecordData.HS_APP.AppType = pre(OldAppRecordData.HS_APP.AppType) 
+			  and OldAppRecordData.HS_APP.StartParams = pre(OldAppRecordData.HS_APP.StartParams) 
+			  and OldAppRecordData.HS_APP.TaskInfo = pre(OldAppRecordData.HS_APP.TaskInfo) 
+			  and OldAppRecordData.HS_APP.StateRecord.AppControlRequest = pre(OldAppRecordData.HS_APP.StateRecord.AppControlRequest)
+			  and OldAppRecordData.HS_APP.StateRecord.AppTimer = pre(OldAppRecordData.HS_APP.StateRecord.AppTimer);
+				
+				-- there is no need to maintain for no runloop and no delete and no restart, 
+				-- Consider, 
+				-- we assume runloop executes every cycle, other than restart or delete hs app
 				
 				
 			**};
