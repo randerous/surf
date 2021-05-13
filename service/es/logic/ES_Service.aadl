@@ -18,6 +18,12 @@ public
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
 		annex agree{**
 --				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				--for initial stage, forbid all func call,(still prepared)
+				assume "initialize all func":(RegisterAppArgs.a.In_Used = false
+					and DeleteAppArgs.a.In_Used = false
+					and RestartAppArgs.ES_RestartApp.In_Used = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false) -> true;
+					
 				assume "No two of Register and Delete  and Restart at the same time": 
 				(	
 					RegisterAppArgs.a.In_Used = true
@@ -54,15 +60,24 @@ public
 					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
 				);
 				
-				eq RESART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = true 
-									and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used.AppId = 5;
-				eq RESART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.In_Used = true 
-									and RestartAppArgs.ES_RestartApp.In_Used.AppId = 5;	
+				eq RESTART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = true 
+									and RestartAppArgs.HS_MonitorApplications_RestartApp.AppId = 5;
+				eq RESTART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.In_Used = true 
+									and RestartAppArgs.ES_RestartApp.AppId = 5 ;
+									
 				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.In_Used = true and DeleteAppArgs.a.AppId = 5 ;								
 				-- runloop should be called in every cycle, other than restart or delete app
 		 		assume "runloop should be called in every cycle, other than restart or delete app": true ->
-		 		  not (RESART_HS_CMD_1 or RESART_HS_CMD_2) and not (DELETE_HS_CMD) => 
+		 		  not (RESTART_HS_CMD_1 or RESTART_HS_CMD_2) and not (DELETE_HS_CMD) => 
 		 		  RunLoopArgs.HS.In_Used = true and  RunLoopArgs.HS.AppId = 5;
+		 		 
+		 		 --0: running 1: restart, 2:waiting, 4: initializing
+		 		 eq waitting: int = 2;
+		 		 eq running: int = 0;
+		 		guarantee "hs": true -> 
+		 		 RestartAppArgs.ES_RestartApp.In_Used = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
+		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
 			 
 				
 		**};
@@ -70,7 +85,7 @@ public
 
 	abstract implementation Service.impl
 		subcomponents
-			RegisterApp: abstract ES_Processor::RegisterApp;
+			RegisterApp: abstract ES_Processor::RegisterApp; 
 			RestartApp: abstract ES_Processor::RestartApp;
 			DeleteApp: abstract ES_Processor::DeleteApp;
 			RunLoop: abstract ES_Processor::RunLoop;
@@ -81,23 +96,24 @@ public
 			AppRecordOutput: feature group ShareData.OldAppRecordData -> AppRecord;
 			
 			RegisterAppArg: feature group RegisterAppArgs <-> RegisterApp.Args;
-			RegisterAppLocalData1: feature group ShareData.OldTaskRecordData -> RegisterApp.LocalDatas.TaskRecord;
-			RegisterAppLocalData2: feature group ShareData.OldAppRecordData -> RegisterApp.LocalDatas.AppRecord;
+			RegisterAppLocalData1: feature group ShareData.OldTaskRecordData -> RegisterApp.TaskRecord;
+			
+			RegisterAppLocalData2: feature group ShareData.OldAppRecordData -> RegisterApp.AppRecord;
 			RegisterAppResult: feature group RegisterApp.Results -> ShareData.RegisterAppResult;
 			
 			RestartAppArg: feature group RestartAppArgs <-> RestartApp.Args;
-			RestartAppLocalData1: feature group ShareData.OldTaskRecordData -> RestartApp.LocalDatas.TaskRecord;
-			RestartAppLocalData2: feature group ShareData.OldAppRecordData -> RestartApp.LocalDatas.AppRecord;
+			RestartAppLocalData1: feature group ShareData.OldTaskRecordData -> RestartApp.TaskRecord;
+			RestartAppLocalData2: feature group ShareData.OldAppRecordData -> RestartApp.AppRecord;
 			RestartAppResult: feature group RestartApp.Results -> ShareData.RestartAppResult;
 			
 			DeleteAppArg: feature group DeleteAppArgs <-> DeleteApp.Args;
-			DeleteAppLocalData1: feature group ShareData.OldTaskRecordData -> DeleteApp.LocalDatas.TaskRecord;
-			DeleteAppLocalData2: feature group ShareData.OldAppRecordData -> DeleteApp.LocalDatas.AppRecord;
+			DeleteAppLocalData1: feature group ShareData.OldTaskRecordData -> DeleteApp.TaskRecord;
+			DeleteAppLocalData2: feature group ShareData.OldAppRecordData -> DeleteApp.AppRecord;
 			DeleteAppResult: feature group DeleteApp.Results -> ShareData.DeleteAppResult;
 			
 			RunLoopArg: feature group RunLoopArgs <-> RunLoop.Args;
-			RunLoopLocalData1: feature group ShareData.OldTaskRecordData -> RunLoop.LocalDatas.TaskRecord;
-			RunLoopLocalData2: feature group ShareData.OldAppRecordData -> RunLoop.LocalDatas.AppRecord;
+			RunLoopLocalData1: feature group ShareData.OldTaskRecordData -> RunLoop.TaskRecord;
+			RunLoopLocalData2: feature group ShareData.OldAppRecordData -> RunLoop.AppRecord;
 			RunLoopResult: feature group RunLoop.Results -> ShareData.RunLoopResult;
 	end Service.impl;
 
@@ -115,7 +131,7 @@ public
 			annex agree{**
 				--No register, restart, delete happened at the same time 
 				--Note that cooperation with Runloop.
-				
+				  
 				-- core service should be always on service
 				guarantee "manage ES_TaskRecord":  OldTaskRecordData.ES.RecordUsed = true and OldTaskRecordData.ES.TaskId = 0 ;													 
 				guarantee "manage ES_TaskRecord_counter": 	OldTaskRecordData.ES.ExecutionCounter = 0 ->
@@ -152,13 +168,15 @@ public
 				(RestartAppResult.EvaluteValue.Cmd_Called = SUCCESS
 				and RestartAppResult.EvaluteValue.Modified_Id = 5) 
 				=> 
-				OldAppRecordData.HS_APP = pre(RestartAppResult.Input.AppRecord.HS_APP);
+				OldAppRecordData.HS_APP = RestartAppResult.Input.AppRecord.HS_APP;
 				
 				guarantee "manage HS_AppRecord for delete app": true -> 
 				(DeleteAppResult.EvaluteValue.Cmd_Called = SUCCESS
 				and DeleteAppResult.EvaluteValue.Modified_Id = 5) 
 				=> 
-				OldAppRecordData.HS_APP = pre(DeleteAppResult.Input.AppRecord.HS_APP);
+				OldAppRecordData.HS_APP = DeleteAppResult.Input.AppRecord.HS_APP;
+				
+				
 				
 				
 				--0: running 1: restart, 2:waitting

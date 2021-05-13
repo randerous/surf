@@ -1,3 +1,6 @@
+# agree 已知bug
+1 agree大于2.4版本不支持a.b.c语句
+2 agree不支持connection时，连接元素组成超过1个".",即a.b可以，但是a.b.c不支持
 # Surf_V3
 add sth global configuration
 
@@ -24,7 +27,9 @@ MsgId 0: for event
 MsgId 1: for core app's msg 
 MsgId 2: for sample app's msg
 
-TO do:	
+TO do:
+这里假设所有的函数功能，在一次调用后将结果更新至sharedata，即调用和更新发生在一个周期，
+tricks：在初始化阶段，屏蔽所有函数调用	
 ### newList
 add maintain function to es
 but the guarantee to test is left.
