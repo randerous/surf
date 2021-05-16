@@ -8,13 +8,13 @@ public
 -----------------------------------Input----------------------------------
 	feature group RegisterResult extends Generic::ShareDataInput
 		features
-			Input: refined to feature group EVS_Base_IO::FilterInput;
-			EvaluteValue: refined to feature group EVS_Base_IO::FilterEvaluteValue;
+			Input: refined to feature group EVS_Base_IO::AppDataInput;
+			EvaluteValue: refined to feature group EVS_Base_IO::EvaluateValue;
 	end RegisterResult;
 	
 	feature group UnregisterResult extends Generic::ShareDataInput
 		features
-			EvaluteValue: refined to feature group EVS_Base_IO::FilterEvaluteValue;
+			EvaluteValue: refined to feature group EVS_Base_IO::EvaluateValue;
 	end UnregisterResult;
 	
 	feature group SendEventResult extends Generic::ShareDataInput
@@ -26,21 +26,21 @@ public
 -----------------------------------Output----------------------------------
 	feature group RegisterOutput extends Generic::ServiceProcessorOutput
 		features
-			Output: refined to feature group EVS_Base_IO::FilterOutput;
-			ReturnValue: refined to feature group EVS_Base_IO::FilterReturnValue;
+			Output: refined to feature group EVS_Base_IO::AppDataOutput;
+			ReturnValue: refined to feature group EVS_Base_IO::ReturnValue;
 	inverse of RegisterResult
 	end RegisterOutput;
 	
 	feature group UnregisterOutput extends Generic::ServiceProcessorOutput
 		features
-			ReturnValue: refined to feature group EVS_Base_IO::FilterReturnValue;
+			ReturnValue: refined to feature group EVS_Base_IO::ReturnValue;
 	inverse of UnregisterResult
 	end UnregisterOutput;
 	
 	feature group SendEventOutput extends Generic::ServiceProcessorOutput
 		features
-			Output: refined to feature group EVS_Base_IO::FilterOutput;
-			ReturnValue: refined to feature group EVS_Base_IO::FilterReturnValue;
+--			Output: refined to feature group EVS_Base_IO::FilterOutput;--there is no meaning
+			ReturnValue: refined to feature group EVS_Base_IO::ReturnValue;
 	inverse of SendEventResult
 	end SendEventOutput;
 	

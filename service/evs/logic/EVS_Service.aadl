@@ -13,6 +13,11 @@ public
 			SendEventArgs: feature group EVS_Arg_IO::SendEventArgs;
 			
 			OutEvents: feature group EVS_Route_Table::RouteOutput;
+		annex agree{**
+			assume "No register and unregister at the same time":
+			not(RegisterArgs.a.In_Used = true  and UnregisterArgs.a.In_Used = true );
+			
+		**};
 	end Service;
 
 	abstract implementation Service.impl
@@ -24,26 +29,102 @@ public
 			ShareData: abstract ShareData;
 		connections
 			RegisterArg: feature group RegisterArgs <-> Register.Args;
-			RegisterLocalData: feature group ShareData.OldFilterData -> Register.LocalDatas;
+			RegisterLocalData: feature group ShareData.AppData -> Register.LocalDatas;
 			RegisterResult: feature group Register.Results -> ShareData.RegisterResult;
 			
 			UnregisterArg: feature group UnregisterArgs <-> Unregister.Args;
-			UnregisterLocalData: feature group ShareData.OldFilterData -> Unregister.LocalDatas;
+			UnregisterLocalData: feature group ShareData.AppData -> Unregister.LocalDatas;
 			UnregisterResult: feature group Unregister.Results -> ShareData.UnregisterResult;
 			
 			SendEventArg: feature group SendEventArgs <-> SendEvent.Args;
-			SendEventLocalData: feature group ShareData.OldFilterData -> SendEvent.LocalDatas;
+			SendEventLocalData: feature group ShareData.AppData -> SendEvent.LocalDatas;
 			SendEventResult: feature group SendEvent.Results -> ShareData.SendEventResult;
 			SendEventOutEvent: feature group SendEvent.OutEvents -> OutEvents;
+		annex agree{**
+			
+		**};
 
 	end Service.impl;
 
 ----------------ShareData can add processor result
 	abstract ShareData
 		features
-			OldFilterData: feature group EVS_Base_IO::FilterOutput;
+--			OldFilterData: feature group EVS_Base_IO::FilterOutput;
+			AppData: feature group EVS_Base_IO::AppDataOutput;			
 			RegisterResult: feature group EVS_Result_IO::RegisterResult;
 			UnregisterResult: feature group EVS_Result_IO::UnregisterResult;
 			SendEventResult: feature group EVS_Result_IO::SendEventResult;
+		annex agree{**
+			eq SUCCESS : int = 0;
+
+			guarantee "manage es filter":AppData.ES.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.ES = pre(AppData.ES))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 0
+			) => AppData.ES = RegisterResult.Input.ES)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 0
+			) => AppData.ES.RegisterFlag = False);
+			
+			
+			guarantee "manage sb filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.SB = pre(AppData.SB))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 1
+			) => AppData.SB = RegisterResult.Input.SB)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 1
+			) => AppData.SB.RegisterFlag = False);
+			
+			
+			guarantee "manage evs filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.EVS = pre(AppData.EVS))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 2
+			) => AppData.EVS = RegisterResult.Input.EVS)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 2
+			) => AppData.EVS.RegisterFlag = False);
+			
+			guarantee "manage time filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.TIME1 = pre(AppData.TIME1))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 3
+			) => AppData.TIME1 = RegisterResult.Input.TIME1)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 3
+			) => AppData.TIME1.RegisterFlag = False);
+			
+			
+			guarantee "manage hs filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.HS = pre(AppData.HS))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 5
+			) => AppData.HS = RegisterResult.Input.HS)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 5
+			) => AppData.HS.RegisterFlag = False);
+			
+		**};
 	end ShareData;
 end EVS_Service;

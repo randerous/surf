@@ -12,21 +12,114 @@ public
 		features
 			Args: refined to feature group EVS_Arg_IO::RegisterArgs;
 			Results: refined to feature group EVS_Result_IO::RegisterOutput;
-			LocalDatas: refined to feature group EVS_Base_IO::FilterInput;
+			LocalDatas: refined to feature group EVS_Base_IO::AppDataInput;
+		annex agree{**
+			eq Valid_AppId: bool = (Args.a.AppId >= 0 and Args.a.AppId <= 5);
+			eq Valid_EvtId: bool = (Args.a.Filters.EventID >= 0);
+			eq Arg_Valid: bool = ((Args.a.AppId >= 0 and Args.a.AppId <= 5) and (Args.a.Filters.EventID >= 0));
+			
+			
+			guarantee "check args": (Args.a.In_Used = true and ( not Arg_Valid)) 
+			=>	Results.ReturnValue.Cmd_Called = BAD_ARGUMENT;
+			eq SUCCESS : int = 0;
+			eq BAD_ARGUMENT: int  = 3;	
+			
+			guarantee "keep silence for no call": Args.a.In_Used = false or Args.a.AppId  = 4 
+			=>Results.ReturnValue.Cmd_Called = -1;
+			
+			
+			guarantee "register es ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 0 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 0
+			and Results.Output.ES.ActiveFlag = true
+			and Results.Output.ES.RegisterFlag = true
+			and Results.Output.ES.BinFilters  = Args.a.Filters;
+			
+			guarantee "register sb ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 1 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 1
+			and Results.Output.SB.ActiveFlag = true
+			and Results.Output.SB.RegisterFlag = true
+			and Results.Output.SB.BinFilters  = Args.a.Filters; 
+			
+			guarantee "register evs ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 2 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 2
+			and Results.Output.EVS.ActiveFlag = true
+			and Results.Output.EVS.RegisterFlag = true
+			and Results.Output.EVS.BinFilters  = Args.a.Filters; 
+			
+			guarantee "register time ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 3 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 3
+			and Results.Output.TIME1.ActiveFlag = true
+			and Results.Output.TIME1.RegisterFlag = true
+			and Results.Output.TIME1.BinFilters  = Args.a.Filters; 
+			
+			guarantee "register hs ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 5 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 5
+			and Results.Output.HS.ActiveFlag = true
+			and Results.Output.HS.RegisterFlag = true
+			and Results.Output.HS.BinFilters  = Args.a.Filters; 
+			 		 
+			
+			
+		**};
 	end Register;
 	
 	abstract Unregister extends Generic::FunctionProcessor
 		features
 			Args: refined to feature group EVS_Arg_IO::UnregisterArgs;
 			Results: refined to feature group EVS_Result_IO::UnregisterOutput;
-			LocalDatas: refined to feature group EVS_Base_IO::FilterInput;
+			LocalDatas: refined to feature group EVS_Base_IO::AppDataInput;
+			
+		annex agree{**
+			eq Valid_AppId: bool = (Args.a.AppId >= 0 and Args.a.AppId <= 5);
+			
+			
+			guarantee "check args": (Args.a.In_Used = true and ( not Valid_AppId)) 
+			=>	Results.ReturnValue.Cmd_Called = BAD_ARGUMENT;
+			eq SUCCESS : int = 0;
+			eq BAD_ARGUMENT: int  = 3;	
+			
+			guarantee "keep silence for no call": Args.a.In_Used = false or Args.a.AppId  = 4 
+			=>Results.ReturnValue.Cmd_Called = -1;
+			
+			
+			guarantee "unregister es ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 0 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 0;
+			
+			guarantee "unregister sb ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 1 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 1;
+			
+			guarantee "unregister evs ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 2 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 2;
+			
+			guarantee "unregister time ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 3 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 3;
+			
+			guarantee "unregister hs ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 5 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 5; 
+			
+			
+		**};
 	end Unregister;
 	
 	abstract SendEvent extends Generic::FunctionProcessor
 		features
 			Args: refined to feature group EVS_Arg_IO::SendEventArgs;
 			Results: refined to feature group EVS_Result_IO::SendEventOutput;
-			LocalDatas: refined to feature group EVS_Base_IO::FilterInput;
+			LocalDatas: refined to feature group EVS_Base_IO::AppDataInput;
 			OutEvents: feature group EVS_Route_Table::RouteOutput;
+			
+		annex agree{**
+			
+		**};
 	end SendEvent;
 end EVS_Processor;

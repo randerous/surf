@@ -17,13 +17,15 @@ App State:
 this is for change the appstate to 1:restart
 	--0: running 1: restart, 2:waiting, 4: initialazing
 
-MsgId 
+## global MsgId 
 for all events, msgid is same, but different evtID
 	now set msgId 0 for type event, 
 	RestartAPP cmd is set to 0 for evtID
 for implementing route table
 we should cut msgId into three classes
-MsgId 0: for event
+### MsgId 0: for event
+eventType: DEBUG:0x1,INFORMATION:0x2,ERROR:0x4,CRITICAL:0x8,
+
 MsgId 1: for core app's msg 
 MsgId 2: for sample app's msg
 

@@ -13,7 +13,7 @@ public
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
-		guarantee "test": true;
+		guarantee "": true;
 	**};
 	end Surf;
 	
@@ -83,6 +83,39 @@ public
 			eq NO_MESSAGE: int = 14; --
 			eq TIME_OUT: int = 15;--
 			eq PIPE_RD_ERR: int = 16;--
+			--MonitorApplications
+			--there should be more monitor threads running at same time
+			--need to control concurrency for all monitors!!!
+			
+			eq EVS_ERROR: int = 3;
+			eq ERR_REPORT: int = 5;
+			 
+			lemma "hs monitor event, send error Msg for reporting":
+			true -> 
+			(	
+				(HS.Command.MsgId = 0 and HS.Command.EvtId = EVS_ERROR)
+				=> HS.EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
+			);
+			
+			lemma "hs monitor es, send a cmd to restart es whenever es stuck": true-> 
+--			(AppRecord.ES.StateRecord.AppTimer = pre(AppRecord.ES.StateRecord.AppTimer)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
+			
+			lemma "hs monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
+			(HS.AppRecord.SB.StateRecord.AppTimer = pre(HS.AppRecord.SB.StateRecord.AppTimer)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 1;
+			
+			lemma "hs monitor evs, send a cmd to restart evs whenever evs stuck": true-> 
+			(HS.AppRecord.EVS.StateRecord.AppTimer = pre(HS.AppRecord.EVS.StateRecord.AppTimer)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 2;
+			
+			lemma "hs monitor TIME, send a cmd to restart TIME whenever TIME stuck": true-> 
+			(HS.AppRecord.TIME1.StateRecord.AppTimer = pre(HS.AppRecord.TIME1.StateRecord.AppTimer)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 3;
+			
+			lemma "hs monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
+			(HS.AppRecord.HS_APP.StateRecord.AppTimer = pre(HS.AppRecord.HS_APP.StateRecord.AppTimer)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
 			
 			
 			

@@ -138,18 +138,22 @@ public
 -----------------------------EVS------------------------------------
 	abstract implementation struct.EVS_AppData_t
 		subcomponents
-			BinFilters: data struct.EVS_BinFilter_t;
-			ActiveFlag: data Base_Types::Unsigned_8;
-			EventTypesActiveFlag: data Base_Types::Unsigned_8;
-			EventCount: data Base_Types::Unsigned_16;
-			RegisterFlag: data Base_Types::Unsigned_16;
+			BinFilters: data struct.EVS_BinFilter_t;--common filter
+			ActiveFlag: data Base_Types::Boolean;--false: all event will be filtered
+			EventTypesActiveFlag: data Base_Types::Unsigned_8;--EventTypesActiveFlag & 0x1, 0x2,0x4,0x8
+															 -- to show which type of event is actived
+			EventCount: data Base_Types::Unsigned_16;--only when no register, it will be increased by 1
+			RegisterFlag: data Base_Types::Boolean;-- sign to show if registed to evs 
 	end struct.EVS_AppData_t;
 	
+	--bin filter, amazing,hahaha
+	--
 	abstract implementation struct.EVS_BinFilter_t
 		subcomponents
 			EventID: data Base_Types::Integer_16;
-			Mask: data Base_Types::Unsigned_8;
-			Count: data Base_Types::Unsigned_8;
+			Mask: data Base_Types::Unsigned_8;--common set to 0xFFFF, 0XFFFE,0XFFF8,so if count < mask, 
+											 -- count & mask  != 0 will be false,then no filter, else filter
+			Count: data Base_Types::Unsigned_8;--counter for specific event filtered
 			Padding: data Base_Types::Unsigned_16;
 	end struct.EVS_BinFilter_t;
 -------------------------------------------------------------------
