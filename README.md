@@ -1,6 +1,10 @@
 # agree 已知bug
 1 agree大于2.4版本不支持a.b.c语句
 2 agree不支持connection时，连接元素组成超过1个".",即a.b可以，但是a.b.c不支持
+3 agree xtext不支持结构体直接相等。
+
+# 尚未解决的bug 
+connections连接数
 # Surf_V3
 add sth global configuration
 

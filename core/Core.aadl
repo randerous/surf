@@ -24,6 +24,9 @@ public
 			MsgOutput: feature group SB_Route_Table::RouteOutput;
 			
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
+		annex agree{**
+			guarantee "test": true;
+		**};
 	end Core;
 	
 	abstract implementation Core.impl

@@ -68,7 +68,8 @@ public
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_Id = 5 and 
 			Results.Output.TaskRecord.HS_APP.TaskId = 5  and 
-			Results.Output.TaskRecord.HS_APP.RecordUsed = true;**};
+			Results.Output.TaskRecord.HS_APP.RecordUsed = true;
+			**};
 	end RegisterApp;
 
 	abstract RestartApp extends Generic::FunctionProcessor
@@ -127,6 +128,17 @@ public
 			eq SYS_START : int = 5;
 			eq TIME_OUT: int = 5;
 			--there is something strange; there need to be some other common app to restart;
+			
+			eq copy_taskinfo: bool =(
+				Results.Output.AppRecord.HS_APP.TaskInfo.MainTaskId = pre (AppRecord.HS_APP.TaskInfo.MainTaskId)
+				and Results.Output.AppRecord.HS_APP.TaskInfo.MainTaskName = pre(AppRecord.HS_APP.TaskInfo.MainTaskName)
+				and Results.Output.AppRecord.HS_APP.TaskInfo.NumOfChildTasks = pre( AppRecord.HS_APP.TaskInfo.NumOfChildTasks)				
+			);
+
+--leave startparam for no use,		
+--			eq copy_startPara: bool = (
+--				true
+--			);
 			guarantee "restart hs app ": true -> 
 			(Args.ES_RestartApp.In_Used = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
 			and pre(AppRecord.HS_APP.StateRecord.AppState) = running)
@@ -134,8 +146,8 @@ public
 			  and Results.ReturnValue.Modified_Id = 5
 			  and Results.Output.AppRecord.HS_APP.RecordUsed = pre(AppRecord.HS_APP.RecordUsed)
 			  and Results.Output.AppRecord.HS_APP.AppType = pre(AppRecord.HS_APP.AppType) 
-			  and Results.Output.AppRecord.HS_APP.StartParams = pre(AppRecord.HS_APP.StartParams) 
-			  and Results.Output.AppRecord.HS_APP.TaskInfo = pre(AppRecord.HS_APP.TaskInfo) 
+--			  and Results.Output.AppRecord.HS_APP.StartParams = pre(AppRecord.HS_APP.StartParams) 
+			  and copy_taskinfo
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_START
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppState = waitting
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppTimer = TIME_OUT;
@@ -191,6 +203,13 @@ public
 			eq SYS_DELETE : int = 6;
 			eq TIME_OUT: int = 5;
 			--there is something strange; there need to be some other common app to delete;
+			
+			eq copy_taskinfo: bool =(
+				Results.Output.AppRecord.HS_APP.TaskInfo.MainTaskId = pre (AppRecord.HS_APP.TaskInfo.MainTaskId)
+				and Results.Output.AppRecord.HS_APP.TaskInfo.MainTaskName = pre(AppRecord.HS_APP.TaskInfo.MainTaskName)
+				and Results.Output.AppRecord.HS_APP.TaskInfo.NumOfChildTasks = pre( AppRecord.HS_APP.TaskInfo.NumOfChildTasks)				
+			);
+			
 			guarantee "delete hs app ": true -> 
 			(Args.a.In_Used = true and  not check_is_core and Args.a.AppId = 5
 			and AppRecord.HS_APP.StateRecord.AppState = running)
@@ -198,8 +217,8 @@ public
 			  and Results.ReturnValue.Modified_Id = 5
 			  and Results.Output.AppRecord.HS_APP.RecordUsed = pre(AppRecord.HS_APP.RecordUsed)
 			  and Results.Output.AppRecord.HS_APP.AppType = pre(AppRecord.HS_APP.AppType) 
-			  and Results.Output.AppRecord.HS_APP.StartParams = pre(AppRecord.HS_APP.StartParams) 
-			  and Results.Output.AppRecord.HS_APP.TaskInfo = pre(AppRecord.HS_APP.TaskInfo) 
+--			  and Results.Output.AppRecord.HS_APP.StartParams = pre(AppRecord.HS_APP.StartParams) 
+			  and copy_taskinfo
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_DELETE
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppState = waitting
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppTimer = TIME_OUT;
@@ -243,7 +262,7 @@ public
 				
 			guarantee "update hs heart beating when called": true ->
 			Args.HS.In_Used = true  and not EXCEPTION_CONTROLCMD => 
-			Results.ReturnValue.Cmd_Called = SUCCESS
+			Results.ReturnValue.Cmd_Called = SUCCESS 
 			and Results.ReturnValue.Modified_Id = 5
 			and Results.Output.TaskRecord.HS_APP.ExecutionCounter =
 ( pre(TaskRecord.HS_APP.ExecutionCounter) + 1);

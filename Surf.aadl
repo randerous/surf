@@ -13,7 +13,7 @@ public
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
-		guarantee "": true;
+		 
 	**};
 	end Surf;
 	
@@ -98,7 +98,7 @@ public
 			);
 			
 			lemma "hs monitor es, send a cmd to restart es whenever es stuck": true-> 
---			(AppRecord.ES.StateRecord.AppTimer = pre(AppRecord.ES.StateRecord.AppTimer)) =>
+			(HS.AppRecord.ES.StateRecord.AppTimer = pre(HS.AppRecord.ES.StateRecord.AppTimer)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
 			
 			lemma "hs monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
@@ -116,13 +116,7 @@ public
 			lemma "hs monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
 			(HS.AppRecord.HS_APP.StateRecord.AppTimer = pre(HS.AppRecord.HS_APP.StateRecord.AppTimer)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
-			
-			
-			
-			
  
-			
-		
 --			
 --			guarantee "GetTime": true -> TIME_API.GetTime.Valid = true => 
 --			TIME_API.GetTime.Result = SUCCESS;

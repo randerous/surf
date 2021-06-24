@@ -184,6 +184,12 @@ public
 				eq restart : int = 1;
 				eq waitting: int = 2;
 				eq initializating : int = 4;
+				
+			eq copy_taskinfo: bool =(
+				OldAppRecordData.HS_APP.TaskInfo.MainTaskId = pre (OldAppRecordData.HS_APP.TaskInfo.MainTaskId)
+				and OldAppRecordData.HS_APP.TaskInfo.MainTaskName = pre(OldAppRecordData.HS_APP.TaskInfo.MainTaskName)
+				and OldAppRecordData.HS_APP.TaskInfo.NumOfChildTasks = pre( OldAppRecordData.HS_APP.TaskInfo.NumOfChildTasks)				
+			);
 				guarantee "manage HS_AppRecord for runloop": true -> 
 				(RunLoopResult.EvaluteValue.Cmd_Called = SUCCESS
 				and RunLoopResult.EvaluteValue.Modified_Id = 5) 
@@ -191,8 +197,8 @@ public
 				OldAppRecordData.HS_APP.StateRecord.AppState = running
 			  and OldAppRecordData.HS_APP.RecordUsed = pre(OldAppRecordData.HS_APP.RecordUsed)
 			  and OldAppRecordData.HS_APP.AppType = pre(OldAppRecordData.HS_APP.AppType) 
-			  and OldAppRecordData.HS_APP.StartParams = pre(OldAppRecordData.HS_APP.StartParams) 
-			  and OldAppRecordData.HS_APP.TaskInfo = pre(OldAppRecordData.HS_APP.TaskInfo) 
+--			  and OldAppRecordData.HS_APP.StartParams = pre(OldAppRecordData.HS_APP.StartParams) 
+			  and copy_taskinfo
 			  and OldAppRecordData.HS_APP.StateRecord.AppControlRequest = pre(OldAppRecordData.HS_APP.StateRecord.AppControlRequest)
 			  and OldAppRecordData.HS_APP.StateRecord.AppTimer = pre(OldAppRecordData.HS_APP.StateRecord.AppTimer);
 				

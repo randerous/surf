@@ -191,4 +191,15 @@ public
 			EventID: data Base_Types::Unsigned_16;
 			ActionType: data Base_Types::Unsigned_16;
 	end struct.HS_EMTEntry_t;
+	
+	abstract p
+		
+	end p;
+	
+	abstract implementation p.t
+		subcomponents
+			a: abstract struct.HS_EMTEntry_t;
+			b: data Base_Types::Unsigned_16;
+	end p.t;
+	
 end Core_Types;

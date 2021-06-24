@@ -78,10 +78,6 @@ public
 
 	feature group RouteInput
 		features
---			ES_CmdPipe_ES_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
---			SB_CmdPipe_SB_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
---			EVS_CmdPipe_EVS_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
---			TIME_CmdPipe_TIME_Command: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
 			Event_Router: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
 			Core_Msg_Router: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
 			Common_Msg_Router: in data port Core_Types::struct.CFE_SB_RouteEntry_t;
