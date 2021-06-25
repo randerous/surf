@@ -23,15 +23,49 @@ public
 			a: feature group SB_Interface::P_Unsubscribe;
     end UnsubscribeArgs;
     
+--    feature group SendMsgArgs
+--    	features
+--    		-----Msg-----
+--    		a: feature group SB_Interface::P_SendMsg;
+--    		-----Event-----
+--			ES_RESTART_APP_ERR: feature group SB_Interface::P_SendMsg;
+--			ES_CC1_ERR: feature group SB_Interface::P_SendMsg;
+--			SB_BAD_CMD_CODE: feature group SB_Interface::P_SendMsg;
+--			EVS_ERR_MSGID: feature group SB_Interface::P_SendMsg;
+--			TIME_CC_ERR: feature group SB_Interface::P_SendMsg;
+--    end SendMsgArgs;
+    
+    --agree doesn't support a.b.c connection. take struct above apart into the two below
+    
     feature group SendMsgArgs
     	features
-    		-----Msg-----
     		a: feature group SB_Interface::P_SendMsg;
-    		-----Event-----
-			ES_RESTART_APP_ERR: feature group SB_Interface::P_SendMsg;
+    end SendMsgArgs;
+    
+    feature group OutMsgArgs
+    	features
+    		a: feature group SB_Interface::R_SendMsg;
+    inverse of SendMsgArgs
+    end SendMsgArgs;
+    
+    feature group SendEvtArgs
+    	features
+    		ES_RESTART_APP_ERR: feature group SB_Interface::P_SendMsg;
 			ES_CC1_ERR: feature group SB_Interface::P_SendMsg;
 			SB_BAD_CMD_CODE: feature group SB_Interface::P_SendMsg;
 			EVS_ERR_MSGID: feature group SB_Interface::P_SendMsg;
 			TIME_CC_ERR: feature group SB_Interface::P_SendMsg;
-    end SendMsgArgs;
+    end SendEvtArgs;
+    
+    feature group OutEvtArgs
+    	features
+    		ES_RESTART_APP_ERR: feature group SB_Interface::R_SendMsg;
+			ES_CC1_ERR: feature group SB_Interface::R_SendMsg;
+			SB_BAD_CMD_CODE: feature group SB_Interface::R_SendMsg;
+			EVS_ERR_MSGID: feature group SB_Interface::R_SendMsg;
+			TIME_CC_ERR: feature group SB_Interface::R_SendMsg;
+	inverse of SendEvtArgs
+    end SendEvtArgs;
+    
+    
 end SB_Arg_IO;

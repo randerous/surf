@@ -3,8 +3,11 @@
 2 agree不支持connection时，连接元素组成超过1个".",即a.b可以，但是a.b.c不支持
 3 agree xtext不支持结构体直接相等。
 
-# 尚未解决的bug 
-connections连接数
+# 解决的bug （fixed)
+connections连接数,原因是连接时不能超过一个"."
+
+--
+
 # Surf_V3
 add sth global configuration
 

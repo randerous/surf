@@ -5,6 +5,7 @@ public
 	with EVS_Result_IO;
 	with EVS_Base_IO;
 	with EVS_Route_Table;
+	with SB_Arg_IO;
 
 	abstract Service
 		features
@@ -12,7 +13,7 @@ public
 			UnregisterArgs: feature group EVS_Arg_IO::UnregisterArgs;
 			SendEventArgs: feature group EVS_Arg_IO::SendEventArgs;
 			
-			OutEvents: feature group EVS_Route_Table::RouteOutput;
+			OutEvents: feature group SB_Arg_IO::OutEvtArgs;
 		annex agree{**
 			assume "No register and unregister at the same time":
 			not(RegisterArgs.a.In_Used = true  and UnregisterArgs.a.In_Used = true );

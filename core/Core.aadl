@@ -14,6 +14,7 @@ public
 	with SB_Route_Table;
 	with ES_Base_IO;
 	
+	with SB_Interface;
 	abstract Core
 		features
 			ESAPI: feature group ESAPI;
@@ -35,7 +36,7 @@ public
 			EVS: abstract EVS_Service::Service;
 			ES: abstract ES_Service::Service;
 			TIME: abstract TIME_Service::Service;
-			Medium: abstract Core_Sugar::Medium;
+--			Medium: abstract Core_Sugar::Medium;--medium is useless
 		connections
 			RegisterApp: feature group ESAPI.RegisterAppArgs -> ES.RegisterAppArgs;
 			RestartApp: feature group ESAPI.RestartAppArgs -> ES.RestartAppArgs;
@@ -45,7 +46,8 @@ public
 			DeletePipe: feature group SBAPI.DeletePipeArgs -> SB.DeletePipeArgs;
 			Subscribe: feature group SBAPI.SubscribeArgs -> SB.SubscribeArgs;
 			Unsubscribe: feature group SBAPI.UnsubscribeArgs -> SB.UnsubscribeArgs;
-			SendMsg: feature group SBAPI.MsgInput -> Medium.MsgInput;
+			SendMsg: feature group SBAPI.MsgInput <-> SB.SendMsgArgs;
+			SendEvt: feature group EVS.OutEvents <-> SB.SendEvtArgs;
 			
 			Register: feature group EVSAPI.RegisterArgs -> EVS.RegisterArgs;
 			Unregister: feature group EVSAPI.UnregisterArgs -> EVS.UnregisterArgs;
@@ -59,14 +61,14 @@ public
 			AppRecordOutput: feature group ES.AppRecord -> AppRecord;
 			
 			--------------Medium Example------------
-			Msg_a_Input: feature group Medium.MsgOutput.a <-> SB.SendMsgArgs.a;
+--			Msg_a_Input: feature group Medium.MsgOutput <-> SB.SendMsgArgs.a;
 			
-			--------------Event Example---------------
-			ES_CC1_ERR: feature group EVS.OutEvents.ES_CC1_ERR <-> SB.SendMsgArgs.ES_CC1_ERR;
-			ES_RESTART_APP_ERR: feature group EVS.OutEvents.ES_RESTART_APP_ERR <-> SB.SendMsgArgs.ES_RESTART_APP_ERR;
-			SB_BAD_CMD_CODE: feature group EVS.OutEvents.SB_BAD_CMD_CODE <-> SB.SendMsgArgs.SB_BAD_CMD_CODE;
-			EVS_ERR_MSGID: feature group EVS.OutEvents.EVS_ERR_MSGID <-> SB.SendMsgArgs.EVS_ERR_MSGID;
-			TIME_CC_ERR: feature group EVS.OutEvents.TIME_CC_ERR <-> SB.SendMsgArgs.TIME_CC_ERR;
+--			--------------Event Example---------------
+--			ES_CC1_ERR: feature group EVS.OutEvents.ES_CC1_ERR <-> SB.SendMsgArgs.ES_CC1_ERR;
+--			ES_RESTART_APP_ERR: feature group EVS.OutEvents.ES_RESTART_APP_ERR <-> SB.SendMsgArgs.ES_RESTART_APP_ERR;
+--			SB_BAD_CMD_CODE: feature group EVS.OutEvents.SB_BAD_CMD_CODE <-> SB.SendMsgArgs.SB_BAD_CMD_CODE;
+--			EVS_ERR_MSGID: feature group EVS.OutEvents.EVS_ERR_MSGID <-> SB.SendMsgArgs.EVS_ERR_MSGID;
+--			TIME_CC_ERR: feature group EVS.OutEvents.TIME_CC_ERR <-> SB.SendMsgArgs.TIME_CC_ERR;
 	end Core.impl;
 	
 	feature group ESAPI
@@ -89,7 +91,7 @@ public
 			DeletePipeArgs: feature group SB_Arg_IO::DeletePipeArgs;
 			SubscribeArgs: feature group SB_Arg_IO::SubscribeArgs;
 			UnsubscribeArgs: feature group SB_Arg_IO::UnsubscribeArgs;
-			MsgInput: feature group Core_Sugar::MsgInput;
+			MsgInput: feature group SB_Arg_IO::SendMsgArgs;
 	end SBAPI;
 	
 	feature group TIMEAPI

@@ -6,7 +6,7 @@ public
 	with SB_Arg_IO;
 	with SB_Route_Table;
 
--- the safety duty align to SB ,
+-- the safety duty assigned to SB ,
 -- that is simple ensuring the correctness of delivering msg
 -- deliver msg to who subscribed that msg
 	abstract Service
@@ -16,7 +16,7 @@ public
 			SubscribeArgs: feature group SB_Arg_IO::SubscribeArgs;
 			UnsubscribeArgs: feature group SB_Arg_IO::UnsubscribeArgs;
 			SendMsgArgs: feature group SB_Arg_IO::SendMsgArgs;
-			
+			SendEvtArgs: feature group SB_Arg_IO::SendEvtArgs;
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
 --			RcvMsg: feature group SB_Interface::P_RcvMsg;
 

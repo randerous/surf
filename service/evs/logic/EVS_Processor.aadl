@@ -5,6 +5,7 @@ public
 	with EVS_Result_IO;
 	with EVS_Base_IO;
 	with EVS_Route_Table;
+	with SB_Arg_IO;
 	
 	--------all abstract can add external data corresponding to its require
 	
@@ -145,7 +146,7 @@ public
 			Args: refined to feature group EVS_Arg_IO::SendEventArgs;
 			Results: refined to feature group EVS_Result_IO::SendEventOutput;
 			LocalDatas: refined to feature group EVS_Base_IO::AppDataInput;
-			OutEvents: feature group EVS_Route_Table::RouteOutput;
+			OutEvents: feature group SB_Arg_IO::OutEvtArgs;
 			
 		annex agree{**
 			
