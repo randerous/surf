@@ -55,7 +55,7 @@ public
 			EVS_Default_SendEvent: feature group EVS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.EVS_Default;
 			TIME_Default_SendEvent: feature group TIME.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.TIME_Default;
 			HS_Default_SendEvent:  feature group HS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.HS_Default;
-			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
+--			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
 			
 			annex agree{**
 			--0: running 1: restart  ÖØÆô 2: wait
@@ -94,7 +94,7 @@ public
 			true -> 
 			(	
 				(HS.Command.MsgId = 0 and HS.Command.EvtId = EVS_ERROR)
-				=>true;
+				=>true 
 --HS.EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
 			);
 			
