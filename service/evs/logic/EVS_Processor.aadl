@@ -4,7 +4,7 @@ public
 	with EVS_Arg_IO;
 	with EVS_Result_IO;
 	with EVS_Base_IO;
-	with EVS_Route_Table;
+--	with EVS_Route_Table;
 	with SB_Arg_IO;
 	
 	--------all abstract can add external data corresponding to its require
@@ -149,6 +149,15 @@ public
 			OutEvents: feature group SB_Arg_IO::OutEvtArgs;
 			
 		annex agree{**
+				--send evt to outEvents
+				--only one send evt at same time to simulate queuing. 
+				--only registered app can send evt.
+			--actually only common app need to call evt, core service can express by control flow
+			eq check_register: bool;
+			
+			
+			
+				
 			
 		**};
 	end SendEvent;

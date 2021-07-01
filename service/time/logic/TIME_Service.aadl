@@ -7,15 +7,19 @@ public
 	abstract Service
 		features
 			GetTimeArgs: feature group TIME_Arg_IO::GetTimeArgs;
+		annex agree{**
+			guarantee "": GetTimeArgs.a.CurrentTime.Seconds = (0 ->  
+				 pre(GetTimeArgs.a.CurrentTime.Seconds)+1);
+		**};
 	end Service;
 
 	abstract implementation Service.impl
 		subcomponents
 			GetTime: abstract TIME_Processor::GetTime;			
-			ShareData: abstract ShareData;
+--			ShareData: abstract ShareData;
 		connections
 			GetTimeArg: feature group GetTimeArgs <-> GetTime.Args;
-			GetTimeLocalData: feature group ShareData.OldSysTimeData -> GetTime.LocalDatas;
+--			GetTimeLocalData: feature group ShareData.OldSysTimeData -> GetTime.LocalDatas;
 		
 	end Service.impl;
 	

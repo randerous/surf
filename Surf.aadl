@@ -94,7 +94,8 @@ public
 			true -> 
 			(	
 				(HS.Command.MsgId = 0 and HS.Command.EvtId = EVS_ERROR)
-				=> HS.EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
+				=>true;
+--HS.EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
 			);
 			
 			lemma "hs monitor es, send a cmd to restart es whenever es stuck": true-> 

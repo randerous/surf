@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="Service_impl_Instance">
+  <featureInstance name="GetTimeArgs" category="featureGroup" direction="in out">
+    <featureInstance name="a" category="featureGroup" direction="in out">
+      <featureInstance name="Call" category="eventDataPort">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:EventDataPort" href="../../../../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+      </featureInstance>
+      <featureInstance name="Result" category="eventDataPort" direction="out">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:NamedValue">
+              <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+              <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:EventDataPort" href="../../../../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+      </featureInstance>
+      <featureInstance name="CurrentTime" direction="out">
+        <feature xsi:type="aadl2:DataPort" href="../../../../interface/TIME_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../../io/TIME_Arg_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
+    </featureInstance>
+    <feature xsi:type="aadl2:FeatureGroup" href="../TIME_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
+  </featureInstance>
+  <componentInstance name="GetTime">
+    <featureInstance name="Results" category="featureGroup" direction="in out">
+      <feature xsi:type="aadl2:FeatureGroup" href="../../../../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedFeatureGroup.1"/>
+    </featureInstance>
+    <featureInstance name="LocalDatas" category="featureGroup" direction="in out">
+      <feature xsi:type="aadl2:FeatureGroup" href="../../../../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedFeatureGroup.2"/>
+    </featureInstance>
+    <featureInstance name="Args" category="featureGroup" direction="in out">
+      <featureInstance name="a" category="featureGroup" direction="in out">
+        <featureInstance name="Call" category="eventDataPort">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:NamedValue">
+                <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:EventDataPort" href="../../../../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+        </featureInstance>
+        <featureInstance name="Result" category="eventDataPort" direction="out">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:NamedValue">
+                <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+          </ownedPropertyAssociation>
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:NamedValue">
+                <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+          </ownedPropertyAssociation>
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+                <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:EventDataPort" href="../../../../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+        </featureInstance>
+        <featureInstance name="CurrentTime" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../../../interface/TIME_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.0"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../../io/TIME_Arg_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../TIME_Processor.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../TIME_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:AbstractType" href="../TIME_Processor.aadl#TIME_Processor.GetTime"/>
+  </componentInstance>
+  <connectionInstance name="GetTimeArgs.a.Call -> GetTime.Args.a.Call" kind="portConnection" destination="//@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.0" source="//@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../TIME_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="GetTime.Args.a.Result -> GetTimeArgs.a.Result" kind="portConnection" destination="//@featureInstance.0/@featureInstance.0/@featureInstance.1" source="//@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.1" destination="//@featureInstance.0/@featureInstance.0/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../TIME_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="GetTime.Args.a.CurrentTime -> GetTimeArgs.a.CurrentTime" kind="portConnection" destination="//@featureInstance.0/@featureInstance.0/@featureInstance.2" source="//@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.2">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.2" destination="//@featureInstance.0/@featureInstance.0/@featureInstance.2" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../TIME_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:AbstractImplementation" href="../TIME_Service.aadl#TIME_Service.Service.impl"/>
+</instance:SystemInstance>

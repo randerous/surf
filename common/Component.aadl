@@ -4,6 +4,7 @@ public
 	with Base_Types;
 	with EVS_Interface;
 	with ES_Interface;
+	with SB_Interface;
 	with Generic;
 --------------------CommandRouter can be extended with out data port Core_Types::struct.CFE_SB_Msg_t;--------------
 	abstract CommandRouter
@@ -32,7 +33,7 @@ public
 	-------------------------------Output-------------------------------
 	feature group SendEventArgs
 		features
-			Default: feature group EVS_Interface::R_SendEvent;
+			Default: feature group SB_Interface::R_SendMsg;
 	end SendEventArgs;
 	
 	feature group RunLoopArgs

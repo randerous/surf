@@ -22,7 +22,8 @@ public
 			true -> 
 			(	
 				(Command.MsgId = 0 and Command.EvtId = EVS_ERROR)
-				=> EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
+				=> true
+--				EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
 			);
 			
 			guarantee "monitor es, send a cmd to restart es whenever es stuck": true-> 

@@ -2,6 +2,7 @@ package EVS_Arg_IO
 public
 	
 	with EVS_Interface;
+	with SB_Interface;
 	
 	--------all feature groups can add "feature group [type];" corresponding to its data type
 	feature group RegisterArgs
@@ -16,11 +17,11 @@ public
 	
 	feature group SendEventArgs
 		features
-			ES_Default: feature group EVS_Interface::P_SendEvent;
-			SB_Default: feature group EVS_Interface::P_SendEvent;
-			EVS_Default: feature group EVS_Interface::P_SendEvent;
-			TIME_Default: feature group EVS_Interface::P_SendEvent;
-			HS_Default: feature group EVS_Interface::P_SendEvent;
-			ES_RestartApp: feature group EVS_Interface::P_SendEvent;
+			ES_Default: feature group SB_Interface::P_SendMsg;
+			SB_Default: feature group SB_Interface::P_SendMsg;
+			EVS_Default: feature group SB_Interface::P_SendMsg;
+			TIME_Default: feature group SB_Interface::P_SendMsg;
+			HS_Default: feature group SB_Interface::P_SendMsg;
+			ES_RestartApp: feature group SB_Interface::P_SendMsg;
 	end SendEventArgs;
 end EVS_Arg_IO;
