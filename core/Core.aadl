@@ -26,22 +26,97 @@ public
 			
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
 		annex agree{**
-			guarantee "test": true;
+		--assume for sb
+			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				assume "No Create and Delete pipe at the same time": not(SBAPI.CreatePipeArgs.a.Activiated = true
+					and SBAPI.DeletePipeArgs.a.Activiated = true
+				);
+				
+				assume "No Subscribe and UnSubscribe at the same time": not(SBAPI.SubscribeArgs.a.Activiated = true
+					and SBAPI.UnsubscribeArgs.a.Activiated = true
+				);
+				assume "Send Evt or Msg": not (SBAPI.MsgInput.Activiated = true and EVSAPI.SendEventArgs.Activiated = true);
+				--hs subscribe event always
+				eq HS_CANCEL_SUB_EVENT : bool =  (
+					SBAPI.UnsubscribeArgs.a.Activiated = true 
+					and SBAPI.UnsubscribeArgs.a.PipeId = 5
+					and SBAPI.UnsubscribeArgs.a.MsgId = 0
+				);
+				eq DEL_HS_PIPE : bool =  (SBAPI.DeletePipeArgs.a.Activiated = true and SBAPI.DeletePipeArgs.a.AppId = 5);
+				
+				--initially, we set the pipe for hs active,and make it subscribe event, and keep it  on
+				assume "keep hs monitoring event": 
+				(
+					(SBAPI.CreatePipeArgs.a.Activiated = true and SBAPI.CreatePipeArgs.a.AppId = 5) and 
+					(SBAPI.SubscribeArgs.a.Activiated = true and SBAPI.SubscribeArgs.a.MsgId = 0 and SBAPI.SubscribeArgs.a.PipeId = 5)
+				) -> not(HS_CANCEL_SUB_EVENT or DEL_HS_PIPE);
+				
+				--assumes for evs
+				assume "No register and unregister at the same time":
+			    not(EVSAPI.RegisterArgs.a.Activiated = true  and EVSAPI.UnregisterArgs.a.Activiated = true );
+				
+				
+				--assumes for es	
+				--we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				--for initial stage, forbid all func call,(still prepared)
+				assume "initialize all func":(ESAPI.RegisterAppArgs.a.Activiated = false
+					and ESAPI.DeleteAppArgs.a.Activiated = false
+					and ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false) -> true;
+					
+				assume "No two of Register and Delete  and Restart at the same time": 
+				(	
+					ESAPI.RegisterAppArgs.a.Activiated = true
+					and ESAPI.DeleteAppArgs.a.Activiated = false
+					and ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				)
+				or 
+				(	
+					ESAPI.RegisterAppArgs.a.Activiated = false
+					and ESAPI.DeleteAppArgs.a.Activiated = true
+					and ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				)
+				or 
+				(	
+					ESAPI.RegisterAppArgs.a.Activiated = false
+					and ESAPI.DeleteAppArgs.a.Activiated = false
+					and ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true
+					and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				)
+				or
+				(	
+					ESAPI.RegisterAppArgs.a.Activiated = false
+					and ESAPI.DeleteAppArgs.a.Activiated = false
+					and ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true
+				)
+				or
+				(	
+					ESAPI.RegisterAppArgs.a.Activiated = false
+					and ESAPI.DeleteAppArgs.a.Activiated = false
+					and ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				);
+				
+	
+			    guarantee "test": 1 <> 2;
 		**};
 	end Core;
 	
 	abstract implementation Core.impl
 		subcomponents
-			SB: abstract SB_Service::Service;
-			EVS: abstract EVS_Service::Service;
-			ES: abstract ES_Service::Service;
-			TIME: abstract TIME_Service::Service;
+			SB: abstract SB_Service::Service.impl;
+			EVS: abstract EVS_Service::Service.impl;
+			ES: abstract ES_Service::Service.impl;
+			TIME: abstract TIME_Service::Service.impl;
 --			Medium: abstract Core_Sugar::Medium;--medium is useless
 		connections
 			RegisterApp: feature group ESAPI.RegisterAppArgs -> ES.RegisterAppArgs;
 			RestartApp: feature group ESAPI.RestartAppArgs -> ES.RestartAppArgs;
 			DeleteApp: feature group ESAPI.DeleteAppArgs -> ES.DeleteAppArgs;
-			
+--			
 			CreatePipe: feature group SBAPI.CreatePipeArgs -> SB.CreatePipeArgs;
 			DeletePipe: feature group SBAPI.DeletePipeArgs -> SB.DeletePipeArgs;
 			Subscribe: feature group SBAPI.SubscribeArgs -> SB.SubscribeArgs;
@@ -60,8 +135,8 @@ public
 			
 			-----------------------Data output----------------------
 			AppRecordOutput: feature group ES.AppRecord -> AppRecord;
-			
-			
+--			
+--			
 			
 			--------------Medium Example------------
 --			Msg_a_Input: feature group Medium.MsgOutput <-> SB.SendMsgArgs.a;

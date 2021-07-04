@@ -1,6 +1,7 @@
 package SB_Arg_IO
 public
 	with SB_Interface;
+	with Base_Types;
 	
 	--------all feature groups can add "feature group [type];" corresponding to its data type
 	feature group CreatePipeArgs
@@ -39,12 +40,13 @@ public
     
     feature group SendMsgArgs
     	features
-    		
+    		Activiated: in data port Base_Types::Boolean;
     		a: feature group SB_Interface::P_SendMsg;
     end SendMsgArgs;
     
     feature group OutMsgArgs
     	features
+    		Activiated: out data port Base_Types::Boolean;
     		a: feature group SB_Interface::R_SendMsg;
     inverse of SendMsgArgs
     end SendMsgArgs;

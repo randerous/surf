@@ -60,16 +60,6 @@ public
 					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
 				);
 				
-				eq RESTART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true 
-									and RestartAppArgs.HS_MonitorApplications_RestartApp.AppId = 5;
-				eq RESTART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.Activiated = true 
-									and RestartAppArgs.ES_RestartApp.AppId = 5 ;
-									
-				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.Activiated = true and DeleteAppArgs.a.AppId = 5 ;								
-				-- runloop should be called in every cycle, other than restart or delete app
-		 		assume "runloop should be called in every cycle, other than restart or delete app": true ->
-		 		  not (RESTART_HS_CMD_1 or RESTART_HS_CMD_2) and not (DELETE_HS_CMD) => 
-		 		  RunLoopArgs.HS.Activiated = true and  RunLoopArgs.HS.AppId = 5;
 		 		 
 		 		 --0: running 1: restart, 2:waiting, 4: initializing
 		 		 eq waitting: int = 2;
@@ -115,6 +105,22 @@ public
 			RunLoopLocalData1: feature group ShareData.OldTaskRecordData -> RunLoop.TaskRecord;
 			RunLoopLocalData2: feature group ShareData.OldAppRecordData -> RunLoop.AppRecord;
 			RunLoopResult: feature group RunLoop.Results -> ShareData.RunLoopResult;
+			
+			annex agree{**
+					
+					
+				eq RESTART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true 
+									and RestartAppArgs.HS_MonitorApplications_RestartApp.AppId = 5;
+				eq RESTART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.Activiated = true 
+									and RestartAppArgs.ES_RestartApp.AppId = 5 ;
+									
+				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.Activiated = true and DeleteAppArgs.a.AppId = 5 ;								
+				
+				-- runloop should be called in every cycle, excepts restart or delete app
+		 		assert "runloop should be called in every cycle, other than restart or delete app": true ->
+		 		  not (RESTART_HS_CMD_1 or RESTART_HS_CMD_2) and not (DELETE_HS_CMD) => 
+		 		  RunLoopArgs.HS.Activiated = true and  RunLoopArgs.HS.AppId = 5;
+			**};
 	end Service.impl;
 
 	----------------ShareData can add processor result

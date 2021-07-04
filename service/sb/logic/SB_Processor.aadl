@@ -5,7 +5,7 @@ public
 	with SB_Result_IO;
 	with SB_Base_IO;
 	with SB_Route_Table;
-	
+	with EVS_Arg_IO;	
 	--------all abstract can add external data corresponding to its require
 
 	abstract CreatePipe extends Generic::FunctionProcessor
@@ -473,56 +473,74 @@ public
 	
 	abstract SendMsg extends Generic::FunctionProcessor
 		features
-			Args: refined to feature group SB_Arg_IO::SendMsgArgs;
+			MsgArgs: feature group SB_Arg_IO::SendMsgArgs;
+			EvtArgs: feature group EVS_Arg_IO::SendEventArgs;
 --			Results: refined to feature group SB_Result_IO::SendMsgOutput;
 			LocalDatas: refined to feature group SB_Base_IO::RouteInput;
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
 			
 	    annex agree{**
-	    	eq MSGID_INVALID: bool = Args.a.Msg.MsgId < 0 or  Args.a.Msg.MsgId > 2;
+			eq NO_ACTIVIATED: bool = (MsgArgs.Activiated  = false and EvtArgs.Activiated = false);
+	    	eq MSGID_INVALID: bool = MsgArgs.a.Msg.MsgId < 0 or  MsgArgs.a.Msg.MsgId > 2;
 	    	--msgId = -1 denotes: No msg
-	    	
-	    	guarantee "check msgId validaty": 
+	    	eq EVT_INVALID: bool = EvtArgs.EvtPacket.Msg.MsgId <> 0 or EvtArgs.EvtPacket.Msg.EvtId <> 0  ;
+
+			assume "Send Evt or Msg": not (MsgArgs.Activiated = true and EvtArgs.Activiated = true);
+	    	guarantee "check msgId and EvtId validaty": 
 	    	(OutMsgs.ES_CmdPipe_ES_Command.MsgId = -1 and 
 	    		OutMsgs.SB_CmdPipe_SB_Command.MsgId = -1 and 
 	    		OutMsgs.EVS_CmdPipe_EVS_Command.MsgId = -1 and 
 	    		OutMsgs.TIME_CmdPipe_TIME_Command.MsgId = -1 and 
 	    		OutMsgs.HS_CmdPipe_HS_Command.MsgId = -1   ) 
 	    	-> 
-	    	MSGID_INVALID  =>(
+	    	(
+				NO_ACTIVIATED or
+				(MsgArgs.Activiated  = true and MSGID_INVALID) or
+				(EvtArgs.Activiated  = true and EVT_INVALID)
+			)
+			=>
+			(
 	    		OutMsgs.ES_CmdPipe_ES_Command.MsgId = -1 and 
 	    		OutMsgs.SB_CmdPipe_SB_Command.MsgId = -1 and 
 	    		OutMsgs.EVS_CmdPipe_EVS_Command.MsgId = -1 and 
 	    		OutMsgs.TIME_CmdPipe_TIME_Command.MsgId = -1 and 
 	    		OutMsgs.HS_CmdPipe_HS_Command.MsgId = -1     		
 	    	);
-	    	
-	    	guarantee  "send event": true -> 
-	    	Args.a.Msg.MsgId = 0 =>(
-	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	guarantee  "send event for evs": true -> 
+	    	(EvtArgs.Activiated  = true and not EVT_INVALID)=>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = EvtArgs.EvtPacket.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = EvtArgs.EvtPacket.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = EvtArgs.EvtPacket.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = EvtArgs.EvtPacket.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = EvtArgs.EvtPacket.Msg)
+	    	);
+
+	    	guarantee  "send event for other": true -> 
+	    	(MsgArgs.Activiated  = true and MsgArgs.a.Msg.MsgId = 0)=>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = MsgArgs.a.Msg)
 	    	);
 	    	
 	    	guarantee  "send core msg": true -> 
-	    	Args.a.Msg.MsgId = 1 =>(
-	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	(MsgArgs.Activiated  = true and MsgArgs.a.Msg.MsgId = 1 ) =>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = MsgArgs.a.Msg)
 	    	); 
 	    	
 	    	
 	    	guarantee  "send common msg": true -> 
-	    	Args.a.Msg.MsgId = 2 =>(
-	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = Args.a.Msg)
-	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = Args.a.Msg)
+	    	(MsgArgs.Activiated  = true and MsgArgs.a.Msg.MsgId = 2 )=>(
+	    		(pre(LocalDatas.Event_Router.RouteList.ES_Pipe) = true => OutMsgs.ES_CmdPipe_ES_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.SB_Pipe) = true => OutMsgs.SB_CmdPipe_SB_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.EVS_Pipe) = true => OutMsgs.EVS_CmdPipe_EVS_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.TIME_Pipe) = true => OutMsgs.TIME_CmdPipe_TIME_Command = MsgArgs.a.Msg)
+	    	and (pre(LocalDatas.Event_Router.RouteList.HS_Pipe) = true => OutMsgs.HS_CmdPipe_HS_Command = MsgArgs.a.Msg)
 	    	);  
 	    **};
 	end SendMsg;

@@ -30,6 +30,7 @@ public
 				assume "No Subscribe and UnSubscribe at the same time": not(SubscribeArgs.a.Activiated = true
 					and UnsubscribeArgs.a.Activiated = true
 				);
+				assume "Send Evt or Msg": not (SendMsgArgs.Activiated = true and SendEvtArgs.Activiated = true);
 				--hs subscribe event always
 				eq HS_CANCEL_SUB_EVENT : bool =  (
 					UnsubscribeArgs.a.Activiated = true 
@@ -49,9 +50,13 @@ public
 				--here the property maybe need some lemmas , 
 				guarantee "Hs should get all event": true -> 
 				(
-					(SendMsgArgs.a.Msg.MsgId = 0) => OutMsgs.HS_CmdPipe_HS_Command.MsgId = 0
+					(SendMsgArgs.Activiated = true  and SendMsgArgs.a.Msg.MsgId = 0) 
+					or (SendEvtArgs.Activiated = true and SendEvtArgs.EvtPacket.Msg.MsgId = 0 
+						and SendEvtArgs.EvtPacket.Msg.EvtId = 0 
+					)
+					=> OutMsgs.HS_CmdPipe_HS_Command.MsgId = 0
 				);
-				guarantee "deliver msg to who subscribed that msg" : true;
+--				guarantee "deliver msg to who subscribed that msg" : true;
 				
 			**};
 	end Service;
@@ -88,11 +93,13 @@ public
 			UnsubscribeLocalData: feature group ShareData.OldRouteData -> Unsubscribe.LocalDatas;
 			UnsubscribeResult: feature group Unsubscribe.Results -> ShareData.UnsubscribeResult;
 			
-			SendMsgArg: feature group SendMsgArgs <-> SendMsg.Args;
+			SendMsgArg: feature group SendMsgArgs <-> SendMsg.MsgArgs;
+			SendEvtArg: feature group SendEvtArgs <-> SendMsg.EvtArgs;
+			
 			SendMsgLocalData: feature group ShareData.OldRouteData -> SendMsg.LocalDatas;
 --			SendMsgResult: feature group SendMsg.Results -> ShareData.SendMsgResult;
 			SendMsgOutMsg: feature group SendMsg.OutMsgs -> OutMsgs;
-		
+		 
 			annex agree 
 			{**
 			

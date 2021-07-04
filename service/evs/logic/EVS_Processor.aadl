@@ -158,7 +158,7 @@ public
 			
 			
 			guarantee "deliver restartApp event":
-			true->
+			OutEvents.Activiated = false ->
 			if(Args.Activiated = true and Args.EvtPacket.Msg.MsgId = 0 and  Args.EvtPacket.Msg.EvtId = 0)
 			then(OutEvents.Activiated = true and OutEvents.EvtPacket.Msg.MsgId = 0 and OutEvents.EvtPacket.Msg.EvtId = 0)
 			else OutEvents.Activiated = false ;

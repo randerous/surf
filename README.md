@@ -7,7 +7,9 @@
 connections连接数,原因是连接时不能超过一个"."
 
 --
-
+# 进度
+基本完成，顶层需要规约下如何结合利用多个app和core服务实现安全性机制
+seu故障需要注入到sb服务里（三冗余），es服务里（异常崩溃）
 # Surf_V3
 add sth global configuration
 
