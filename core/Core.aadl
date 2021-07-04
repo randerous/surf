@@ -47,7 +47,8 @@ public
 			Subscribe: feature group SBAPI.SubscribeArgs -> SB.SubscribeArgs;
 			Unsubscribe: feature group SBAPI.UnsubscribeArgs -> SB.UnsubscribeArgs;
 			SendMsg: feature group SBAPI.MsgInput <-> SB.SendMsgArgs;
-			SendEvt: feature group EVS.OutEvents <-> SB.SendEvtArgs;
+			
+			DeliverEvt: feature group EVS.OutEvents <-> SB.SendEvtArgs;
 			
 			Register: feature group EVSAPI.RegisterArgs -> EVS.RegisterArgs;
 			Unregister: feature group EVSAPI.UnregisterArgs -> EVS.UnregisterArgs;
@@ -60,15 +61,19 @@ public
 			-----------------------Data output----------------------
 			AppRecordOutput: feature group ES.AppRecord -> AppRecord;
 			
+			
+			
 			--------------Medium Example------------
 --			Msg_a_Input: feature group Medium.MsgOutput <-> SB.SendMsgArgs.a;
 			
 --			--------------Event Example---------------
+
 --			ES_CC1_ERR: feature group EVS.OutEvents.ES_CC1_ERR <-> SB.SendMsgArgs.ES_CC1_ERR;
 --			ES_RESTART_APP_ERR: feature group EVS.OutEvents.ES_RESTART_APP_ERR <-> SB.SendMsgArgs.ES_RESTART_APP_ERR;
 --			SB_BAD_CMD_CODE: feature group EVS.OutEvents.SB_BAD_CMD_CODE <-> SB.SendMsgArgs.SB_BAD_CMD_CODE;
 --			EVS_ERR_MSGID: feature group EVS.OutEvents.EVS_ERR_MSGID <-> SB.SendMsgArgs.EVS_ERR_MSGID;
 --			TIME_CC_ERR: feature group EVS.OutEvents.TIME_CC_ERR <-> SB.SendMsgArgs.TIME_CC_ERR;
+			
 	end Core.impl;
 	
 	feature group ESAPI

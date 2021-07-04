@@ -39,6 +39,7 @@ public
     
     feature group SendMsgArgs
     	features
+    		
     		a: feature group SB_Interface::P_SendMsg;
     end SendMsgArgs;
     
@@ -48,26 +49,26 @@ public
     inverse of SendMsgArgs
     end SendMsgArgs;
     
-    feature group SendEvtArgs
-    	features
---    		ES_RESTART_APP_ERR: feature group SB_Interface::P_SendMsg;
---			ES_CC1_ERR: feature group SB_Interface::P_SendMsg;
---			SB_BAD_CMD_CODE: feature group SB_Interface::P_SendMsg;
---			EVS_ERR_MSGID: feature group SB_Interface::P_SendMsg;
---			TIME_CC_ERR: feature group SB_Interface::P_SendMsg;
-		    EvtPackect: feature group SB_Interface::P_SendMsg;
-    end SendEvtArgs;
-    
-    feature group OutEvtArgs
-    	features
---    		ES_RESTART_APP_ERR: feature group SB_Interface::R_SendMsg;
---			ES_CC1_ERR: feature group SB_Interface::R_SendMsg;
---			SB_BAD_CMD_CODE: feature group SB_Interface::R_SendMsg;
---			EVS_ERR_MSGID: feature group SB_Interface::R_SendMsg;
---			TIME_CC_ERR: feature group SB_Interface::R_SendMsg;
-			EvtPackect: feature group SB_Interface::R_SendMsg;
-	inverse of SendEvtArgs
-    end SendEvtArgs;
-    
+--    feature group SendEvtArgs
+--    	features
+----    		ES_RESTART_APP_ERR: feature group SB_Interface::P_SendMsg;
+----			ES_CC1_ERR: feature group SB_Interface::P_SendMsg;
+----			SB_BAD_CMD_CODE: feature group SB_Interface::P_SendMsg;
+----			EVS_ERR_MSGID: feature group SB_Interface::P_SendMsg;
+----			TIME_CC_ERR: feature group SB_Interface::P_SendMsg;
+--		    EvtPackect: feature group SB_Interface::P_SendMsg;
+--    end SendEvtArgs;
+--    
+--    feature group OutEvtArgs
+--    	features
+----    		ES_RESTART_APP_ERR: feature group SB_Interface::R_SendMsg;
+----			ES_CC1_ERR: feature group SB_Interface::R_SendMsg;
+----			SB_BAD_CMD_CODE: feature group SB_Interface::R_SendMsg;
+----			EVS_ERR_MSGID: feature group SB_Interface::R_SendMsg;
+----			TIME_CC_ERR: feature group SB_Interface::R_SendMsg;
+--			EvtPackect: feature group SB_Interface::R_SendMsg;
+--	inverse of SendEvtArgs
+--    end SendEvtArgs;
+--    
     
 end SB_Arg_IO;

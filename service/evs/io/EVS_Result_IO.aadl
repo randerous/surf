@@ -20,7 +20,7 @@ public
 	feature group SendEventResult extends Generic::ShareDataInput
 		features
 			Input: refined to feature group EVS_Base_IO::FilterInput;
-			EvaluteValue: refined to feature group EVS_Base_IO::FilterEvaluteValue;
+			EvaluteValue: refined to feature group EVS_Base_IO::EvaluateValue;
 	end SendEventResult;
 
 -----------------------------------Output----------------------------------
@@ -39,7 +39,7 @@ public
 	
 	feature group SendEventOutput extends Generic::ServiceProcessorOutput
 		features
---			Output: refined to feature group EVS_Base_IO::FilterOutput;--there is no meaning
+			Output: refined to feature group EVS_Base_IO::FilterOutput;--there is no meaning
 			ReturnValue: refined to feature group EVS_Base_IO::ReturnValue;
 	inverse of SendEventResult
 	end SendEventOutput;

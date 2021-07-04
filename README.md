@@ -39,6 +39,12 @@ MsgId 2: for sample app's msg
 TO do:
 这里假设所有的函数功能，在一次调用后将结果更新至sharedata，即调用和更新发生在一个周期，
 tricks：在初始化阶段，屏蔽所有函数调用	
+
+## 现有的核心服务app
+四个核心服务的app实际现在不具有实用性，
+用于接收地面传来的命令执行对应的操作
+现在没有加入遥测、遥控指令
+
 ### newList
 add maintain function to es
 but the guarantee to test is left.

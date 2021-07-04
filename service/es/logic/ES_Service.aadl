@@ -19,63 +19,63 @@ public
 		annex agree{**
 --				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
 				--for initial stage, forbid all func call,(still prepared)
-				assume "initialize all func":(RegisterAppArgs.a.In_Used = false
-					and DeleteAppArgs.a.In_Used = false
-					and RestartAppArgs.ES_RestartApp.In_Used = false
-					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false) -> true;
+				assume "initialize all func":(RegisterAppArgs.a.Activiated = false
+					and DeleteAppArgs.a.Activiated = false
+					and RestartAppArgs.ES_RestartApp.Activiated = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false) -> true;
 					
 				assume "No two of Register and Delete  and Restart at the same time": 
 				(	
-					RegisterAppArgs.a.In_Used = true
-					and DeleteAppArgs.a.In_Used = false
-					and RestartAppArgs.ES_RestartApp.In_Used = false
-					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
+					RegisterAppArgs.a.Activiated = true
+					and DeleteAppArgs.a.Activiated = false
+					and RestartAppArgs.ES_RestartApp.Activiated = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
 				)
 				or 
 				(	
-					RegisterAppArgs.a.In_Used = false
-					and DeleteAppArgs.a.In_Used = true
-					and RestartAppArgs.ES_RestartApp.In_Used = false
-					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
+					RegisterAppArgs.a.Activiated = false
+					and DeleteAppArgs.a.Activiated = true
+					and RestartAppArgs.ES_RestartApp.Activiated = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
 				)
 				or 
 				(	
-					RegisterAppArgs.a.In_Used = false
-					and DeleteAppArgs.a.In_Used = false
-					and RestartAppArgs.ES_RestartApp.In_Used = true
-					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
+					RegisterAppArgs.a.Activiated = false
+					and DeleteAppArgs.a.Activiated = false
+					and RestartAppArgs.ES_RestartApp.Activiated = true
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
 				)
 				or
 				(	
-					RegisterAppArgs.a.In_Used = false
-					and DeleteAppArgs.a.In_Used = false
-					and RestartAppArgs.ES_RestartApp.In_Used = false
-					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = true
+					RegisterAppArgs.a.Activiated = false
+					and DeleteAppArgs.a.Activiated = false
+					and RestartAppArgs.ES_RestartApp.Activiated = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true
 				)
 				or
 				(	
-					RegisterAppArgs.a.In_Used = false
-					and DeleteAppArgs.a.In_Used = false
-					and RestartAppArgs.ES_RestartApp.In_Used = false
-					and RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = false
+					RegisterAppArgs.a.Activiated = false
+					and DeleteAppArgs.a.Activiated = false
+					and RestartAppArgs.ES_RestartApp.Activiated = false
+					and RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
 				);
 				
-				eq RESTART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.In_Used = true 
+				eq RESTART_HS_CMD_1: bool = RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true 
 									and RestartAppArgs.HS_MonitorApplications_RestartApp.AppId = 5;
-				eq RESTART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.In_Used = true 
+				eq RESTART_HS_CMD_2: bool = RestartAppArgs.ES_RestartApp.Activiated = true 
 									and RestartAppArgs.ES_RestartApp.AppId = 5 ;
 									
-				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.In_Used = true and DeleteAppArgs.a.AppId = 5 ;								
+				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.Activiated = true and DeleteAppArgs.a.AppId = 5 ;								
 				-- runloop should be called in every cycle, other than restart or delete app
 		 		assume "runloop should be called in every cycle, other than restart or delete app": true ->
 		 		  not (RESTART_HS_CMD_1 or RESTART_HS_CMD_2) and not (DELETE_HS_CMD) => 
-		 		  RunLoopArgs.HS.In_Used = true and  RunLoopArgs.HS.AppId = 5;
+		 		  RunLoopArgs.HS.Activiated = true and  RunLoopArgs.HS.AppId = 5;
 		 		 
 		 		 --0: running 1: restart, 2:waiting, 4: initializing
 		 		 eq waitting: int = 2;
 		 		 eq running: int = 0;
 		 		guarantee "hs": true -> 
-		 		 RestartAppArgs.ES_RestartApp.In_Used = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
+		 		 RestartAppArgs.ES_RestartApp.Activiated = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
 		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
 		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
 			 

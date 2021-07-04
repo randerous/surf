@@ -25,13 +25,13 @@ public
 			
 			eq Check_Args_False : bool = Args.a.Depth > maxDepth or Args.a.Depth   <= 0;
 			
-			guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;
+			guarantee "return null for No Call ": Args.a.Activiated = false => Results.ReturnValue.Cmd_Called = -1;
 			guarantee "send error event when getting in trouble by return error num":
-			true-> (Args.a.In_Used = true and Check_Args_False = true) =>
+			true-> (Args.a.Activiated = true and Check_Args_False = true) =>
 			 Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
 			
 			guarantee "activiate es pipe when call create basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 0) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 0) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 0 and 
 			Results.Output.ES_CmdPipe.AppId = 0  and 
@@ -39,7 +39,7 @@ public
 			Results.Output.ES_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate sb pipe when call create basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 1) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 1) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 1 and 
 			Results.Output.SB_CmdPipe.AppId = 1 and 
@@ -47,7 +47,7 @@ public
 			Results.Output.SB_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate evs pipe when call create basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 2) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 2) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 2 and 
 			Results.Output.EVS_CmdPipe.AppId = 2 and 
@@ -55,7 +55,7 @@ public
 			Results.Output.EVS_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate time pipe when call create basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 3) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 3 and 
 			Results.Output.TIME_CmdPipe.AppId = 3 and 
@@ -63,7 +63,7 @@ public
 			Results.Output.TIME_CmdPipe.QueueDepth = Args.a.Depth ; 
 			
 			guarantee "activiate HS pipe when call create basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 5) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 5) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 5 and 
 			Results.Output.HS_CmdPipe.AppId = 5 and 
@@ -87,34 +87,34 @@ public
 			eq SB_BAD_ARGUMENT: int  = 3;
 			eq Check_Args_False : bool = Args.a.PipeId > 3 or Args.a.PipeId   < 0;
 			
-			guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;
+			guarantee "return null for No Call ": Args.a.Activiated = false => Results.ReturnValue.Cmd_Called = -1;
 			guarantee "send error event when getting in trouble by return error num":
-			true-> (Args.a.In_Used = true and Check_Args_False = true) =>
+			true-> (Args.a.Activiated = true and Check_Args_False = true) =>
 			 Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
 			
 			guarantee "delete es pipe when call delete basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 0) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 0) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 0 ;
 			
 			 
 			guarantee "delete sb pipe when call delete basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 1) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 1) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 1 ;
 			
 			guarantee "delete evs pipe when call delete basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 2) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 2) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 2 ;
 			
 			guarantee "delete time pipe when call delete basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 3) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 3) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 3 ;
 			
 			guarantee "delete hs pipe when call delete basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.AppId = 5) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.AppId = 5) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_PipeId = 5 ;
 		**};
@@ -140,7 +140,7 @@ public
 			
 			annex agree{**
 			 
-				guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;
+				guarantee "return null for No Call ": Args.a.Activiated = false => Results.ReturnValue.Cmd_Called = -1;
 				
 				--there need to be sth rules to check args,
 				eq SUCCESS : int = 0;
@@ -150,12 +150,12 @@ public
 				eq ARG_PIPE_OUT_OF_RANGE: bool =  Args.a.PipeId < 0 or Args.a.PipeId > SB_MAX_PIPES or Args.a.PipeId = 4 ;--4 is not in used now
 				eq MSGID_INVALID: bool = Args.a.MsgId < 0 or  Args.a.MsgId > 2;
 				guarantee "check whether pipe is in use and msgid is valid": 
-				 Args.a.In_Used = true and 
+				 Args.a.Activiated = true and 
 				 (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)
 				=>  Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
 				
 				guarantee "activiate msg router entry for event":
-				true-> (Args.a.In_Used = true and 
+				true-> (Args.a.Activiated = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
 				 Results.ReturnValue.Modified_RouteId = 0 and 
@@ -203,7 +203,7 @@ public
 				 );
 				 
 				 guarantee "activiate msg router entry for core msg":
-				true-> (Args.a.In_Used = true and 
+				true-> (Args.a.Activiated = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
 				 Results.ReturnValue.Modified_RouteId = 1 and 
@@ -252,7 +252,7 @@ public
 				 
 				 
 				 guarantee "activiate msg router entry for common msg":
-				true-> (Args.a.In_Used = true and 
+				true-> (Args.a.Activiated = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
 				 Results.ReturnValue.Modified_RouteId = 2 and 
@@ -311,7 +311,7 @@ public
 			LocalDatas: refined to feature group SB_Base_IO::RouteInput;
 			
 		annex agree{**
-				guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;			
+				guarantee "return null for No Call ": Args.a.Activiated = false => Results.ReturnValue.Cmd_Called = -1;			
 				--there need to be sth rules to check args,
 				eq SUCCESS : int = 0;
 				eq SB_BAD_ARGUMENT: int  = 3;	
@@ -320,12 +320,12 @@ public
 				eq ARG_PIPE_OUT_OF_RANGE: bool =  Args.a.PipeId < 0 or Args.a.PipeId > SB_MAX_PIPES or Args.a.PipeId = 4 ;--4 is not in used now
 				eq MSGID_INVALID: bool = Args.a.MsgId < 0 or  Args.a.MsgId > 2;
 				guarantee "check whether pipe is in use and msgid is valid": 
-				 Args.a.In_Used = true and 
+				 Args.a.Activiated = true and 
 				 (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)
 				=>  Results.ReturnValue.Cmd_Called = SB_BAD_ARGUMENT;
 				
 				guarantee "delete msg router entry for event":
-				true-> (Args.a.In_Used = true and 
+				true-> (Args.a.Activiated = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
 				 Results.ReturnValue.Modified_RouteId = 0 and 
@@ -373,7 +373,7 @@ public
 				 );
 				 
 				 guarantee "delete msg router entry for core msg":
-				true-> (Args.a.In_Used = true and 
+				true-> (Args.a.Activiated = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
 				 Results.ReturnValue.Modified_RouteId = 1 and 
@@ -422,7 +422,7 @@ public
 				 
 				 
 				guarantee "delete msg router entry for common msg":
-				true-> (Args.a.In_Used = true and 
+				true-> (Args.a.Activiated = true and 
 				 not (ARG_PIPE_OUT_OF_RANGE or MSGID_INVALID)) =>
 				 Results.ReturnValue.Cmd_Called = SUCCESS and
 				 Results.ReturnValue.Modified_RouteId = 2 and 
@@ -481,6 +481,7 @@ public
 	    annex agree{**
 	    	eq MSGID_INVALID: bool = Args.a.Msg.MsgId < 0 or  Args.a.Msg.MsgId > 2;
 	    	--msgId = -1 denotes: No msg
+	    	
 	    	guarantee "check msgId validaty": 
 	    	(OutMsgs.ES_CmdPipe_ES_Command.MsgId = -1 and 
 	    		OutMsgs.SB_CmdPipe_SB_Command.MsgId = -1 and 
@@ -488,7 +489,7 @@ public
 	    		OutMsgs.TIME_CmdPipe_TIME_Command.MsgId = -1 and 
 	    		OutMsgs.HS_CmdPipe_HS_Command.MsgId = -1   ) 
 	    	-> 
-	    	MSGID_INVALID =>(
+	    	MSGID_INVALID  =>(
 	    		OutMsgs.ES_CmdPipe_ES_Command.MsgId = -1 and 
 	    		OutMsgs.SB_CmdPipe_SB_Command.MsgId = -1 and 
 	    		OutMsgs.EVS_CmdPipe_EVS_Command.MsgId = -1 and 

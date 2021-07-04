@@ -5,7 +5,7 @@ public
 	with EVS_Result_IO;
 	with EVS_Base_IO;
 --	with EVS_Route_Table;
-	with SB_Arg_IO;
+--	with SB_Arg_IO;
 	
 	--------all abstract can add external data corresponding to its require
 	
@@ -20,12 +20,12 @@ public
 			eq Arg_Valid: bool = ((Args.a.AppId >= 0 and Args.a.AppId <= 5) and (Args.a.Filters.EventID >= 0));
 			
 			
-			guarantee "check args": (Args.a.In_Used = true and ( not Arg_Valid)) 
+			guarantee "check args": (Args.a.Activiated = true and ( not Arg_Valid)) 
 			=>	Results.ReturnValue.Cmd_Called = BAD_ARGUMENT;
 			eq SUCCESS : int = 0;
 			eq BAD_ARGUMENT: int  = 3;	
 			
-			guarantee "keep silence for no call": Args.a.In_Used = false or Args.a.AppId  = 4 
+			guarantee "keep silence for no call": Args.a.Activiated = false or Args.a.AppId  = 4 
 			=>Results.ReturnValue.Cmd_Called = -1;
 			
 			
@@ -58,35 +58,35 @@ public
 				and Results.Output.HS.BinFilters.Count  = Args.a.Filters.Count
 				and Results.Output.HS.BinFilters.Padding  = Args.a.Filters.Padding
 			);
-			guarantee "register es ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 0 
+			guarantee "register es ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 0 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 0
 			and Results.Output.ES.ActiveFlag = true
 			and Results.Output.ES.RegisterFlag = true
 			and copy_es_struct;
 			
-			guarantee "register sb ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 1 
+			guarantee "register sb ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 1 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 1
 			and Results.Output.SB.ActiveFlag = true
 			and Results.Output.SB.RegisterFlag = true
 			and copy_sb_struct; 
 			
-			guarantee "register evs ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 2 
+			guarantee "register evs ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 2 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 2
 			and Results.Output.EVS.ActiveFlag = true
 			and Results.Output.EVS.RegisterFlag = true
 			and copy_evs_struct; 
 			
-			guarantee "register time ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 3 
+			guarantee "register time ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 3 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 3
 			and Results.Output.TIME1.ActiveFlag = true
 			and Results.Output.TIME1.RegisterFlag = true
 			and copy_time_struct; 
 			
-			guarantee "register hs ": true -> (Args.a.In_Used = true and  Arg_Valid) and Args.a.AppId = 5 
+			guarantee "register hs ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 5 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 5
 			and Results.Output.HS.ActiveFlag = true
@@ -108,32 +108,32 @@ public
 			eq Valid_AppId: bool = (Args.a.AppId >= 0 and Args.a.AppId <= 5);
 			
 			
-			guarantee "check args": (Args.a.In_Used = true and ( not Valid_AppId)) 
+			guarantee "check args": (Args.a.Activiated = true and ( not Valid_AppId)) 
 			=>	Results.ReturnValue.Cmd_Called = BAD_ARGUMENT;
 			eq SUCCESS : int = 0;
 			eq BAD_ARGUMENT: int  = 3;	
 			
-			guarantee "keep silence for no call": Args.a.In_Used = false or Args.a.AppId  = 4 
+			guarantee "keep silence for no call": Args.a.Activiated = false or Args.a.AppId  = 4 
 			=>Results.ReturnValue.Cmd_Called = -1;
 			
 			
-			guarantee "unregister es ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 0 
+			guarantee "unregister es ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 0 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 0;
 			
-			guarantee "unregister sb ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 1 
+			guarantee "unregister sb ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 1 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 1;
 			
-			guarantee "unregister evs ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 2 
+			guarantee "unregister evs ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 2 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 2;
 			
-			guarantee "unregister time ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 3 
+			guarantee "unregister time ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 3 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 3;
 			
-			guarantee "unregister hs ": true -> (Args.a.In_Used = true and  Valid_AppId) and Args.a.AppId = 5 
+			guarantee "unregister hs ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 5 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 5; 
 			
@@ -146,14 +146,22 @@ public
 			Args: refined to feature group EVS_Arg_IO::SendEventArgs;
 			Results: refined to feature group EVS_Result_IO::SendEventOutput;
 			LocalDatas: refined to feature group EVS_Base_IO::AppDataInput;
-			OutEvents: feature group SB_Arg_IO::OutEvtArgs;
+			OutEvents: feature group EVS_Arg_IO::OutEvtArgs;
 			
 		annex agree{**
 				--send evt to outEvents
 				--only one send evt at same time to simulate queuing. 
 				--only registered app can send evt.
 			--actually only common app need to call evt, core service can express by control flow
-			eq check_register: bool;
+--			eq check_register: bool;
+			--now only take restartApp evt into consideration
+			
+			
+			guarantee "deliver restartApp event":
+			true->
+			if(Args.Activiated = true and Args.EvtPacket.Msg.MsgId = 0 and  Args.EvtPacket.Msg.EvtId = 0)
+			then(OutEvents.Activiated = true and OutEvents.EvtPacket.Msg.MsgId = 0 and OutEvents.EvtPacket.Msg.EvtId = 0)
+			else OutEvents.Activiated = false ;
 			
 			
 			

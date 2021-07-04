@@ -11,13 +11,13 @@ public
 --------------------------------------------------------------------------
 	feature group P_RegisterApp extends Generic::Provide_Generic_Function_API
 		features
-			In_Used: in data port Base_Types::Boolean;
+			Activiated: in data port Base_Types::Boolean;
 			TaskId: in data port Base_Types::Unsigned_32;
 	end P_RegisterApp;
 
 	feature group R_RegisterApp extends Generic::Require_Generic_Function_API
 		features
-			In_Used: out data port Base_Types::Boolean;
+			Activiated: out data port Base_Types::Boolean;
 			TaskId: out data port Base_Types::Unsigned_32;
 	inverse of P_RegisterApp
 	end R_RegisterApp;
@@ -29,7 +29,7 @@ public
 --------------------------------------------------------------------------
 	feature group P_RestartApp extends Generic::Provide_Generic_Function_API
 		features
-			In_Used: in data port Base_Types::Boolean;
+			Activiated: in data port Base_Types::Boolean;
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_RestartApp;
 	
@@ -40,7 +40,7 @@ public
 	--0: running 1: restart, 2:waiting
 	feature group R_RestartApp extends Generic::Require_Generic_Function_API
 		features
-			In_Used: out data port Base_Types::Boolean;
+			Activiated: out data port Base_Types::Boolean;
 			AppId: out data port Base_Types::Unsigned_32;
 	inverse of P_RestartApp
 	end R_RestartApp;
@@ -52,13 +52,13 @@ public
 --------------------------------------------------------------------------
 	feature group P_DeleteApp extends Generic::Provide_Generic_Function_API
 		features
-			In_Used: in data port Base_Types::Boolean;
+			Activiated: in data port Base_Types::Boolean;
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_DeleteApp;
 
 	feature group R_DeleteApp extends Generic::Require_Generic_Function_API
 		features
-			In_Used: out data port Base_Types::Boolean;
+			Activiated: out data port Base_Types::Boolean;
 			AppId: out data port Base_Types::Unsigned_32;
 	inverse of P_DeleteApp
 	end R_DeleteApp;
@@ -71,13 +71,13 @@ public
 -- if, controlRequest is exit/error, es will delete appId 
 	feature group P_RunLoop extends Generic::Provide_Generic_Function_API
 		features
-			In_Used: in data port Base_Types::Boolean;
+			Activiated: in data port Base_Types::Boolean;
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_RunLoop;
 
 	feature group R_RunLoop extends Generic::Require_Generic_Function_API
 		features
-			In_Used: out data port Base_Types::Boolean;
+			Activiated: out data port Base_Types::Boolean;
 			AppId: out data port Base_Types::Unsigned_32;
 	inverse of P_RunLoop
 	end R_RunLoop;

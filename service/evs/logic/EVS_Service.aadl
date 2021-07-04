@@ -4,8 +4,8 @@ public
 	with EVS_Arg_IO;
 	with EVS_Result_IO;
 	with EVS_Base_IO;
-	with EVS_Route_Table;
-	with SB_Arg_IO;
+--	with EVS_Route_Table;
+--	with SB_Arg_IO;
 
 	abstract Service
 		features
@@ -13,11 +13,19 @@ public
 			UnregisterArgs: feature group EVS_Arg_IO::UnregisterArgs;
 			SendEventArgs: feature group EVS_Arg_IO::SendEventArgs;
 			
-			OutEvents: feature group SB_Arg_IO::OutEvtArgs;
+			OutEvents: feature group EVS_Arg_IO::OutEvtArgs;
 		annex agree{**
 			assume "No register and unregister at the same time":
-			not(RegisterArgs.a.In_Used = true  and UnregisterArgs.a.In_Used = true );
+			not(RegisterArgs.a.Activiated = true  and UnregisterArgs.a.Activiated = true );
 			
+			guarantee "deliver restartApp event":
+			true->
+			if(SendEventArgs.Activiated = true 
+			and SendEventArgs.EvtPacket.Msg.MsgId = 0 
+			and SendEventArgs.EvtPacket.Msg.EvtId = 0
+			)
+			then(OutEvents.EvtPacket.Msg.MsgId = 0 and OutEvents.EvtPacket.Msg.EvtId = 0)
+			else OutEvents.Activiated = false ;
 		**};
 	end Service;
 
@@ -26,7 +34,6 @@ public
 			Register: abstract EVS_Processor::Register;
 			Unregister: abstract EVS_Processor::Unregister;
 			SendEvent: abstract EVS_Processor::SendEvent;
-
 			ShareData: abstract ShareData;
 		connections
 			RegisterArg: feature group RegisterArgs <-> Register.Args;
@@ -39,10 +46,10 @@ public
 			
 			SendEventArg: feature group SendEventArgs <-> SendEvent.Args;
 			SendEventLocalData: feature group ShareData.AppData -> SendEvent.LocalDatas;
-			SendEventResult: feature group SendEvent.Results -> ShareData.SendEventResult;
+			SendEventResult: feature group SendEvent.Results <-> ShareData.SendEventResult;
 			SendEventOutEvent: feature group SendEvent.OutEvents -> OutEvents;
 		annex agree{**
-			
+--			lemma " true": true;
 		**};
 
 	end Service.impl;

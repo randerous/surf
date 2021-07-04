@@ -3,6 +3,7 @@ public
 	
 	with EVS_Interface;
 	with SB_Interface;
+	with Base_Types;
 	
 	--------all feature groups can add "feature group [type];" corresponding to its data type
 	feature group RegisterArgs
@@ -15,13 +16,39 @@ public
 			a: feature group EVS_Interface::P_Unregister;
 	end UnregisterArgs;
 	
+--	feature group SendEventArgs
+--		features
+--			ES_Default: feature group SB_Interface::P_SendMsg;
+--			SB_Default: feature group SB_Interface::P_SendMsg;
+--			EVS_Default: feature group SB_Interface::P_SendMsg;
+--			TIME_Default: feature group SB_Interface::P_SendMsg;
+--			HS_Default: feature group SB_Interface::P_SendMsg;
+--			ES_RestartApp: feature group SB_Interface::P_SendMsg;
+--	end SendEventArgs;
+	
+	
+	
 	feature group SendEventArgs
-		features
-			ES_Default: feature group SB_Interface::P_SendMsg;
-			SB_Default: feature group SB_Interface::P_SendMsg;
-			EVS_Default: feature group SB_Interface::P_SendMsg;
-			TIME_Default: feature group SB_Interface::P_SendMsg;
-			HS_Default: feature group SB_Interface::P_SendMsg;
-			ES_RestartApp: feature group SB_Interface::P_SendMsg;
-	end SendEventArgs;
+    	features
+--    		ES_RESTART_APP_ERR: feature group SB_Interface::P_SendMsg;
+--			ES_CC1_ERR: feature group SB_Interface::P_SendMsg;
+--			SB_BAD_CMD_CODE: feature group SB_Interface::P_SendMsg;
+--			EVS_ERR_MSGID: feature group SB_Interface::P_SendMsg;
+--			TIME_CC_ERR: feature group SB_Interface::P_SendMsg;
+			Activiated: in data port Base_Types::Boolean; 
+		    EvtPacket: feature group SB_Interface::P_SendMsg;
+    end SendEventArgs;
+    
+    feature group OutEvtArgs
+    	features
+--    		ES_RESTART_APP_ERR: feature group SB_Interface::R_SendMsg;
+--			ES_CC1_ERR: feature group SB_Interface::R_SendMsg;
+--			SB_BAD_CMD_CODE: feature group SB_Interface::R_SendMsg;
+--			EVS_ERR_MSGID: feature group SB_Interface::R_SendMsg;
+--			TIME_CC_ERR: feature group SB_Interface::R_SendMsg;
+			Activiated: out data port Base_Types::Boolean; 
+			EvtPacket: feature group SB_Interface::R_SendMsg;
+	inverse of SendEventArgs
+	end OutEvtArgs;
+	
 end EVS_Arg_IO;

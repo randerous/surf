@@ -28,13 +28,13 @@ public
 			eq MAX_APPID : int  = 512;
 			
 			eq Check_Args_False : bool = Args.a.TaskId >  MAX_APPID or Args.a.TaskId   < 0;
-			guarantee "return null for No Call ": Args.a.In_Used = false => Results.ReturnValue.Cmd_Called = -1;
+			guarantee "return null for No Call ": Args.a.Activiated = false => Results.ReturnValue.Cmd_Called = -1;
 			guarantee "send error event when getting in trouble by return error num": true -> 
-			true-> (Args.a.In_Used = true and Check_Args_False = true) =>
+			true-> (Args.a.Activiated = true and Check_Args_False = true) =>
 			 Results.ReturnValue.Cmd_Called = CFE_ES_ERR_APP_REGISTER;
 			
 			guarantee "activiate es taskRecord when call register basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.TaskId = 0) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 0) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_Id = 0 and 
 			--Results.Output.TaskRecord.ES.AppId = 0  and 
@@ -43,28 +43,28 @@ public
 			--Results.Output.TaskRecord.ES.ExecutionCounter = 0 ;  let runloop deal with this counter 
 			
 			guarantee "activiate sb taskRecord when call register basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.TaskId = 1) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 1) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_Id = 1 and 
 			Results.Output.TaskRecord.SB.TaskId = 1  and 
 			Results.Output.TaskRecord.SB.RecordUsed = true;
 			
 			guarantee "activiate evs taskRecord when call register basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.TaskId = 2) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 2) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_Id = 2 and 
 			Results.Output.TaskRecord.EVS.TaskId = 2  and 
 			Results.Output.TaskRecord.EVS.RecordUsed = true;
 			
 			guarantee "activiate TIME taskRecord when call register basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.TaskId = 3) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 3) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_Id = 3 and 
 			Results.Output.TaskRecord.TIME1.TaskId = 3  and 
 			Results.Output.TaskRecord.TIME1.RecordUsed = true;
 			
 			guarantee "activiate HS_APP taskRecord when call register basing on localData":  
-			true->(Args.a.In_Used = true and Check_Args_False = false and Args.a.TaskId = 5) =>
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 5) =>
 			Results.ReturnValue.Cmd_Called = SUCCESS and 
 			Results.ReturnValue.Modified_Id = 5 and 
 			Results.Output.TaskRecord.HS_APP.TaskId = 5  and 
@@ -92,11 +92,11 @@ public
 			--there are two app esApp and HS that will try to restart app, but to keep consistent.
 			--we need it to be Mutually exclusive
 			assume "only one restart cmd at the same time": 
-			not(Args.ES_RestartApp.In_Used = true 
-			and Args.HS_MonitorApplications_RestartApp.In_Used = true);
+			not(Args.ES_RestartApp.Activiated = true 
+			and Args.HS_MonitorApplications_RestartApp.Activiated = true);
 			
-			guarantee "return null for No Call ": (Args.ES_RestartApp.In_Used = false 
-			and Args.HS_MonitorApplications_RestartApp.In_Used = false)  => 
+			guarantee "return null for No Call ": (Args.ES_RestartApp.Activiated = false 
+			and Args.HS_MonitorApplications_RestartApp.Activiated = false)  => 
 			Results.ReturnValue.Cmd_Called = -1; 
 			
 			--when restart app, we need to check
@@ -112,8 +112,8 @@ public
 			eq check_is_core_EsCall: bool = Args.ES_RestartApp.AppId < 4 
 			 						and Args.ES_RestartApp.AppId >= 0 ;
 			guarantee "Cannot restart core app": true -> 
-			(Args.ES_RestartApp.In_Used = true and  check_is_core_EsCall)
-			or( Args.HS_MonitorApplications_RestartApp.In_Used = true and check_is_core_HsCall) 
+			(Args.ES_RestartApp.Activiated = true and  check_is_core_EsCall)
+			or( Args.HS_MonitorApplications_RestartApp.Activiated = true and check_is_core_HsCall) 
 			=> Results.ReturnValue.Cmd_Called = RESTART_CORE;
 			
 			--0: running 1: restart, 2:waitting
@@ -121,7 +121,7 @@ public
 			eq restart : int = 1;
 			eq waitting: int = 2;
 			guarantee "Cannot restart app that is not running": true -> 
-			(Args.ES_RestartApp.In_Used = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
+			(Args.ES_RestartApp.Activiated = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
 			and AppRecord.HS_APP.StateRecord.AppState <> running)
 			=> Results.ReturnValue.Cmd_Called = ES_ERR_APPID;
 			
@@ -140,7 +140,7 @@ public
 --				true
 --			);
 			guarantee "restart hs app ": true -> 
-			(Args.ES_RestartApp.In_Used = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
+			(Args.ES_RestartApp.Activiated = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
 			and pre(AppRecord.HS_APP.StateRecord.AppState) = running)
 			=> Results.ReturnValue.Cmd_Called = SUCCESS
 			  and Results.ReturnValue.Modified_Id = 5
@@ -173,7 +173,7 @@ public
 			eq ES_ERR_APPID: int = 1;
 			eq DELETE_CORE: int = 22; 			 
 			
-			guarantee "return null for No Call ": Args.a.In_Used = false  => 
+			guarantee "return null for No Call ": Args.a.Activiated = false  => 
 			Results.ReturnValue.Cmd_Called = -1;
 			
 			--when delete app, we need to check
@@ -187,7 +187,7 @@ public
 			eq check_is_core: bool = Args.a.AppId < 4 and Args.a.AppId >= 0 ;
 			
 			guarantee "Cannot delete core app": true -> 
-			(Args.a.In_Used = true and  check_is_core)
+			(Args.a.Activiated = true and  check_is_core)
 			=> Results.ReturnValue.Cmd_Called = DELETE_CORE;
 			
 			--0: running 1: restart, 2:waitting
@@ -196,7 +196,7 @@ public
 			eq waitting: int = 2;
 			eq initializating : int = 4;
 			guarantee "Cannot delete app that is not running": true -> 
-			(Args.a.In_Used = true and  not check_is_core and Args.a.AppId = 5
+			(Args.a.Activiated = true and  not check_is_core and Args.a.AppId = 5
 			and AppRecord.HS_APP.StateRecord.AppState <> running)
 			=> Results.ReturnValue.Cmd_Called = ES_ERR_APPID;
 			
@@ -211,7 +211,7 @@ public
 			);
 			
 			guarantee "delete hs app ": true -> 
-			(Args.a.In_Used = true and  not check_is_core and Args.a.AppId = 5
+			(Args.a.Activiated = true and  not check_is_core and Args.a.AppId = 5
 			and AppRecord.HS_APP.StateRecord.AppState = running)
 			=> Results.ReturnValue.Cmd_Called = SUCCESS
 			  and Results.ReturnValue.Modified_Id = 5
@@ -245,7 +245,7 @@ public
 			
 			eq EXCEPTION_APP_CONTROL: int = 24;
 			eq CFE_ES_APP_STATE_INITIALIZING : int = 4;
-			guarantee "return null for No Call ": Args.HS.In_Used = false  => 
+			guarantee "return null for No Call ": Args.HS.Activiated = false  => 
 			Results.ReturnValue.Cmd_Called = -1;
 			
 			
@@ -261,7 +261,7 @@ public
 				Results.ReturnValue.Cmd_Called = EXCEPTION_APP_CONTROL;
 				
 			guarantee "update hs heart beating when called": true ->
-			Args.HS.In_Used = true  and not EXCEPTION_CONTROLCMD => 
+			Args.HS.Activiated = true  and not EXCEPTION_CONTROLCMD => 
 			Results.ReturnValue.Cmd_Called = SUCCESS 
 			and Results.ReturnValue.Modified_Id = 5
 			and Results.Output.TaskRecord.HS_APP.ExecutionCounter =
@@ -274,8 +274,9 @@ public
 			eq waitting: int = 2;
 			eq initializating : int = 4;
 			guarantee "change hs appstate from initializing to running": true ->
-			Args.HS.In_Used = true  and not EXCEPTION_CONTROLCMD and
+			Args.HS.Activiated = true  and not EXCEPTION_CONTROLCMD and
  			pre(AppRecord.HS_APP.StateRecord.AppState = initializating) => 
-			Results.Output.AppRecord.HS_APP.StateRecord.AppState = running;**};
+			Results.Output.AppRecord.HS_APP.StateRecord.AppState = running;
+			**};
 	end RunLoop;
 end ES_Processor;

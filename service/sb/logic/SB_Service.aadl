@@ -5,6 +5,7 @@ public
 	with SB_Base_IO;
 	with SB_Arg_IO;
 	with SB_Route_Table;
+	with EVS_Arg_IO;
 
 -- the safety duty assigned to SB ,
 -- that is simple ensuring the correctness of delivering msg
@@ -16,32 +17,32 @@ public
 			SubscribeArgs: feature group SB_Arg_IO::SubscribeArgs;
 			UnsubscribeArgs: feature group SB_Arg_IO::UnsubscribeArgs;
 			SendMsgArgs: feature group SB_Arg_IO::SendMsgArgs;
-			SendEvtArgs: feature group SB_Arg_IO::SendEvtArgs;
+			SendEvtArgs: feature group EVS_Arg_IO::SendEventArgs;
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
 --			RcvMsg: feature group SB_Interface::P_RcvMsg;
 
 			annex agree{**
 --				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
-				assume "No Create and Delete pipe at the same time": not(CreatePipeArgs.a.In_Used = true
-					and DeletePipeArgs.a.In_Used = true
+				assume "No Create and Delete pipe at the same time": not(CreatePipeArgs.a.Activiated = true
+					and DeletePipeArgs.a.Activiated = true
 				);
 				
-				assume "No Subscribe and UnSubscribe at the same time": not(SubscribeArgs.a.In_Used = true
-					and UnsubscribeArgs.a.In_Used = true
+				assume "No Subscribe and UnSubscribe at the same time": not(SubscribeArgs.a.Activiated = true
+					and UnsubscribeArgs.a.Activiated = true
 				);
 				--hs subscribe event always
 				eq HS_CANCEL_SUB_EVENT : bool =  (
-					UnsubscribeArgs.a.In_Used = true 
+					UnsubscribeArgs.a.Activiated = true 
 					and UnsubscribeArgs.a.PipeId = 5
 					and UnsubscribeArgs.a.MsgId = 0
 				);
-				eq DEL_HS_PIPE : bool =  (DeletePipeArgs.a.In_Used = true and DeletePipeArgs.a.AppId = 5);
+				eq DEL_HS_PIPE : bool =  (DeletePipeArgs.a.Activiated = true and DeletePipeArgs.a.AppId = 5);
 				
 				--initially, we set the pipe for hs active,and make it subscribe event, and keep it  on
 				assume "keep hs monitoring event": 
 				(
-					(CreatePipeArgs.a.In_Used = true and CreatePipeArgs.a.AppId = 5) and 
-					(SubscribeArgs.a.In_Used = true and SubscribeArgs.a.MsgId = 0 and SubscribeArgs.a.PipeId = 5)
+					(CreatePipeArgs.a.Activiated = true and CreatePipeArgs.a.AppId = 5) and 
+					(SubscribeArgs.a.Activiated = true and SubscribeArgs.a.MsgId = 0 and SubscribeArgs.a.PipeId = 5)
 				) -> not(HS_CANCEL_SUB_EVENT or DEL_HS_PIPE);
 				
 				

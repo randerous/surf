@@ -8,7 +8,7 @@ public
 --------------------------------------------------------------------------
 	feature group P_Register extends Generic::Provide_Generic_Function_API
 		features
-			In_Used: in data port Base_Types::Boolean;
+			Activiated: in data port Base_Types::Boolean;
 			Filters: in data port Core_Types::struct.EVS_BinFilter_t;
 			FilterScheme: in data port Base_Types::Unsigned_16;
 			AppId: in data port Base_Types::Unsigned_32;
@@ -16,7 +16,7 @@ public
 
 	feature group R_Register extends Generic::Require_Generic_Function_API
 		features
-			In_Used: out data port Base_Types::Boolean;
+			Activiated: out data port Base_Types::Boolean;
 			Filters: out data port Core_Types::struct.EVS_BinFilter_t;
 			FilterScheme: out data port Base_Types::Unsigned_16;
 			AppId: out data port Base_Types::Unsigned_32;
@@ -28,13 +28,13 @@ public
 --------------------------------------------------------------------------
 	feature group P_Unregister extends Generic::Provide_Generic_Function_API
 		features
-			In_Used: in data port Base_Types::Boolean;
+			Activiated: in data port Base_Types::Boolean;
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_Unregister;
 
 	feature group R_Unregister extends Generic::Require_Generic_Function_API
 		features
-			In_Used: out data port Base_Types::Boolean;
+			Activiated: out data port Base_Types::Boolean;
 			AppId: out data port Base_Types::Unsigned_32;
 	inverse of P_Unregister
 	end R_Unregister;
