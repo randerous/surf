@@ -130,7 +130,7 @@ public
 			SendEvent: feature group EVSAPI.SendEventArgs -> EVS.SendEventArgs;
 			
 			GetTime: feature group TIMEAPI.GetTimeArgs -> TIME.GetTimeArgs;
-			
+			 
 			MsgOutputConnection: feature group SB.OutMsgs -> MsgOutput;
 			
 			-----------------------Data output----------------------
