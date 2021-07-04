@@ -76,7 +76,7 @@ public
 			Unsubscribe: abstract SB_Processor::Unsubscribe;
 			SendMsg: abstract SB_Processor::SendMsg;
 			
-			ShareData: abstract ShareData;
+			ShareData: abstract   ShareData.impl;
 		connections
 			CreatePipeArg: feature group CreatePipeArgs <-> CreatePipe.Args;
 			CreatePipeLocalData: feature group ShareData.OldPipeData -> CreatePipe.LocalDatas;
@@ -105,6 +105,10 @@ public
 			{**
 			
 				
+			**};
+			
+			annex safety {**
+				analyze : max 1 fault
 			**};
 	end Service.impl;
 
