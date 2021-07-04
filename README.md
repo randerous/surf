@@ -10,6 +10,8 @@ connections连接数,原因是连接时不能超过一个"."
 # 进度
 基本完成，顶层需要规约下如何结合利用多个app和core服务实现安全性机制
 seu故障需要注入到sb服务里（三冗余），es服务里（异常崩溃）
+
+## 故障定义时，cmd__Pipe数据结构可能需要替换成data类型，以支持在faults.aadl中作为整个的输入，结构体内部的单个值无法通过faultNode修改。
 # Surf_V3
 add sth global configuration
 

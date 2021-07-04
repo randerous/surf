@@ -53,6 +53,24 @@ public
 	end struct.CFE_ES_MainTaskInfo_t;
 -------------------------------------------------------------------
 -----------------------------SB------------------------------------
+	data a
+		
+	end a;
+	data implementation a.impl
+		subcomponents
+			InUse: data Base_Types::boolean;
+			PipeId: data Base_Types::Unsigned_8;
+	end a.impl;
+	
+	abstract tset
+		features
+			D:  out data port  a.impl;
+			I:  in data port  a.impl;
+		annex agree{**
+			guarantee "": D = I;
+		**};
+			
+	end tset;
 	abstract implementation struct.CFE_SB_PipeD_t
 		subcomponents
 			InUse: data Base_Types::boolean;

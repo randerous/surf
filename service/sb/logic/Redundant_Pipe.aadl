@@ -152,7 +152,7 @@ public
         annex safety{**
         	fault bit_inversion "bit inversion happened":  faults.dataseg_seu {
 			--eq nondeterministic_val : int;
-			inputs: val_in <- outData.HS_CmdPipe.MsgId;     
+			inputs: val_in <- inData.HS_CmdPipe.MsgId;     
 			outputs: outData.HS_CmdPipe.MsgId <- val_out;    
          	probability: 1.0E-5 ;
 			duration: permanent;
@@ -172,14 +172,15 @@ public
             and outData.EVS_CmdPipe = inDataA.EVS_CmdPipe 
             and outData.TIME_CmdPipe = inDataA.TIME_CmdPipe;
             
-            eq A_fault: bool = inDataB.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;
-            eq B_fault: bool = inDataA.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;
-            eq C_fault: bool = inDataA.HS_CmdPipe.MsgId =  inDataB.HS_CmdPipe.MsgId;
+            eq A_e_B: bool = inDataA.HS_CmdPipe.MsgId =  inDataB.HS_CmdPipe.MsgId;
+            eq B_e_C: bool = inDataB.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;
+            eq C_e_A: bool = inDataA.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;
 
             guarantee "election for fault torelance": 
-            (A_fault => outData.HS_CmdPipe =  inDataB.HS_CmdPipe) 
-            or (B_fault => outData.HS_CmdPipe =  inDataC.HS_CmdPipe) 
-            or (C_fault => outData.HS_CmdPipe =  inDataA.HS_CmdPipe); 
+             outData.HS_CmdPipe = 
+             if(A_e_B or C_e_A)
+             then inDataA.HS_CmdPipe
+             else inDataB.HS_CmdPipe; 
             
             
 

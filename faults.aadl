@@ -1,5 +1,6 @@
 package faults
 public 
+	with Core_Types;
 annex agree {**	
 
 
