@@ -6,6 +6,7 @@ public
 	with SB_Arg_IO;
 	with SB_Route_Table;
 	with EVS_Arg_IO;
+	with Redundant_Pipe;
 
 -- the safety duty assigned to SB ,
 -- that is simple ensuring the correctness of delivering msg
@@ -244,5 +245,34 @@ public
 	 
 		**};
 	end ShareData;
-
+	
+	
+	abstract implementation ShareData.impl
+		subcomponents
+            mainTask: abstract Redundant_Pipe::mainTask;
+            voterA: abstract Redundant_Pipe::Pipe;
+            voterB: abstract Redundant_Pipe::Pipe;
+            voterC: abstract Redundant_Pipe::Pipe;
+            leader: abstract Redundant_Pipe::leader;
+        connections
+            CreatePipeResult_con: feature group CreatePipeResult -> mainTask.CreatePipeResult;
+            DeletePipeResult_con: feature group DeletePipeResult -> mainTask.DeletePipeResult;
+            SubscribeResult_con: feature group SubscribeResult -> mainTask.SubscribeResult;
+            UnsubscribeResult_con: feature group UnsubscribeResult -> mainTask.UnsubscribeResult;
+            SendMsgLocalData_con: feature group mainTask.OldRouteData -> OldRouteData;
+            
+            main2A: feature group mainTask.OldPipeData -> voterA.inData;
+            main2B: feature group mainTask.OldPipeData -> voterB.inData;
+            main2C: feature group mainTask.OldPipeData -> voterC.inData;
+            
+            A2leader: feature group voterA.OutData -> leader.inDataA;
+            B2leader: feature group voterB.OutData -> leader.inDataB;
+            C2leader: feature group voterC.OutData -> leader.inDataC;
+            
+            leader2sys: feature group leader.OutData -> OldPipeData;
+         annex safety{**
+         	analyze: max 2 fault
+         **};
+		 
+	end  ShareData.impl;
 end SB_Service;

@@ -26,7 +26,7 @@ public
 			
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
 		annex agree{**
-		--assume for sb
+				--assume for sb
 			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
 				assume "No Create and Delete pipe at the same time": not(SBAPI.CreatePipeArgs.a.Activiated = true
 					and SBAPI.DeletePipeArgs.a.Activiated = true
@@ -101,7 +101,27 @@ public
 				);
 				
 	
-			    guarantee "test": 1 <> 2;
+			   guarantee "Time goes": TIMEAPI.GetTimeArgs.a.CurrentTime.Seconds = (0 ->  
+				 pre(TIMEAPI.GetTimeArgs.a.CurrentTime.Seconds)+1);
+				 
+			   --here the property maybe need some lemmas , 
+				guarantee "Hs should get all event": true -> 
+				(
+					(SBAPI.MsgInput.Activiated = true  and SBAPI.MsgInput.a.Msg.MsgId = 0) 
+					or (EVSAPI.SendEventArgs.Activiated = true and EVSAPI.SendEventArgs.EvtPacket.Msg.MsgId = 0 
+						and EVSAPI.SendEventArgs.EvtPacket.Msg.EvtId = 0 
+					)
+					=> MsgOutput.HS_CmdPipe_HS_Command.MsgId = 0
+				);
+
+	          --0: running 1: restart, 2:waiting, 4: initializing
+		 		 eq waitting: int = 2;
+		 		 eq running: int = 0;
+		 		guarantee "restart app": true -> 
+		 		 ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true and  ESAPI.RestartAppArgs.ES_RestartApp.AppId  = 5 and
+		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
+			 
 		**};
 	end Core;
 	

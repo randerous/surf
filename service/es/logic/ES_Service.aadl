@@ -64,7 +64,7 @@ public
 		 		 --0: running 1: restart, 2:waiting, 4: initializing
 		 		 eq waitting: int = 2;
 		 		 eq running: int = 0;
-		 		guarantee "hs": true -> 
+		 		guarantee "restart app": true -> 
 		 		 RestartAppArgs.ES_RestartApp.Activiated = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
 		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
 		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;

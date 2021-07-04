@@ -1,0 +1,189 @@
+Package Redundant_Pipe
+public
+    with SB_Base_IO;
+    with SB_Result_IO;
+    with faults;
+
+    abstract mainTask
+        features
+            OldPipeData: feature group SB_Base_IO::PipeOutput;
+			OldRouteData: feature group SB_Base_IO::RouteOutput;
+			CreatePipeResult: feature group SB_Result_IO::CreatePipeResult;
+			DeletePipeResult: feature group SB_Result_IO::DeletePipeResult;
+			SubscribeResult: feature group SB_Result_IO::SubscribeResult;
+			UnsubscribeResult: feature group SB_Result_IO::UnsubscribeResult;
+			SendMsgResult: feature group SB_Result_IO::SendMsgResult;
+        annex agree {**
+			--error num is defined in Results defining.
+			--    for return value
+			--    SUCCESS:0
+			--    SB_BAD_ARGUMENT:3 
+			eq SUCCESS : int = 0;
+			eq SB_BAD_ARGUMENT: int  = 3;
+			eq SB_MAX_PIPES_MET: int = 4;	
+			
+			eq Pipe_Changed : bool = (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS )or
+						(DeletePipeResult.EvaluteValue.Cmd_Called = SUCCESS);
+--		    respectively manage each pipe;
+--initially, set pipe inuse into false
+			guarantee "manage ES_Cmd_Pipe": OldPipeData.ES_CmdPipe.InUse = false -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 0)
+			then (OldPipeData.ES_CmdPipe  = CreatePipeResult.Input.ES_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 0)
+			then (OldPipeData.ES_CmdPipe.InUse = false)
+			else OldPipeData.ES_CmdPipe = pre(OldPipeData.ES_CmdPipe) ;
+			
+			
+			guarantee "manage SB_Cmd_Pipe": OldPipeData.SB_CmdPipe.InUse = false -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 1)
+			then (OldPipeData.SB_CmdPipe  = CreatePipeResult.Input.SB_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 1)
+			then (OldPipeData.SB_CmdPipe.InUse = false)
+			else OldPipeData.SB_CmdPipe = pre(OldPipeData.SB_CmdPipe) ;
+			
+			guarantee "manage EVS_Cmd_Pipe": OldPipeData.EVS_CmdPipe.InUse = false -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 2)
+			then (OldPipeData.EVS_CmdPipe  = CreatePipeResult.Input.EVS_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 2)
+			then (OldPipeData.EVS_CmdPipe.InUse = false)
+			else OldPipeData.EVS_CmdPipe = pre(OldPipeData.EVS_CmdPipe) ;
+			
+			guarantee "manage TIME_Cmd_Pipe": OldPipeData.TIME_CmdPipe.InUse = false -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 3)
+			then (OldPipeData.TIME_CmdPipe  = CreatePipeResult.Input.TIME_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 3)
+			then (OldPipeData.TIME_CmdPipe.InUse = false)
+			else OldPipeData.TIME_CmdPipe = pre(OldPipeData.TIME_CmdPipe) ;
+			
+			guarantee "manage HS_Cmd_Pipe": OldPipeData.HS_CmdPipe.InUse = true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 5)
+			then (OldPipeData.HS_CmdPipe  = CreatePipeResult.Input.HS_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 5)
+			then (OldPipeData.HS_CmdPipe.InUse = false)
+			else OldPipeData.HS_CmdPipe = pre(OldPipeData.HS_CmdPipe) ;
+			
+			
+		   eq Router_Changed : bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
+						(UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS);
+--		    respectively manage each router;
+--initially, set each subscription   into false, but for hs , true for monitor event always
+			guarantee "initialize all subscription to event into false mode":
+			(
+				OldRouteData.Event_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.HS_Pipe = true 
+			) -> true;
+			
+			guarantee "initialize all subscription to core msg into false mode":
+			(
+				OldRouteData.Core_Msg_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.HS_Pipe = false 
+			) -> true;
+			
+			guarantee "initialize all subscription to common msg into false mode":
+			(
+				OldRouteData.Common_Msg_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.HS_Pipe = false 
+			) -> true;
+			
+			guarantee "manage event router": true -> 
+			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Event_Router  = SubscribeResult.Input.Event_Router)
+			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Event_Router  = UnsubscribeResult.Input.Event_Router)
+			else OldRouteData.Event_Router = pre(OldRouteData.Event_Router);
+			
+			
+			guarantee "manage core msg router": true -> 
+			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Core_Msg_Router  = SubscribeResult.Input.Core_Msg_Router)
+			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Core_Msg_Router  = UnsubscribeResult.Input.Core_Msg_Router)
+			else OldRouteData.Core_Msg_Router = pre(OldRouteData.Core_Msg_Router);
+			
+			
+			guarantee "manage common msg router": true -> 
+			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Common_Msg_Router  = SubscribeResult.Input.Common_Msg_Router)
+			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
+			then (OldRouteData.Common_Msg_Router  = UnsubscribeResult.Input.Common_Msg_Router)
+			else OldRouteData.Common_Msg_Router = pre(OldRouteData.Common_Msg_Router);
+	 
+		**};
+    end mainTask;
+	  
+
+      abstract pipe
+        features
+          inData: feature group SB_Base_IO::PipeInput;
+          outData: feature group SB_Base_IO::PipeOutput;
+
+        annex agree{**
+            guarantee "equally deliver": outData.ES_CmdPipe = inData.ES_CmdPipe and outData.SB_CmdPipe = inData.SB_CmdPipe 
+            and outData.EVS_CmdPipe = inData.EVS_CmdPipe 
+            and outData.TIME_CmdPipe = inData.TIME_CmdPipe 
+            and outData.HS_CmdPipe = inData.HS_CmdPipe ;
+        **}; 
+        
+        annex safety{**
+        	fault bit_inversion "bit inversion happened":  faults.dataseg_seu {
+			--eq nondeterministic_val : int;
+			inputs: val_in <- outData.HS_CmdPipe.MsgId;     
+			outputs: outData.HS_CmdPipe.MsgId <- val_out;    
+         	probability: 1.0E-5 ;
+			duration: permanent;
+			}
+			
+        **};
+      end pipe;
+
+      abstract  leader
+        features
+          inDataA: feature group SB_Base_IO::PipeInput;
+          inDataB: feature group SB_Base_IO::PipeInput;
+          inDataC: feature group SB_Base_IO::PipeInput;
+          outData: feature group SB_Base_IO::PipeOutput;
+        annex agree{**
+            guarantee "equally deliver": outData.ES_CmdPipe = inDataA.ES_CmdPipe and outData.SB_CmdPipe = inDataA.SB_CmdPipe 
+            and outData.EVS_CmdPipe = inDataA.EVS_CmdPipe 
+            and outData.TIME_CmdPipe = inDataA.TIME_CmdPipe;
+            
+            eq A_fault: bool = inDataB.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;
+            eq B_fault: bool = inDataA.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;
+            eq C_fault: bool = inDataA.HS_CmdPipe.MsgId =  inDataB.HS_CmdPipe.MsgId;
+
+            guarantee "election for fault torelance": 
+            (A_fault => outData.HS_CmdPipe =  inDataB.HS_CmdPipe) 
+            or (B_fault => outData.HS_CmdPipe =  inDataC.HS_CmdPipe) 
+            or (C_fault => outData.HS_CmdPipe =  inDataA.HS_CmdPipe); 
+            
+            
+
+        **};  
+      end leader;
+	
+end Redundant_Pipe;

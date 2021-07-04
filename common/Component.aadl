@@ -79,13 +79,16 @@ public
 		features
 			ESAPI: feature group;
 			SBAPI: feature group;
-			EVSAPI: feature group EVSAPIOutput;
+			EVSAPI: feature group ;
 			TIMEAPI: feature group;
 			
 			ESAPIIn: feature group;
 			SBAPIIn: feature group;
-			EVSAPIIn: feature group EVSAPIInput;
+			EVSAPIIn: feature group ;
 			TIMEAPIIn: feature group;
+		annex agree{**
+			guarantee "": true;
+		**};
 	end Medium;
 	
 	abstract Checker
@@ -126,7 +129,7 @@ public
 			DefaultCommand: port CommandRouter.Default -> Default.Command;
 			MediumEVSAPI: feature group Medium.EVSAPI -> EVSAPI;
 			DefaultResult: port Default.Result -> Checker.DefaultResult;
-			Default_SendEvent: feature group Default.SendEvent <-> Medium.EVSAPIIn.SendEventCollection.Default;
+--			Default_SendEvent: feature group Default.SendEvent <-> Medium.EVSAPIIn.SendEventCollection.Default;
 	end Component.default;
 
 -------------------------App Component-------------------------

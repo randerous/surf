@@ -13,19 +13,19 @@ public
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
-		 guarantee "": true;
+--		 guarantee "": true;
 	**};
 	end Surf;
 	
 	process implementation Surf.impl
 		subcomponents
 			Core: abstract Core::Core.impl;
-			ES: thread ES_App::ESAPP.impl;
-			SB: thread SB_App::SBAPP.impl;
-			EVS: thread EVS_App::EVSAPP.impl;
-			TIME: thread TIME_App::TIMEApp.impl;
-			HS: thread HS_App::HSApp.impl;
-			Sample: thread Sample_App::SampleApp.impl;
+			ES: thread ES_App::ESAPP;
+			SB: thread SB_App::SBAPP;
+			EVS: thread EVS_App::EVSAPP;
+			TIME: thread TIME_App::TIMEApp;
+			HS: thread HS_App::HSApp;
+			Sample: thread Sample_App::SampleApp;
 			
 			Medium: abstract Surf_Medium::Medium;
 		connections
@@ -48,8 +48,9 @@ public
 			
 			------------------------------Function call----------------------
 --			ES_RestartApp_RestartApp: feature group ES.ESAPI.RestartAppArgs.RestartApp <-> Core.ESAPI.RestartAppArgs.ES_RestartApp;
---			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB <-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp;
-			
+--			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB 
+--				<-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp;
+--			
 --			ES_Default_SendEvent: feature group ES.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.ES_Default;
 --			SB_Default_SendEvent: feature group SB.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.SB_Default;
 --			EVS_Default_SendEvent: feature group EVS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.EVS_Default;
@@ -58,10 +59,10 @@ public
 --			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
 			
 			annex agree{**
-			--0: running 1: restart  ÖØÆô 2: wait
+			--0: running 1: restart   2: wait
 			--
 			eq SUCCESS: int = 0;
-			eq ERR_APPID: int = 1;--AppId£¬
+			eq ERR_APPID: int = 1;--AppId
 			
 			eq INVALID_PIPE: int = 2;--
 			eq BAD_ARGUMENT: int = 3;--
@@ -70,7 +71,7 @@ public
 			
 			eq MAX_MSGS_MET: int = 6;--
 			eq MAX_DESTS_MET: int = 7;--
-			eq BUF_ALOC_ERR: int = 8;--¢ï
+			eq BUF_ALOC_ERR: int = 8;--ï¿½ï¿½
 			
 			eq MSG_TOO_BIG: int = 9;
 			
@@ -117,10 +118,102 @@ public
 			lemma "hs monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
 			(HS.AppRecord.HS_APP.StateRecord.AppTimer = pre(HS.AppRecord.HS_APP.StateRecord.AppTimer)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
- 
---			
---			guarantee "GetTime": true -> TIME_API.GetTime.Valid = true => 
---			TIME_API.GetTime.Result = SUCCESS;
+  
+ 			
+ 			
+			lemma "Time goes": Core.TIMEAPI.GetTimeArgs.a.CurrentTime.Seconds = (0 ->  
+				 pre(Core.TIMEAPI.GetTimeArgs.a.CurrentTime.Seconds)+1);
+			 
+			lemma "Hs should get all event": true -> 
+				(
+					(Core.SBAPI.MsgInput.Activiated = true  and Core.SBAPI.MsgInput.a.Msg.MsgId = 0) 
+					or (Core.EVSAPI.SendEventArgs.Activiated = true and Core.EVSAPI.SendEventArgs.EvtPacket.Msg.MsgId = 0 
+						and Core.EVSAPI.SendEventArgs.EvtPacket.Msg.EvtId = 0 
+					)
+					=> HS.Command.MsgId = 0
+				);
+			--0: running 1: restart, 2:waiting, 4: initializing
+		 		 eq waitting: int = 2;
+		 		 eq running: int = 0;
+		 	lemma "restart app": true -> 
+		 		 Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true and  Core.ESAPI.RestartAppArgs.ES_RestartApp.AppId  = 5 and
+		 		 pre(Core.AppRecord.HS_APP.StateRecord.AppState = running)
+		 		=>  Core.AppRecord.HS_APP.StateRecord.AppState = waitting;
+			
+
+		    --assume for sb
+			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				assert "No Create and Delete pipe at the same time": not(Core.SBAPI.CreatePipeArgs.a.Activiated = true
+					and Core.SBAPI.DeletePipeArgs.a.Activiated = true
+				);
+				
+				assert "No Subscribe and UnSubscribe at the same time": not(Core.SBAPI.SubscribeArgs.a.Activiated = true
+					and Core.SBAPI.UnsubscribeArgs.a.Activiated = true
+				);
+				assert "Send Evt or Msg": not (Core.SBAPI.MsgInput.Activiated = true and Core.EVSAPI.SendEventArgs.Activiated = true);
+				--hs subscribe event always
+				eq HS_CANCEL_SUB_EVENT : bool =  (
+					Core.SBAPI.UnsubscribeArgs.a.Activiated = true 
+					and Core.SBAPI.UnsubscribeArgs.a.PipeId = 5
+					and Core.SBAPI.UnsubscribeArgs.a.MsgId = 0
+				);
+				eq DEL_HS_PIPE : bool =  (Core.SBAPI.DeletePipeArgs.a.Activiated = true and Core.SBAPI.DeletePipeArgs.a.AppId = 5);
+				
+				--initially, we set the pipe for hs active,and make it subscribe event, and keep it  on
+				assert "keep hs monitoring event": 
+				(
+					(Core.SBAPI.CreatePipeArgs.a.Activiated = true and Core.SBAPI.CreatePipeArgs.a.AppId = 5) and 
+					(Core.SBAPI.SubscribeArgs.a.Activiated = true and Core.SBAPI.SubscribeArgs.a.MsgId = 0 and Core.SBAPI.SubscribeArgs.a.PipeId = 5)
+				) -> not(HS_CANCEL_SUB_EVENT or DEL_HS_PIPE);
+				
+				--assumes for evs
+				assert "No register and unregister at the same time":
+			    not(Core.EVSAPI.RegisterArgs.a.Activiated = true  and Core.EVSAPI.UnregisterArgs.a.Activiated = true );
+				
+				
+				--assumes for es	
+				--we use lock to sychronize the operation to shared data,such as Pipe info and Route info
+				--for initial stage, forbid all func call,(still prepared)
+				assert "initialize all func":(Core.ESAPI.RegisterAppArgs.a.Activiated = false
+					and Core.ESAPI.DeleteAppArgs.a.Activiated = false
+					and Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false) -> true;
+					
+				assert "No two of Register and Delete  and Restart at the same time": 
+				(	
+					Core.ESAPI.RegisterAppArgs.a.Activiated = true
+					and Core.ESAPI.DeleteAppArgs.a.Activiated = false
+					and Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				)
+				or 
+				(	
+					Core.ESAPI.RegisterAppArgs.a.Activiated = false
+					and Core.ESAPI.DeleteAppArgs.a.Activiated = true
+					and Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				)
+				or 
+				(	
+					Core.ESAPI.RegisterAppArgs.a.Activiated = false
+					and Core.ESAPI.DeleteAppArgs.a.Activiated = false
+					and Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true
+					and Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				)
+				or
+				(	
+					Core.ESAPI.RegisterAppArgs.a.Activiated = false
+					and Core.ESAPI.DeleteAppArgs.a.Activiated = false
+					and Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true
+				)
+				or
+				(	
+					Core.ESAPI.RegisterAppArgs.a.Activiated = false
+					and Core.ESAPI.DeleteAppArgs.a.Activiated = false
+					and Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = false
+					and Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = false
+				);
 
 **};
 	   

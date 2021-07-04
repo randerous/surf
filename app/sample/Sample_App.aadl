@@ -26,5 +26,8 @@ public
 			
 			----------------Medium processor api call collecttion connection			
 --			MonitorApplications_RestartApp: feature group MonitorApplications.RestartApp.SB <-> Medium.ESAPIIn.RestartAppCollection.MonitorApplications_SB;
+	 annex agree{**
+	 	
+	 **};
 	end SampleAPP.impl;
 end Sample_App;
