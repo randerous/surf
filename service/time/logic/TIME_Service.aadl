@@ -20,7 +20,9 @@ public
 		connections
 			GetTimeArg: feature group GetTimeArgs <-> GetTime.Args;
 --			GetTimeLocalData: feature group ShareData.OldSysTimeData -> GetTime.LocalDatas;
-		
+		annex safety{**
+	   			analyze : max 2 fault
+	   		**};
 	end Service.impl;
 	
 	----------------ShareData can add processor result

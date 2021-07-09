@@ -55,6 +55,9 @@ public
 		annex agree{**
 --			lemma " true": true;
 		**};
+		annex safety{**
+	   			analyze : max 2 fault
+	   		**};
 
 	end Service.impl;
 

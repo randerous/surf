@@ -121,6 +121,9 @@ public
 		 		  not (RESTART_HS_CMD_1 or RESTART_HS_CMD_2) and not (DELETE_HS_CMD) => 
 		 		  RunLoopArgs.HS.Activiated = true and  RunLoopArgs.HS.AppId = 5;
 			**};
+			annex safety{**
+	   			analyze : max 2 fault
+	   		**};
 	end Service.impl;
 
 	----------------ShareData can add processor result

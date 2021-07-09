@@ -168,7 +168,9 @@ public
 --			SB_BAD_CMD_CODE: feature group EVS.OutEvents.SB_BAD_CMD_CODE <-> SB.SendMsgArgs.SB_BAD_CMD_CODE;
 --			EVS_ERR_MSGID: feature group EVS.OutEvents.EVS_ERR_MSGID <-> SB.SendMsgArgs.EVS_ERR_MSGID;
 --			TIME_CC_ERR: feature group EVS.OutEvents.TIME_CC_ERR <-> SB.SendMsgArgs.TIME_CC_ERR;
-			
+			annex safety{**
+	   			analyze : max 2 fault
+	   		**};
 	end Core.impl;
 	
 	feature group ESAPI

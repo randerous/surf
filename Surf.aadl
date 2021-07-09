@@ -46,18 +46,7 @@ public
 			TIME_Command: port Medium.TIME_CmdPipe_TIME_Command -> TIME.Command;
 			HS_Command: port Medium.HS_CmdPipe_HS_Command -> HS.Command;
 			
-			------------------------------Function call----------------------
---			ES_RestartApp_RestartApp: feature group ES.ESAPI.RestartAppArgs.RestartApp <-> Core.ESAPI.RestartAppArgs.ES_RestartApp;
---			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB 
---				<-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp;
---			
---			ES_Default_SendEvent: feature group ES.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.ES_Default;
---			SB_Default_SendEvent: feature group SB.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.SB_Default;
---			EVS_Default_SendEvent: feature group EVS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.EVS_Default;
---			TIME_Default_SendEvent: feature group TIME.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.TIME_Default;
---			HS_Default_SendEvent:  feature group HS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.HS_Default;
---			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
-			
+		
 			annex agree{**
 			--0: running 1: restart   2: wait
 			--
@@ -216,6 +205,23 @@ public
 				);
 
 **};
-	   
+	   		
+	   		annex safety{**
+	   			analyze : max 2 fault
+	   		**};
 end Surf.impl;
 end Surf;
+
+
+			------------------------------Function call----------------------
+--			ES_RestartApp_RestartApp: feature group ES.ESAPI.RestartAppArgs.RestartApp <-> Core.ESAPI.RestartAppArgs.ES_RestartApp;
+--			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB 
+--				<-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp;
+--			
+--			ES_Default_SendEvent: feature group ES.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.ES_Default;
+--			SB_Default_SendEvent: feature group SB.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.SB_Default;
+--			EVS_Default_SendEvent: feature group EVS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.EVS_Default;
+--			TIME_Default_SendEvent: feature group TIME.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.TIME_Default;
+--			HS_Default_SendEvent:  feature group HS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.HS_Default;
+--			ES_RestartApp_SendEvent: feature group ES.EVSAPI.SendEventArgs.RestartApp <-> Core.EVSAPI.SendEventArgs.ES_RestartApp;
+	
