@@ -1,6 +1,7 @@
 package faults
 public 
 	with Core_Types;
+	
 annex agree {**	
 
 
@@ -23,10 +24,11 @@ annex agree {**
 	   val_out=  if (trigger) then alt_val else val_in;
 	tel; 
 	
-	node dataseg_seu(val_in: int,  trigger: bool)
-	returns(val_out : int);
+	node dataseg_seu(val_in: Core_Types::Base_struct.CFE_SB_PipeD_t,  trigger: bool)
+	returns(val_out : Core_Types::Base_struct.CFE_SB_PipeD_t);
 	let
-		val_out = if(trigger) then -1 else val_in;
+		
+		val_out = if(trigger) then val_in{MsgId := 0} else val_in;
 	tel;
 	
 	node crash_seu(val_in: int,  trigger: bool)

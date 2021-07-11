@@ -265,6 +265,9 @@ public
             UnsubscribeResult_con: feature group UnsubscribeResult -> mainTask.UnsubscribeResult;
             SendMsgLocalData_con: feature group mainTask.OldRouteData -> OldRouteData;
             
+            
+            
+            main2V: feature group mainTask.OldPipeData -> leader.inData;
             main2A: feature group mainTask.OldPipeData -> voterA.inData;
             main2B: feature group mainTask.OldPipeData -> voterB.inData;
             main2C: feature group mainTask.OldPipeData -> voterC.inData;
@@ -276,11 +279,11 @@ public
             leader2sys: feature group leader.OutData -> OldPipeData;
          
          annex agree{**
-         	lemma " voter validation": OldPipeData.HS_CmdPipe.MsgId = mainTask.OldPipeData.HS_CmdPipe.MsgId;
+--         	lemma " voter validation": OldPipeData.HS_CmdPipe.MsgId = mainTask.OldPipeData.HS_CmdPipe.MsgId;
          **};
          
          annex safety{**
-         	analyze: max 3 fault
+         	analyze: max 1 fault
          **};
 		 
 	end  ShareData.impl;

@@ -9,7 +9,7 @@ public
 	feature group P_Register extends Generic::Provide_Generic_Function_API
 		features
 			Activiated: in data port Base_Types::Boolean;
-			Filters: in data port Core_Types::struct.EVS_BinFilter_t;
+			Filters: in data port Core_Types::Base_struct.EVS_BinFilter_t;
 			FilterScheme: in data port Base_Types::Unsigned_16;
 			AppId: in data port Base_Types::Unsigned_32;
 	end P_Register;
@@ -17,7 +17,7 @@ public
 	feature group R_Register extends Generic::Require_Generic_Function_API
 		features
 			Activiated: out data port Base_Types::Boolean;
-			Filters: out data port Core_Types::struct.EVS_BinFilter_t;
+			Filters: out data port Core_Types::Base_struct.EVS_BinFilter_t;
 			FilterScheme: out data port Base_Types::Unsigned_16;
 			AppId: out data port Base_Types::Unsigned_32;
 	inverse of P_Register
@@ -47,7 +47,7 @@ public
 			AppId: in data port Base_Types::Unsigned_32;
 			EvtId: in data port Base_Types::Unsigned_16;
 			EvtType: in data port Base_Types::Unsigned_16;
---			Msg: out data port Data_SB::struct.CFE_SB_Msg_t;
+--			Msg: out data port Data_SB::Base_struct.CFE_SB_Msg_t;
 	end P_SendEvent;
 
 	feature group R_SendEvent extends Generic::Require_Generic_Function_API
@@ -55,7 +55,7 @@ public
 			AppId: out data port Base_Types::Unsigned_32;
 			EvtId: out data port Base_Types::Unsigned_16;
 			EvtType: out data port Base_Types::Unsigned_16;
---			Msg: out data port Data_SB::struct.CFE_SB_Msg_t;
+--			Msg: out data port Data_SB::Base_struct.CFE_SB_Msg_t;
 	inverse of P_SendEvent
 	end R_SendEvent;
 end EVS_Interface;

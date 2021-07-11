@@ -5,39 +5,39 @@ public
 	--------all feature groups can add "in|out data port [type];" corresponding to its direction and data type
 	feature group AppDataOutput
 		features 
-			ES: out data port Core_Types::struct.EVS_AppData_t;
-			SB: out data port Core_Types::struct.EVS_AppData_t;
-			EVS: out data port Core_Types::struct.EVS_AppData_t;
-			TIME1: out data port Core_Types::struct.EVS_AppData_t;
-			HS: out data port Core_Types::struct.EVS_AppData_t;
+			ES: out data port Core_Types::Base_struct.EVS_AppData_t;
+			SB: out data port Core_Types::Base_struct.EVS_AppData_t;
+			EVS: out data port Core_Types::Base_struct.EVS_AppData_t;
+			TIME1: out data port Core_Types::Base_struct.EVS_AppData_t;
+			HS: out data port Core_Types::Base_struct.EVS_AppData_t;
 	end AppDataOutput;
 	feature group AppDataInput
 		features 
-			ES: in data port Core_Types::struct.EVS_AppData_t;
-			SB: in data port Core_Types::struct.EVS_AppData_t;
-			EVS: in data port Core_Types::struct.EVS_AppData_t;
-			TIME1: in data port Core_Types::struct.EVS_AppData_t;
-			HS: in data port Core_Types::struct.EVS_AppData_t;
+			ES: in data port Core_Types::Base_struct.EVS_AppData_t;
+			SB: in data port Core_Types::Base_struct.EVS_AppData_t;
+			EVS: in data port Core_Types::Base_struct.EVS_AppData_t;
+			TIME1: in data port Core_Types::Base_struct.EVS_AppData_t;
+			HS: in data port Core_Types::Base_struct.EVS_AppData_t;
 	inverse of AppDataOutput
 	end AppDataInput;
 	
 ------------------------------Filter---------------------------------
 	feature group FilterOutput
 		features
-			ES_CC1_ERR: out data port Core_Types::struct.EVS_BinFilter_t;
-			ES_RESTART_APP_ERR: out data port Core_Types::struct.EVS_BinFilter_t;
-			SB_BAD_CMD_CODE: out data port Core_Types::struct.EVS_BinFilter_t;
-			EVS_ERR_MSGID: out data port Core_Types::struct.EVS_BinFilter_t;
-			TIME_CC_ERR: out data port Core_Types::struct.EVS_BinFilter_t;
+			ES_CC1_ERR: out data port Core_Types::Base_struct.EVS_BinFilter_t;
+			ES_RESTART_APP_ERR: out data port Core_Types::Base_struct.EVS_BinFilter_t;
+			SB_BAD_CMD_CODE: out data port Core_Types::Base_struct.EVS_BinFilter_t;
+			EVS_ERR_MSGID: out data port Core_Types::Base_struct.EVS_BinFilter_t;
+			TIME_CC_ERR: out data port Core_Types::Base_struct.EVS_BinFilter_t;
 	end FilterOutput;
 
 	feature group FilterInput
 		features
-			ES_CC1_ERR: in data port Core_Types::struct.EVS_BinFilter_t;
-			ES_RESTART_APP_ERR: in data port Core_Types::struct.EVS_BinFilter_t;
-			SB_BAD_CMD_CODE: in data port Core_Types::struct.EVS_BinFilter_t;
-			EVS_ERR_MSGID: in data port Core_Types::struct.EVS_BinFilter_t;
-			TIME_CC_ERR: in data port Core_Types::struct.EVS_BinFilter_t;
+			ES_CC1_ERR: in data port Core_Types::Base_struct.EVS_BinFilter_t;
+			ES_RESTART_APP_ERR: in data port Core_Types::Base_struct.EVS_BinFilter_t;
+			SB_BAD_CMD_CODE: in data port Core_Types::Base_struct.EVS_BinFilter_t;
+			EVS_ERR_MSGID: in data port Core_Types::Base_struct.EVS_BinFilter_t;
+			TIME_CC_ERR: in data port Core_Types::Base_struct.EVS_BinFilter_t;
 	inverse of FilterOutput
 	end FilterInput;
 	

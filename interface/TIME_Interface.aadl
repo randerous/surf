@@ -8,12 +8,12 @@ public
 --------------------------------------------------------------------------
 	feature group P_GetTime extends Generic::Provide_Generic_Function_API
 		features
-			CurrentTime: out data port Core_Types::struct.CFE_TIME_SysTime_t;
+			CurrentTime: out data port Core_Types::Base_struct.CFE_TIME_SysTime_t;
 	end P_GetTime;
 
 	feature group R_GetTime extends Generic::Require_Generic_Function_API
 		features
-			CurrentTime: in data port Core_Types::struct.CFE_TIME_SysTime_t;
+			CurrentTime: in data port Core_Types::Base_struct.CFE_TIME_SysTime_t;
 	inverse of P_GetTime
 	end R_GetTime;
 end TIME_Interface;

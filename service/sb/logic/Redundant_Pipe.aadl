@@ -143,17 +143,15 @@ public
           outData: feature group SB_Base_IO::PipeOutput;
 
         annex agree{**
-            guarantee "equally deliver": outData.ES_CmdPipe = inData.ES_CmdPipe and outData.SB_CmdPipe = inData.SB_CmdPipe 
-            and outData.EVS_CmdPipe = inData.EVS_CmdPipe 
-            and outData.TIME_CmdPipe = inData.TIME_CmdPipe 
-            and outData.HS_CmdPipe = inData.HS_CmdPipe ;
+            guarantee "equally deliver":
+			 outData.HS_CmdPipe = inData.HS_CmdPipe ;
         **}; 
         
         annex safety{**
         	fault bit_inversion "bit inversion happened":  faults.dataseg_seu {
 			--eq nondeterministic_val : int;
-			inputs: val_in <- inData.HS_CmdPipe.MsgId;     
-			outputs: outData.HS_CmdPipe.MsgId <- val_out;    
+			inputs: val_in <- inData.HS_CmdPipe;     
+			outputs: outData.HS_CmdPipe <- val_out;    
          	probability: 1.0E-5 ;
 			duration: permanent;
 			}
@@ -162,15 +160,18 @@ public
       end pipe;
 
       abstract  leader
-        features
+      	features
+      	  inData: feature group SB_Base_IO::PipeInput;
           inDataA: feature group SB_Base_IO::PipeInput;
           inDataB: feature group SB_Base_IO::PipeInput;
           inDataC: feature group SB_Base_IO::PipeInput;
           outData: feature group SB_Base_IO::PipeOutput;
         annex agree{**
-            guarantee "equally deliver": outData.ES_CmdPipe = inDataA.ES_CmdPipe and outData.SB_CmdPipe = inDataA.SB_CmdPipe 
-            and outData.EVS_CmdPipe = inDataA.EVS_CmdPipe 
-            and outData.TIME_CmdPipe = inDataA.TIME_CmdPipe;
+            guarantee "equally deliver": 
+            outData.ES_CmdPipe = inData.ES_CmdPipe 
+            and outData.SB_CmdPipe = inData.SB_CmdPipe 
+            and outData.EVS_CmdPipe = inData.EVS_CmdPipe 
+            and outData.TIME_CmdPipe = inData.TIME_CmdPipe;
             
             eq A_e_B: bool = inDataA.HS_CmdPipe.MsgId =  inDataB.HS_CmdPipe.MsgId;
             eq B_e_C: bool = inDataB.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;

@@ -2,31 +2,31 @@ package Core_Types
 public
 	with Base_Types;
 
-	abstract struct
-	end struct;
+	data Base_struct
+	end Base_struct;
 
 --task for heart beating checking
 -----------------------------ES------------------------------------
-	abstract implementation struct.CFE_ES_TaskRecord_t
+	data implementation Base_struct.CFE_ES_TaskRecord_t
 		subcomponents
 			RecordUsed: data Base_Types::Boolean;
 			AppId: data Base_Types::Unsigned_32;
 			TaskId: data Base_Types::Unsigned_32;
 			ExecutionCounter: data Base_Types::Unsigned_32;
 			TaskName: data Base_Types::boolean;
-	end struct.CFE_ES_TaskRecord_t;
+	end Base_struct.CFE_ES_TaskRecord_t;
 
 --appRecord for app state 
-	abstract implementation struct.CFE_ES_AppRecord_t
+	data implementation Base_struct.CFE_ES_AppRecord_t
 		subcomponents
 			RecordUsed: data Base_Types::Boolean;
 			AppType: data Base_Types::Unsigned_32;
-			StartParams: data struct.CFE_ES_AppStartParams_t;
-			StateRecord: data struct.CFE_ES_AppState_t;
-			TaskInfo: data struct.CFE_ES_MainTaskInfo_t;
-	end struct.CFE_ES_AppRecord_t;
+			StartParams: data Base_struct.CFE_ES_AppStartParams_t;
+			StateRecord: data Base_struct.CFE_ES_AppState_t;
+			TaskInfo: data Base_struct.CFE_ES_MainTaskInfo_t;
+	end Base_struct.CFE_ES_AppRecord_t;
 
-	abstract implementation struct.CFE_ES_AppStartParams_t
+	data implementation Base_struct.CFE_ES_AppStartParams_t
 		subcomponents
 			Name: data Base_Types::boolean;
 			EntryPoint: data Base_Types::boolean;
@@ -36,42 +36,27 @@ public
 			ModuleId: data Base_Types::Unsigned_32;
 			ExceptionAction: data Base_Types::Unsigned_16;
 			Priority: data Base_Types::Unsigned_16;
-	end struct.CFE_ES_AppStartParams_t;
+	end Base_struct.CFE_ES_AppStartParams_t;
     
-	abstract implementation struct.CFE_ES_AppState_t
+	data implementation Base_struct.CFE_ES_AppState_t
 		subcomponents
 			AppControlRequest: data Base_Types::Unsigned_32;
 			AppState: data Base_Types::Unsigned_32;--0: running 1: restart, 2:waiting, 4: initializing
 			AppTimer: data Base_Types::Integer_32;
-	end struct.CFE_ES_AppState_t;
+	end Base_struct.CFE_ES_AppState_t;
 
-	abstract implementation struct.CFE_ES_MainTaskInfo_t
+	data implementation Base_struct.CFE_ES_MainTaskInfo_t
 		subcomponents
 			MainTaskId: data Base_Types::Unsigned_32;
 			MainTaskName: data Base_Types::boolean;
 			NumOfChildTasks: data Base_Types::Integer_32;
-	end struct.CFE_ES_MainTaskInfo_t;
+	end Base_struct.CFE_ES_MainTaskInfo_t;
 -------------------------------------------------------------------
 -----------------------------SB------------------------------------
-	data a
-		
-	end a;
-	data implementation a.impl
-		subcomponents
-			InUse: data Base_Types::boolean;
-			PipeId: data Base_Types::Unsigned_8;
-	end a.impl;
+ 
+ 
 	
-	abstract tset
-		features
-			D:  out data port  a.impl;
-			I:  in data port  a.impl;
-		annex agree{**
-			guarantee "": D = I;
-		**};
-			
-	end tset;
-	abstract implementation struct.CFE_SB_PipeD_t
+	data implementation Base_struct.CFE_SB_PipeD_t
 		subcomponents
 			InUse: data Base_Types::boolean;
 			PipeId: data Base_Types::Unsigned_8;
@@ -83,45 +68,45 @@ public
 			LastSender: data Base_Types::Unsigned_32;
 			QueueDepth: data Base_Types::Unsigned_16;
 			SendErrors: data Base_Types::Unsigned_16;
-			CurrentBuff: data struct.CFE_SB_BufferD_t;
-			ToTrashBuff: data struct.CFE_SB_BufferD_t;
+			CurrentBuff: data Base_struct.CFE_SB_BufferD_t;
+			ToTrashBuff: data Base_struct.CFE_SB_BufferD_t;
 			MsgQueue: data Base_Types::boolean;
 			MsgId: data Base_Types::Integer;
 			ReadIdx: data Base_Types::Unsigned_8;
 			WriteIdx: data Base_Types::Unsigned_8;
-	end struct.CFE_SB_PipeD_t;
+	end Base_struct.CFE_SB_PipeD_t;
 	
-	abstract implementation struct.CFE_SB_BufferD_t
+	data implementation Base_struct.CFE_SB_BufferD_t
 		subcomponents
 			MsgId: data Base_Types::Unsigned_16;
 			UseCount: data Base_Types::Unsigned_16;
 			Size: data Base_Types::Unsigned_32;
 			Buffer: data Base_Types::boolean;
-			Sender: data struct.CFE_SB_SenderId_t;
-	end struct.CFE_SB_BufferD_t;
+			Sender: data Base_struct.CFE_SB_SenderId_t;
+	end Base_struct.CFE_SB_BufferD_t;
 	
-	abstract implementation struct.CFE_SB_SenderId_t
+	data implementation Base_struct.CFE_SB_SenderId_t
 		subcomponents
 			ProcessorId: data Base_Types::Unsigned_32;
 			AppName: data Base_Types::boolean;
-	end struct.CFE_SB_SenderId_t;
+	end Base_struct.CFE_SB_SenderId_t;
 	
 	--router entry 
 	--for each Event, has a list of  pipes that subscribed it.
 	--Destinations denote the sum of pipes
 	--RouteList denote a link list to store pipes' name
-	abstract implementation struct.CFE_SB_RouteEntry_t
+	data implementation Base_struct.CFE_SB_RouteEntry_t
 		subcomponents
 			MsgId: data Base_Types::Unsigned_16;
 			Destinations: data Base_Types::Unsigned_16;
 			SeqCnt: data Base_Types::Unsigned_32;
-			RouteList: data struct.CFE_SB_DestinationD_t;
-	end struct.CFE_SB_RouteEntry_t;
+			RouteList: data Base_struct.CFE_SB_DestinationD_t;
+	end Base_struct.CFE_SB_RouteEntry_t;
 	
 	
 	--the struct is so far to express list, in Lustre, it can't descripe a dynamic behavior
 	--we need set static varibles for activiating
-	abstract implementation struct.CFE_SB_DestinationD_t
+	data implementation Base_struct.CFE_SB_DestinationD_t
 		subcomponents
 --			PipeId: data Base_Types::Unsigned_8;
 --			Active: data Base_Types::Unsigned_8;
@@ -139,9 +124,9 @@ public
 			Sample_APP_Pipe: data Base_Types::Boolean;
 			
 			
-	end struct.CFE_SB_DestinationD_t;
+	end Base_struct.CFE_SB_DestinationD_t;
 	
-	abstract implementation struct.CFE_SB_Msg_t
+	data implementation Base_struct.CFE_SB_Msg_t
 		subcomponents
 			--MsgId = -1 denotes null, No msg
 			--for all events, msgid is same, but different evtID
@@ -151,72 +136,72 @@ public
 			EvtId: data Base_Types::Unsigned_16;
 			Content: data Base_Types::boolean;
 			AppId: data Base_Types::Unsigned_16;
-	end struct.CFE_SB_Msg_t;
+	end Base_struct.CFE_SB_Msg_t;
 -------------------------------------------------------------------
 -----------------------------EVS------------------------------------
-	abstract implementation struct.EVS_AppData_t
+	data implementation Base_struct.EVS_AppData_t
 		subcomponents
-			BinFilters: data struct.EVS_BinFilter_t;--common filter
+			BinFilters: data Base_struct.EVS_BinFilter_t;--common filter
 			ActiveFlag: data Base_Types::Boolean;--false: all event will be filtered
 			EventTypesActiveFlag: data Base_Types::Unsigned_8;--EventTypesActiveFlag & 0x1, 0x2,0x4,0x8
 															 -- to show which type of event is actived
 			EventCount: data Base_Types::Unsigned_16;--only when no register, it will be increased by 1
 			RegisterFlag: data Base_Types::Boolean;-- sign to show if registed to evs 
-	end struct.EVS_AppData_t;
+	end Base_struct.EVS_AppData_t;
 	
 	--bin filter, amazing,hahaha
 	--
-	abstract implementation struct.EVS_BinFilter_t
+	data implementation Base_struct.EVS_BinFilter_t
 		subcomponents
 			EventID: data Base_Types::Integer_16;
 			Mask: data Base_Types::Unsigned_8;--common set to 0xFFFF, 0XFFFE,0XFFF8,so if count < mask, 
 											 -- count & mask  != 0 will be false,then no filter, else filter
 			Count: data Base_Types::Unsigned_8;--counter for specific event filtered
 			Padding: data Base_Types::Unsigned_16;
-	end struct.EVS_BinFilter_t;
+	end Base_struct.EVS_BinFilter_t;
 -------------------------------------------------------------------
 -----------------------------Time------------------------------------
-	abstract implementation struct.CFE_TIME_SysTime_t
+	data implementation Base_struct.CFE_TIME_SysTime_t
 		subcomponents
 			Seconds: data Base_Types::Unsigned_32;
 			Subseconds: data Base_Types::Unsigned_32;
-	end struct.CFE_TIME_SysTime_t;
+	end Base_struct.CFE_TIME_SysTime_t;
 	
-	abstract implementation struct.CFE_TIME_Reference_t
+	data implementation Base_struct.CFE_TIME_Reference_t
 		subcomponents
-			AtToneMET: data struct.CFE_TIME_SysTime_t;
-			AtToneSTCF: data struct.CFE_TIME_SysTime_t;
+			AtToneMET: data Base_struct.CFE_TIME_SysTime_t;
+			AtToneSTCF: data Base_struct.CFE_TIME_SysTime_t;
 			AtToneLeaps: data Base_Types::Unsigned_16;
 			ClockSetState: data Base_Types::Unsigned_16;
 			ClockFlyState: data Base_Types::Unsigned_16;
-			AtToneLatch: data struct.CFE_TIME_SysTime_t;
-			CurrentLatch: data struct.CFE_TIME_SysTime_t;
-			TimeSinceTone: data struct.CFE_TIME_SysTime_t;
-			CurrentMET: data struct.CFE_TIME_SysTime_t;
-	end struct.CFE_TIME_Reference_t;
+			AtToneLatch: data Base_struct.CFE_TIME_SysTime_t;
+			CurrentLatch: data Base_struct.CFE_TIME_SysTime_t;
+			TimeSinceTone: data Base_struct.CFE_TIME_SysTime_t;
+			CurrentMET: data Base_struct.CFE_TIME_SysTime_t;
+	end Base_struct.CFE_TIME_Reference_t;
 -------------------------------------------------------------------
 -----------------------------HS------------------------------------
-	abstract implementation struct.HS_AMTEntry_t
+	data implementation Base_struct.HS_AMTEntry_t
 		subcomponents
 			AppName: data Base_Types::String;
 			CycleCount: data Base_Types::Unsigned_16;
 			ActionType: data Base_Types::Unsigned_16;
-	end struct.HS_AMTEntry_t;
+	end Base_struct.HS_AMTEntry_t;
 	
-	abstract implementation struct.HS_EMTEntry_t
+	data implementation Base_struct.HS_EMTEntry_t
 		subcomponents
 			AppName: data Base_Types::String;
 			EventID: data Base_Types::Unsigned_16;
 			ActionType: data Base_Types::Unsigned_16;
-	end struct.HS_EMTEntry_t;
+	end Base_struct.HS_EMTEntry_t;
 	
-	abstract p
+	data p
 		
 	end p;
 	
-	abstract implementation p.t
+	data implementation p.t
 		subcomponents
-			a: abstract struct.HS_EMTEntry_t;
+			a: data Base_struct.HS_EMTEntry_t;
 			b: data Base_Types::Unsigned_16;
 	end p.t;
 	

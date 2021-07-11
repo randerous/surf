@@ -10,20 +10,20 @@ public
 ------------------------------TaskRecord---------------------------------
 	feature group TaskRecordOutput
 		features
-			ES: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			SB: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			EVS: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			TIME1: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			HS_APP: out data port Core_Types::struct.CFE_ES_TaskRecord_t;
+			ES: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			SB: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			EVS: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			TIME1: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			HS_APP: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 	end TaskRecordOutput;
 
 	feature group TaskRecordInput
 		features
-			ES: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			SB: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			EVS: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			TIME1: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
-			HS_APP: in data port Core_Types::struct.CFE_ES_TaskRecord_t;
+			ES: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			SB: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			EVS: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			TIME1: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			HS_APP: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 	inverse of TaskRecordOutput
 	end TaskRecordInput;
 	
@@ -49,21 +49,21 @@ public
 ------------------------------AppRecord---------------------------------
 	feature group AppRecordOutput
 		features
-			ES: out data port Core_Types::struct.CFE_ES_AppRecord_t;
-			SB: out data port Core_Types::struct.CFE_ES_AppRecord_t;
-			EVS: out data port Core_Types::struct.CFE_ES_AppRecord_t;
-			TIME1: out data port Core_Types::struct.CFE_ES_AppRecord_t;
-			HS_APP: out data port Core_Types::struct.CFE_ES_AppRecord_t;
+			ES: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			SB: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			EVS: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			TIME1: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			HS_APP: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 	end AppRecordOutput;
 
 	feature group AppRecordInput
 		features
 			--core appid: 0-4, common app : > 4
-			ES: in data port Core_Types::struct.CFE_ES_AppRecord_t;
-			SB: in data port Core_Types::struct.CFE_ES_AppRecord_t;
-			EVS: in data port Core_Types::struct.CFE_ES_AppRecord_t;
-			TIME1: in data port Core_Types::struct.CFE_ES_AppRecord_t;
-			HS_APP: in data port Core_Types::struct.CFE_ES_AppRecord_t;
+			ES: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			SB: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			EVS: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			TIME1: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			HS_APP: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 	inverse of AppRecordOutput
 	end AppRecordInput;
 
