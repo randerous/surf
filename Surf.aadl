@@ -90,7 +90,7 @@ public
 			eq EVS_ERROR: int = 3;
 			eq ERR_REPORT: int = 5;
 			 
-			lemma "hs monitor event, send error Msg for reporting":
+			lemma "hs monitor event, send error Msg for reporting": 
 			true -> 
 			(	
 				(HS.Command.MsgId = 0 and HS.Command.EvtId = EVS_ERROR)
