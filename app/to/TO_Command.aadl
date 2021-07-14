@@ -1,0 +1,20 @@
+package TO_Command
+public
+	with Core_Types;
+	with Component;
+	with Generic;
+	with Base_Types;
+	with SB_Interface;
+
+	abstract CommandRouter extends Component::AppCommandRouter
+		features
+			SendOutData: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
+	end CommandRouter;
+
+	abstract SendOutDataProcessor extends Generic::CommandProcessor
+		features
+			Result: refined to out data port Base_Types::Integer;
+			Command: refined to in data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			SendMsg: feature group SB_Interface::R_SendMsg;
+	end SendOutDataProcessor;
+end TO_Command;

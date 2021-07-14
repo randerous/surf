@@ -1,0 +1,27 @@
+package CI_App
+public
+	with Component;
+	with CI_Sugar;
+	with CI_Command;
+
+	thread CIAPP extends Component::AppComponent
+		features
+			SBAPI: refined to feature group CI_Sugar::SBAPIOutput;
+	end CIAPP;
+
+	thread implementation CIAPP.impl extends Component::AppComponent.default
+		subcomponents
+			Medium: refined to abstract CI_Sugar::Medium;
+			Checker: refined to abstract CI_Sugar::Checker;
+			CommandRouter: refined to abstract CI_Command::CommandRouter;
+				-------------Command processor
+			SendOutData: abstract CI_Command::SendOutDataProcessor;
+		connections
+				----------------Route connection
+			SendOutDataCommand: port CommandRouter.SendOutData -> SendOutData.Command;
+				----------------Checker result in
+			SendOutDataResult: port SendOutData.Result -> Checker.SendOutDataResult;
+				----------------Medium processor api call collecttion connection
+			SendOutData_SendMsg: feature group SendOutData.SendMsg <-> Medium.SBAPIIn.SendMsgCollection.SendOutData;
+	end CIAPP.impl;
+end CI_App;

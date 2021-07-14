@@ -8,8 +8,13 @@ public
 	with HS_App;
 	with Sample_App;
 	with Surf_Medium;
+	with CI_APP;
+	with TO_APP;
+	with Core_Types;
 		
 	process Surf
+	features
+			GroundCommand: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
@@ -26,6 +31,8 @@ public
 			TIME: thread TIME_App::TIMEApp;
 			HS: thread HS_App::HSApp;
 			Sample: thread Sample_App::SampleApp;
+			CI: thread CI_APP::CIAPP;
+			TO_APP: thread TO_APP::TOAPP;
 			
 			Medium: abstract Surf_Medium::Medium;
 		connections
@@ -46,6 +53,9 @@ public
 			TIME_Command: port Medium.TIME_CmdPipe_TIME_Command -> TIME.Command;
 			HS_Command: port Medium.HS_CmdPipe_HS_Command -> HS.Command;
 			
+			CI_Command: port Medium.CI_CmdPipe_CI_Command -> CI.Command;
+			TO_Command: port Medium.TO_CmdPipe_TO_Command -> TO_APP.Command;
+			CI_GroundCommand: port GroundCommand -> CI.Command;
 		
 			annex agree{**
 			--0: running 1: restart   2: wait

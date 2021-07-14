@@ -117,7 +117,7 @@ public
 				eq DELETE_HS_CMD: bool = DeleteAppArgs.a.Activiated = true and DeleteAppArgs.a.AppId = 5 ;								
 				
 				-- runloop should be called in every cycle, excepts restart or delete app
-		 		assert "runloop should be called in every cycle, other than restart or delete app": true ->
+		 		assert "runloop should be called in every cycle, excepts restart or delete app": true ->
 		 		  not (RESTART_HS_CMD_1 or RESTART_HS_CMD_2) and not (DELETE_HS_CMD) => 
 		 		  RunLoopArgs.HS.Activiated = true and  RunLoopArgs.HS.AppId = 5;
 			**};

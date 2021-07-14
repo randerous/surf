@@ -1,0 +1,44 @@
+package TO_Sugar
+public
+	with Component;
+	with SB_Interface;
+	with Base_Types;
+
+	feature group SendMsgArgs
+		features
+			SendOutData: feature group SB_Interface::R_SendMsg;
+	end SendMsgArgs;
+
+		-------------------------------Call Input-------------------------------
+	feature group SendMsgCollection
+		features
+			SendOutData: feature group SB_Interface::P_SendMsg;
+	inverse of SendMsgArgs
+	end SendMsgCollection;
+
+		-------------------------------API Output-------------------------------
+	feature group SBAPIOutput
+		features
+			SendMsgArgs: feature group SendMsgArgs;
+	end SBAPIOutput;
+
+		-------------------------------API Input-------------------------------
+	feature group SBAPIInput
+		features
+			SendMsgCollection: feature group SendMsgCollection;
+	inverse of SBAPIOutput
+	end SBAPIInput;
+
+		-------------------------------Medium-------------------------------
+	abstract Medium extends Component::Medium
+		features
+			SBAPI: refined to feature group SBAPIOutput;
+			SBAPIIn: refined to feature group SBAPIInput;
+	end Medium;
+
+		-------------------------------Checker-------------------------------
+	abstract Checker extends Component::Checker
+		features
+			SendOutDataResult: in data port Base_Types::Integer;
+	end Checker;
+end TO_Sugar;
