@@ -303,7 +303,7 @@ public
             leader2sys: feature group leader.OutData -> OldPipeData;
          
          annex agree{**
---         	lemma " voter validation": OldPipeData.HS_CmdPipe.MsgId = mainTask.OldPipeData.HS_CmdPipe.MsgId;
+        	lemma " voter validation": OldPipeData.HS_CmdPipe = mainTask.OldPipeData.HS_CmdPipe;
          **};
          
          annex safety{**
