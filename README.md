@@ -23,6 +23,8 @@ now,
     evs:2,
     time:3.
     HS: 5
+    CI: 6
+    TO: 7
 
 App State:
 this is for change the appstate to 1:restart

@@ -4,8 +4,7 @@ public
 	with EVS_Arg_IO;
 	with EVS_Result_IO;
 	with EVS_Base_IO;
---	with EVS_Route_Table;
---	with SB_Arg_IO;
+
 
 	abstract Service
 		features
@@ -139,6 +138,32 @@ public
 			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
 				and RegisterResult.EvaluteValue.Modified_Id = 5
 			) => AppData.HS.RegisterFlag = False);
+
+			guarantee "manage CI filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.CI = pre(AppData.CI))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 6
+			) => AppData.CI = RegisterResult.Input.CI)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 6
+			) => AppData.CI.RegisterFlag = False);
+
+			guarantee "manage TO_APP filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.TO_APP = pre(AppData.TO_APP))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 7
+			) => AppData.TO_APP = RegisterResult.Input.TO_APP)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 7
+			) => AppData.TO_APP.RegisterFlag = False);
 			
 		**};
 	end ShareData;

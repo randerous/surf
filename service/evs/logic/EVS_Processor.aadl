@@ -35,29 +35,44 @@ public
 				and Results.Output.ES.BinFilters.Padding  = Args.a.Filters.Padding
 			);
 			
-			eq copy_sb_struct: bool = (Results.Output.ES.BinFilters.EventID  = Args.a.Filters.EventID
+			eq copy_sb_struct: bool = (Results.Output.SB.BinFilters.EventID  = Args.a.Filters.EventID
 				and Results.Output.SB.BinFilters.Mask  = Args.a.Filters.Mask
 				and Results.Output.SB.BinFilters.Count  = Args.a.Filters.Count
 				and Results.Output.SB.BinFilters.Padding  = Args.a.Filters.Padding
 			);
 			
-			eq copy_evs_struct: bool = (Results.Output.ES.BinFilters.EventID  = Args.a.Filters.EventID
+			eq copy_evs_struct: bool = (Results.Output.EVS.BinFilters.EventID  = Args.a.Filters.EventID
 				and Results.Output.EVS.BinFilters.Mask  = Args.a.Filters.Mask
 				and Results.Output.EVS.BinFilters.Count  = Args.a.Filters.Count
 				and Results.Output.EVS.BinFilters.Padding  = Args.a.Filters.Padding
 			);
 			
-			eq copy_time_struct: bool = (Results.Output.ES.BinFilters.EventID  = Args.a.Filters.EventID
+			eq copy_time_struct: bool = (Results.Output.TIME1.BinFilters.EventID  = Args.a.Filters.EventID
 				and Results.Output.TIME1.BinFilters.Mask  = Args.a.Filters.Mask
 				and Results.Output.TIME1.BinFilters.Count  = Args.a.Filters.Count
 				and Results.Output.TIME1.BinFilters.Padding  = Args.a.Filters.Padding
 			);
 			
-			eq copy_hs_struct: bool = (Results.Output.ES.BinFilters.EventID  = Args.a.Filters.EventID
+			eq copy_hs_struct: bool = (Results.Output.HS.BinFilters.EventID  = Args.a.Filters.EventID
 				and Results.Output.HS.BinFilters.Mask  = Args.a.Filters.Mask
 				and Results.Output.HS.BinFilters.Count  = Args.a.Filters.Count
 				and Results.Output.HS.BinFilters.Padding  = Args.a.Filters.Padding
 			);
+
+			eq copy_ci_struct: bool = (Results.Output.CI.BinFilters.EventID  = Args.a.Filters.EventID
+				and Results.Output.CI.BinFilters.Mask  = Args.a.Filters.Mask
+				and Results.Output.CI.BinFilters.Count  = Args.a.Filters.Count
+				and Results.Output.CI.BinFilters.Padding  = Args.a.Filters.Padding
+			);
+
+			eq copy_toAPP_struct: bool = (Results.Output.TO_APP.BinFilters.EventID  = Args.a.Filters.EventID
+				and Results.Output.TO_APP.BinFilters.Mask  = Args.a.Filters.Mask
+				and Results.Output.TO_APP.BinFilters.Count  = Args.a.Filters.Count
+				and Results.Output.TO_APP.BinFilters.Padding  = Args.a.Filters.Padding
+			);
+
+
+
 			guarantee "register es ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 0 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 0
@@ -92,6 +107,20 @@ public
 			and Results.Output.HS.ActiveFlag = true
 			and Results.Output.HS.RegisterFlag = true
 			and copy_hs_struct; 
+
+			guarantee "register ci ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 6 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 6
+			and Results.Output.CI.ActiveFlag = true
+			and Results.Output.CI.RegisterFlag = true
+			and copy_ci_struct; 
+
+			guarantee "register TOAPP ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 7 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 7
+			and Results.Output.TO_APP.ActiveFlag = true
+			and Results.Output.TO_APP.RegisterFlag = true
+			and copy_toAPP_struct; 
 			 		 
 			
 			
@@ -135,7 +164,15 @@ public
 			
 			guarantee "unregister hs ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 5 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
-			and Results.ReturnValue.Modified_Id = 5; 
+			and Results.ReturnValue.Modified_Id = 5;
+
+			guarantee "unregister ci ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 6 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 6; 
+
+			guarantee "unregister to ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 7 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 7;  
 			
 			
 		**};

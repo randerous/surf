@@ -19,7 +19,7 @@ public
 		-------------------------------API Output-------------------------------
 	feature group SBAPIOutput
 		features
-			SendMsgArgs: feature group SendMsgArgs;
+			SendMsgArgs: feature group SB_Interface::R_SendMsg;
 	end SBAPIOutput;
 
 		-------------------------------API Input-------------------------------

@@ -16,6 +16,7 @@ public
 			---restartsurf should be implemented
 			RestartSurf: in data port Base_Types::Boolean;
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
+			TaskRecord: feature group ES_Base_IO::TaskRecordOutput;
 		annex agree{**
 --				we use lock to sychronize the operation to shared data,such as Pipe info and Route info
 				--for initial stage, forbid all func call,(still prepared)
@@ -68,6 +69,22 @@ public
 		 		 RestartAppArgs.ES_RestartApp.Activiated = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
 		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
 		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
+		 		
+		 		guarantee "update CI_app" : TaskRecord.CI_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(RunLoopArgs.CI.Activiated = true) 
+		 				then pre(TaskRecord.CI_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.CI_APP.ExecutionCounter)
+		 			) 
+		 		);
+		 		
+		 		guarantee "update TO_app" : TaskRecord.TO_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(RunLoopArgs.TO_APP.Activiated = true) 
+		 				then pre(TaskRecord.TO_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.TO_APP.ExecutionCounter)
+		 			) 
+		 		);
 			 
 				
 		**};
@@ -84,6 +101,7 @@ public
 		connections
 			-----------------------Data output----------------------
 			AppRecordOutput: feature group ShareData.OldAppRecordData -> AppRecord;
+			TaskRecordOutput: feature group ShareData.OldTaskRecordData ->TaskRecord;
 			
 			RegisterAppArg: feature group RegisterAppArgs <-> RegisterApp.Args;
 			RegisterAppLocalData1: feature group ShareData.OldTaskRecordData -> RegisterApp.TaskRecord;
@@ -157,6 +175,7 @@ public
 				-- common appRecord manager
 				-- actually , only a app hs 
 				
+				
 				 eq SUCCESS : int = 0;  
 				guarantee "manage HS_TaskRecord": OldTaskRecordData.HS_APP.RecordUsed = false  and 
 				OldTaskRecordData.HS_APP.ExecutionCounter = 0 -> 
@@ -169,6 +188,14 @@ public
 					then OldTaskRecordData.HS_APP.ExecutionCounter = pre(OldTaskRecordData.HS_APP.ExecutionCounter ) +1
 					else OldTaskRecordData.HS_APP.ExecutionCounter = pre(OldTaskRecordData.HS_APP.ExecutionCounter )
 				);
+				
+				guarantee "manage CI , TO TaskRecord": 
+				OldTaskRecordData.CI_APP.ExecutionCounter = (0 -> 
+				RunLoopResult.Input.TaskRecord.CI_APP.ExecutionCounter) and 
+				OldTaskRecordData.TO_APP.ExecutionCounter = (0 -> 
+				RunLoopResult.Input.TaskRecord.TO_APP.ExecutionCounter);
+				
+				
 				--Notice, there will not be runloop when restart or delete this app
 				-- for simplity, we set appRecords  activiated.
 				
@@ -184,6 +211,30 @@ public
 				and DeleteAppResult.EvaluteValue.Modified_Id = 5) 
 				=> 
 				OldAppRecordData.HS_APP = DeleteAppResult.Input.AppRecord.HS_APP;
+
+				guarantee "manage CI_AppRecord for restart app": true -> 
+				(RestartAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and RestartAppResult.EvaluteValue.Modified_Id = 6) 
+				=> 
+				OldAppRecordData.CI_APP = RestartAppResult.Input.AppRecord.CI_APP;
+				
+				guarantee "manage CI_AppRecord for delete app": true -> 
+				(DeleteAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and DeleteAppResult.EvaluteValue.Modified_Id = 6) 
+				=> 
+				OldAppRecordData.CI_APP = DeleteAppResult.Input.AppRecord.CI_APP;
+
+				guarantee "manage TO_APPRecord for restart app": true -> 
+				(RestartAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and RestartAppResult.EvaluteValue.Modified_Id = 7) 
+				=> 
+				OldAppRecordData.TO_APP = RestartAppResult.Input.AppRecord.TO_APP;
+				
+				guarantee "manage TO_APPRecord for delete app": true -> 
+				(DeleteAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and DeleteAppResult.EvaluteValue.Modified_Id = 7) 
+				=> 
+				OldAppRecordData.TO_APP = DeleteAppResult.Input.AppRecord.TO_APP;
 				
 				
 				

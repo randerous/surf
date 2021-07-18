@@ -87,11 +87,13 @@ public
 --------------------------------------------------------------------------
 	feature group P_SendMsg extends Generic::Provide_Generic_Function_API
 		features
+			Activiated: in data port Base_Types::Boolean;
 			Msg: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
 	end P_SendMsg;
 
 	feature group R_SendMsg extends Generic::Require_Generic_Function_API
 		features
+			Activiated: out data port Base_Types::Boolean;
 			Msg: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
 	inverse of P_SendMsg
 	end R_SendMsg;

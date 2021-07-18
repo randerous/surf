@@ -9,6 +9,8 @@ public
 			EVS_CmdPipe_EVS_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
 			TIME_CmdPipe_TIME_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
 			HS_CmdPipe_HS_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			CI_CmdPipe_CI_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			TO_CmdPipe_TO_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
 --			EVS_EVENT_MSG: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
 	end RouteOutput;
 	
@@ -19,6 +21,8 @@ public
 			EVS_CmdPipe_EVS_Command: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
 			TIME_CmdPipe_TIME_Command: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
 			HS_CmdPipe_HS_Command: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			CI_CmdPipe_CI_Command: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			TO_CmdPipe_TO_Command: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
 	inverse of RouteOutput
 	end RouteInput;
 end SB_Route_Table;

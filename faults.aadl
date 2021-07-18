@@ -31,10 +31,10 @@ annex agree {**
 		val_out = if(trigger) then val_in{MsgId := 0} else val_in;
 	tel;
 	
-	node crash_seu(val_in: int,  trigger: bool)
-	returns(val_out : int);
+	node crash_seu(val_in: bool,  trigger: bool)
+	returns(val_out : bool);
 	let
-		val_out = if(trigger) then 0 else val_in;
+		val_out = if(trigger) then false else val_in;
 	tel;
 
 **};	

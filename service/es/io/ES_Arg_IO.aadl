@@ -7,6 +7,14 @@ public
 		features
 			a: feature group ES_Interface::P_RegisterApp;
 	end RegisterAppArgs;
+
+	feature group R_RegisterAppArgs
+		features
+			a: feature group ES_Interface::R_RegisterApp;
+	    inverse of RegisterAppArgs
+	end R_RegisterAppArgs;
+	
+	
 	
 	feature group RestartAppArgs
 		features
@@ -14,6 +22,14 @@ public
 			HS_MonitorApplications_RestartApp: feature group ES_Interface::P_RestartApp;
 --			ES_ScanAppTable_ES: feature group ES_Interface::P_RestartApp;
 	end RestartAppArgs;
+
+	feature group R_RestartAppArgs
+		features
+			ES_RestartApp: feature group ES_Interface::R_RestartApp;
+			HS_MonitorApplications_RestartApp: feature group ES_Interface::R_RestartApp;
+--			ES_ScanAppTable_ES: feature group ES_Interface::R_RestartApp;
+		inverse of RestartAppArgs
+	end R_RestartAppArgs;
 	
 	feature group DeleteAppArgs
 --		features
@@ -22,6 +38,14 @@ public
 			a: feature group ES_Interface::P_DeleteApp;
 	end DeleteAppArgs;
 
+	feature group R_DeleteAppArgs
+--		features
+--			ES_ScanAppTable_ES: feature group ES_Interface::P_DeleteApp;
+		features
+			a: feature group ES_Interface::R_DeleteApp;
+		inverse of DeleteAppArgs
+	end R_DeleteAppArgs;
+
 -- why the feature is called HS?
 -- oh, that is because we only have only one common app, hs, if any other, can add to it.
 -- actually, we need to add more interface to common app, for concurrent access.
@@ -29,6 +53,16 @@ public
 	feature group RunLoopArgs
 		features
 			HS: feature group ES_Interface::P_RunLoop;
+			CI: feature group ES_Interface::P_RunLoop;
+			TO_APP: feature group ES_Interface::P_RunLoop;
+	end RunLoopArgs;
+	
+	feature group R_RunLoopArgs
+		features
+			HS: feature group ES_Interface::R_RunLoop;
+			CI: feature group ES_Interface::R_RunLoop;
+			TO_APP: feature group ES_Interface::R_RunLoop;
+		inverse of RunLoopArgs
 	end RunLoopArgs;
 	
 end ES_Arg_IO;

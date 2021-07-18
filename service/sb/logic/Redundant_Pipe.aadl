@@ -72,8 +72,25 @@ public
 			then (OldPipeData.HS_CmdPipe.InUse = false)
 			else OldPipeData.HS_CmdPipe = pre(OldPipeData.HS_CmdPipe) ;
 			
+			guarantee "manage CI_Cmd_Pipe": OldPipeData.CI_CmdPipe.InUse = true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 6)
+			then (OldPipeData.CI_CmdPipe  = CreatePipeResult.Input.CI_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 6)
+			then (OldPipeData.CI_CmdPipe.InUse = false)
+			else OldPipeData.CI_CmdPipe = pre(OldPipeData.CI_CmdPipe) ;
+
+			guarantee "manage TO_Cmd_Pipe": OldPipeData.TO_CmdPipe.InUse = true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 7)
+			then (OldPipeData.TO_CmdPipe  = CreatePipeResult.Input.TO_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 7)
+			then (OldPipeData.TO_CmdPipe.InUse = false)
+			else OldPipeData.TO_CmdPipe = pre(OldPipeData.TO_CmdPipe); 
 			
-		   eq Router_Changed : bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
+		    eq Router_Changed: bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
 						(UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS);
 --		    respectively manage each router;
 --initially, set each subscription   into false, but for hs , true for monitor event always
@@ -83,6 +100,8 @@ public
 				OldRouteData.Event_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.EVS_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Event_Router.RouteList.CI_Pipe = false and
+				OldRouteData.Event_Router.RouteList.TO_Pipe = false and
 				OldRouteData.Event_Router.RouteList.HS_Pipe = true 
 			) -> true;
 			
@@ -91,7 +110,9 @@ public
 				OldRouteData.Core_Msg_Router.RouteList.ES_Pipe = false and 
 				OldRouteData.Core_Msg_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Core_Msg_Router.RouteList.EVS_Pipe = false and 
-				OldRouteData.Core_Msg_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Core_Msg_Router.RouteList.TIME_Pipe = false and
+				OldRouteData.Core_Msg_Router.RouteList.CI_Pipe = false and
+				OldRouteData.Core_Msg_Router.RouteList.TO_Pipe = false and 
 				OldRouteData.Core_Msg_Router.RouteList.HS_Pipe = false 
 			) -> true;
 			
@@ -100,7 +121,9 @@ public
 				OldRouteData.Common_Msg_Router.RouteList.ES_Pipe = false and 
 				OldRouteData.Common_Msg_Router.RouteList.SB_Pipe = false and 
 				OldRouteData.Common_Msg_Router.RouteList.EVS_Pipe = false and 
-				OldRouteData.Common_Msg_Router.RouteList.TIME_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.TIME_Pipe = false and
+				OldRouteData.Common_Msg_Router.RouteList.CI_Pipe = false and
+				OldRouteData.Common_Msg_Router.RouteList.TO_Pipe = false and  
 				OldRouteData.Common_Msg_Router.RouteList.HS_Pipe = false 
 			) -> true;
 			
@@ -171,7 +194,9 @@ public
             outData.ES_CmdPipe = inData.ES_CmdPipe 
             and outData.SB_CmdPipe = inData.SB_CmdPipe 
             and outData.EVS_CmdPipe = inData.EVS_CmdPipe 
-            and outData.TIME_CmdPipe = inData.TIME_CmdPipe;
+            and outData.TIME_CmdPipe = inData.TIME_CmdPipe
+			and outData.CI_CmdPipe = inData.CI_CmdPipe
+			and outData.TO_CmdPipe = inData.TO_CmdPipe;
             
             eq A_e_B: bool = inDataA.HS_CmdPipe.MsgId =  inDataB.HS_CmdPipe.MsgId;
             eq B_e_C: bool = inDataB.HS_CmdPipe.MsgId =  inDataC.HS_CmdPipe.MsgId;

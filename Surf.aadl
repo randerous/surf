@@ -11,6 +11,7 @@ public
 	with CI_APP;
 	with TO_APP;
 	with Core_Types;
+	
 		
 	process Surf
 	features
@@ -35,6 +36,7 @@ public
 			TO_APP: thread TO_APP::TOAPP;
 			
 			Medium: abstract Surf_Medium::Medium;
+			RunLoopAgent: abstract Surf_Medium::RunLoopAgent;
 		connections
 			---------------------core data provide---------------------------
 			ES_AppRecord: feature group Core.AppRecord -> ES.AppRecord;
@@ -52,10 +54,13 @@ public
 			EVS_Command: port Medium.EVS_CmdPipe_EVS_Command -> EVS.Command;
 			TIME_Command: port Medium.TIME_CmdPipe_TIME_Command -> TIME.Command;
 			HS_Command: port Medium.HS_CmdPipe_HS_Command -> HS.Command;
-			
-			CI_Command: port Medium.CI_CmdPipe_CI_Command -> CI.Command;
 			TO_Command: port Medium.TO_CmdPipe_TO_Command -> TO_APP.Command;
+
 			CI_GroundCommand: port GroundCommand -> CI.Command;
+
+			CI_Run: feature group CI.ESAPI <-> RunLoopAgent.CI_Run;
+			TO_Run: feature group TO_APP.ESAPI <-> RunLoopAgent.TO_Run; 
+			RunInfo: feature group RunLoopAgent.ESAPI <-> Core.ESAPI;
 		
 			annex agree{**
 			--0: running 1: restart   2: wait
@@ -70,7 +75,7 @@ public
 			
 			eq MAX_MSGS_MET: int = 6;--
 			eq MAX_DESTS_MET: int = 7;--
-			eq BUF_ALOC_ERR: int = 8;--��
+			eq BUF_ALOC_ERR: int = 8;--
 			
 			eq MSG_TOO_BIG: int = 9;
 			
@@ -89,36 +94,50 @@ public
 			
 			eq EVS_ERROR: int = 3;
 			eq ERR_REPORT: int = 5;
-			 
+			
+--			lemma "ci keep alive":
+--			true -> Core.ESAPI.RunLoopArgs.CI.ESAPI.CI.Activiated = true;
+--			
+--			lemma "update CI_app" : Core.AppRecord.CI_APP.StateRecord.AppTimer = (0 -> 
+--		 			 pre(Core.AppRecord.CI_APP.StateRecord.AppTimer) +1 );
+		 		
+	
+			
 			lemma "hs monitor event, send error Msg for reporting": 
 			true -> 
 			(	
 				(HS.Command.MsgId = 0 and HS.Command.EvtId = EVS_ERROR)
-				=>true 
+				=> HS.EVSAPI.SendEventArgs.Default.Msg.EvtId = ERR_REPORT
 --HS.EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
 			);
 			
-			lemma "hs monitor es, send a cmd to restart es whenever es stuck": true-> 
-			(HS.AppRecord.ES.StateRecord.AppTimer = pre(HS.AppRecord.ES.StateRecord.AppTimer)) =>
+			lemma "monitor es, send a cmd to restart es whenever es stuck": true-> 
+			(HS.TaskRecord.ES.ExecutionCounter = pre(HS.TaskRecord.ES.ExecutionCounter)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
 			
-			lemma "hs monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
-			(HS.AppRecord.SB.StateRecord.AppTimer = pre(HS.AppRecord.SB.StateRecord.AppTimer)) =>
+			lemma "monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
+			(HS.TaskRecord.SB.ExecutionCounter = pre(HS.TaskRecord.SB.ExecutionCounter)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 1;
 			
-			lemma "hs monitor evs, send a cmd to restart evs whenever evs stuck": true-> 
-			(HS.AppRecord.EVS.StateRecord.AppTimer = pre(HS.AppRecord.EVS.StateRecord.AppTimer)) =>
+			lemma "monitor evs, send a cmd to restart evs whenever evs stuck": true-> 
+			(HS.TaskRecord.EVS.ExecutionCounter = pre(HS.TaskRecord.EVS.ExecutionCounter)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 2;
 			
-			lemma "hs monitor TIME, send a cmd to restart TIME whenever TIME stuck": true-> 
-			(HS.AppRecord.TIME1.StateRecord.AppTimer = pre(HS.AppRecord.TIME1.StateRecord.AppTimer)) =>
+			lemma "monitor TIME, send a cmd to restart TIME whenever TIME stuck": true-> 
+			(HS.TaskRecord.TIME1.ExecutionCounter = pre(HS.TaskRecord.TIME1.ExecutionCounter)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 3;
-			
-			lemma "hs monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
-			(HS.AppRecord.HS_APP.StateRecord.AppTimer = pre(HS.AppRecord.HS_APP.StateRecord.AppTimer)) =>
+					
+			lemma "monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
+			(HS.TaskRecord.HS_APP.ExecutionCounter = pre(HS.TaskRecord.HS_APP.ExecutionCounter)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
-  
- 			
+			
+			lemma "monitor CI_APP, send a cmd to restart CI_APP whenever CI_APP stuck": true-> 
+			(HS.TaskRecord.CI_APP.ExecutionCounter = pre(HS.TaskRecord.CI_APP.ExecutionCounter)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 6;
+			
+			lemma "monitor TO_APP, send a cmd to restart TO_APP whenever TO_APP stuck": true-> 
+			(HS.TaskRecord.TO_APP.ExecutionCounter = pre(HS.TaskRecord.TO_APP.ExecutionCounter)) =>
+			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 7;
  			
 			lemma "Time goes": Core.TIMEAPI.GetTimeArgs.a.CurrentTime.Seconds = (0 ->  
 				 pre(Core.TIMEAPI.GetTimeArgs.a.CurrentTime.Seconds)+1);
@@ -132,8 +151,8 @@ public
 					=> HS.Command.MsgId = 0
 				);
 			--0: running 1: restart, 2:waiting, 4: initializing
-		 		 eq waitting: int = 2;
-		 		 eq running: int = 0;
+		 	eq waitting: int = 2;
+		 	eq running: int = 0;
 		 	lemma "restart app": true -> 
 		 		 Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true and  Core.ESAPI.RestartAppArgs.ES_RestartApp.AppId  = 5 and
 		 		 pre(Core.AppRecord.HS_APP.StateRecord.AppState = running)

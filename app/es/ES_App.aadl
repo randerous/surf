@@ -32,6 +32,11 @@ public
 			EVSAPI.SendEventArgs.RestartApp.AppId = 3;			
 			guarantee "check hs": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
 			EVSAPI.SendEventArgs.RestartApp.AppId = 5;
+			guarantee "check ci": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 6;
+			guarantee "check to": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
+			EVSAPI.SendEventArgs.RestartApp.AppId = 7;
+			
 			
 		**};
 	end ESAPP;

@@ -3,10 +3,28 @@ public
 	with Component;
 	with TO_Sugar;
 	with TO_Command;
+	with ES_Arg_IO;
 
 	thread TOApp extends Component::AppComponent
 		features
 			SBAPI: refined to feature group TO_Sugar::SBAPIOutput;
+			ESAPI: refined to feature group ES_Arg_IO::R_RunLoopArgs;
+		annex agree{**
+--			guarantee "deliver ground cmd": true -> (
+--				Command.MsgId <> 0 => SBAPI.SendMsgArgs.Activiated = true and 
+--				SBAPI.SendMsgArgs.Msg = Command
+--			);
+			guarantee "update heart beat by runloop": true -> ESAPI.CI.Activiated = true;
+			
+		**};
+		annex safety{**
+			 fault crash_fault2 "component crash":  faults.crash_seu {
+			inputs: val_in <- ESAPI.CI.Activiated;     
+			outputs: ESAPI.CI.Activiated <- val_out;    
+         	probability: 1.0E-5 ;
+			duration: permanent;
+			}
+		**};
 	end TOApp;
 
 	thread implementation TOApp.impl extends Component::AppComponent.default

@@ -122,6 +122,9 @@ public
 			TIME_Pipe: data Base_Types::Boolean;
 			HS_Pipe: data Base_Types::Boolean;
 			Sample_APP_Pipe: data Base_Types::Boolean;
+			CI_Pipe: data Base_Types::Boolean;
+			TO_Pipe: data Base_Types::Boolean;
+			
 			
 			
 	end Base_struct.CFE_SB_DestinationD_t;

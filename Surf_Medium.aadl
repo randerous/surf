@@ -2,6 +2,8 @@ package Surf_Medium
 public
 	with SB_Route_Table;
 	with Core_Types;
+	with ES_Arg_IO;
+	with Core;
 	--test for the ability of AGREE to model equaling of structs, it does 
 --	abstract test
 --		features
@@ -48,4 +50,17 @@ public
         
         
 	end Medium;
+
+
+	abstract RunLoopAgent 
+		features
+			CI_Run: feature group ES_Arg_IO::RunLoopArgs;
+			TO_Run: feature group ES_Arg_IO::RunLoopArgs;
+			ESAPI: feature group Core::R_ESAPI;
+		
+		annex agree{**
+			guarantee "transfer runloop info" : ESAPI.RunLoopArgs.CI.Activiated = CI_Run.CI.Activiated
+			and  ESAPI.RunLoopArgs.TO_APP.Activiated = TO_Run.TO_APP.Activiated;
+		**};
+	end RunLoopAgent;
 end Surf_Medium;

@@ -10,6 +10,8 @@ public
 			EVS: out data port Core_Types::Base_struct.EVS_AppData_t;
 			TIME1: out data port Core_Types::Base_struct.EVS_AppData_t;
 			HS: out data port Core_Types::Base_struct.EVS_AppData_t;
+			CI: out data port Core_Types::Base_struct.EVS_AppData_t;
+			TO_APP: out data port Core_Types::Base_struct.EVS_AppData_t;
 	end AppDataOutput;
 	feature group AppDataInput
 		features 
@@ -18,6 +20,8 @@ public
 			EVS: in data port Core_Types::Base_struct.EVS_AppData_t;
 			TIME1: in data port Core_Types::Base_struct.EVS_AppData_t;
 			HS: in data port Core_Types::Base_struct.EVS_AppData_t;
+			CI: in data port Core_Types::Base_struct.EVS_AppData_t;
+			TO_APP: in data port Core_Types::Base_struct.EVS_AppData_t;
 	inverse of AppDataOutput
 	end AppDataInput;
 	

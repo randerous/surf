@@ -21,10 +21,9 @@ public
 			EVSAPI: feature group EVSAPI;
 			SBAPI: feature group SBAPI;
 			TIMEAPI: feature group TIMEAPI;
-			
 			MsgOutput: feature group SB_Route_Table::RouteOutput;
-			
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
+			TaskRecord: feature group ES_Base_IO::TaskRecordOutput;
 		annex agree{**
 				--assume for sb
 			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
@@ -121,6 +120,23 @@ public
 		 		 ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true and  ESAPI.RestartAppArgs.ES_RestartApp.AppId  = 5 and
 		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
 		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
+		 		
+		 		
+		 		guarantee "update CI_app" : TaskRecord.CI_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(ESAPI.RunLoopArgs.CI.Activiated = true) 
+		 				then pre(TaskRecord.CI_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.CI_APP.ExecutionCounter)
+		 			) 
+		 		);
+		 		
+		 		guarantee "update TO_app" : TaskRecord.TO_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(ESAPI.RunLoopArgs.TO_APP.Activiated = true) 
+		 				then pre(TaskRecord.TO_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.TO_APP.ExecutionCounter)
+		 			) 
+		 		);
 			 
 		**};
 	end Core;
@@ -136,6 +152,7 @@ public
 			RegisterApp: feature group ESAPI.RegisterAppArgs -> ES.RegisterAppArgs;
 			RestartApp: feature group ESAPI.RestartAppArgs -> ES.RestartAppArgs;
 			DeleteApp: feature group ESAPI.DeleteAppArgs -> ES.DeleteAppArgs;
+			RunLoop: feature group ESAPI.RunLoopArgs -> ES.RunLoopArgs;
 --			
 			CreatePipe: feature group SBAPI.CreatePipeArgs -> SB.CreatePipeArgs;
 			DeletePipe: feature group SBAPI.DeletePipeArgs -> SB.DeletePipeArgs;
@@ -155,6 +172,7 @@ public
 			
 			-----------------------Data output----------------------
 			AppRecordOutput: feature group ES.AppRecord -> AppRecord;
+			TaskRecordOutput: feature group ES.TaskRecord -> TaskRecord;
 --			
 --			
 			
@@ -178,7 +196,17 @@ public
 			RegisterAppArgs: feature group ES_Arg_IO::RegisterAppArgs;
 			RestartAppArgs: feature group ES_Arg_IO::RestartAppArgs;
 			DeleteAppArgs: feature group ES_Arg_IO::DeleteAppArgs;
+			RunLoopArgs: feature group ES_Arg_IO::RunLoopArgs;
 	end ESAPI;
+
+	feature group R_ESAPI
+		features
+			RegisterAppArgs: feature group ES_Arg_IO::R_RegisterAppArgs;
+			RestartAppArgs: feature group ES_Arg_IO::R_RestartAppArgs;
+			DeleteAppArgs: feature group ES_Arg_IO::R_DeleteAppArgs;
+			RunLoopArgs: feature group ES_Arg_IO::R_RunLoopArgs;
+		inverse of ESAPI
+	end R_ESAPI;
 	
 	feature group EVSAPI
 		features

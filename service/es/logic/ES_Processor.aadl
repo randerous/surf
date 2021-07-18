@@ -69,6 +69,20 @@ public
 			Results.ReturnValue.Modified_Id = 5 and 
 			Results.Output.TaskRecord.HS_APP.TaskId = 5  and 
 			Results.Output.TaskRecord.HS_APP.RecordUsed = true;
+			
+			guarantee "activiate CI_APP taskRecord when call register basing on localData":  
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 6) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_Id = 6 and 
+			Results.Output.TaskRecord.CI_APP.TaskId = 6  and 
+			Results.Output.TaskRecord.CI_APP.RecordUsed = true;
+			
+			guarantee "activiate TO_APP taskRecord when call register basing on localData":  
+			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 7) =>
+			Results.ReturnValue.Cmd_Called = SUCCESS and 
+			Results.ReturnValue.Modified_Id = 7 and 
+			Results.Output.TaskRecord.TO_APP.TaskId = 7  and 
+			Results.Output.TaskRecord.TO_APP.RecordUsed = true;
 			**};
 	end RegisterApp;
 
@@ -129,16 +143,13 @@ public
 			eq TIME_OUT: int = 5;
 			--there is something strange; there need to be some other common app to restart;
 			
-			eq copy_taskinfo: bool =(
+			eq copy_hs_taskinfo: bool =(
 				Results.Output.AppRecord.HS_APP.TaskInfo.MainTaskId = pre (AppRecord.HS_APP.TaskInfo.MainTaskId)
 				and Results.Output.AppRecord.HS_APP.TaskInfo.MainTaskName = pre(AppRecord.HS_APP.TaskInfo.MainTaskName)
 				and Results.Output.AppRecord.HS_APP.TaskInfo.NumOfChildTasks = pre( AppRecord.HS_APP.TaskInfo.NumOfChildTasks)				
 			);
 
---leave startparam for no use,		
---			eq copy_startPara: bool = (
---				true
---			);
+ 
 			guarantee "restart hs app ": true -> 
 			(Args.ES_RestartApp.Activiated = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
 			and pre(AppRecord.HS_APP.StateRecord.AppState) = running)
@@ -146,11 +157,33 @@ public
 			  and Results.ReturnValue.Modified_Id = 5
 			  and Results.Output.AppRecord.HS_APP.RecordUsed = pre(AppRecord.HS_APP.RecordUsed)
 			  and Results.Output.AppRecord.HS_APP.AppType = pre(AppRecord.HS_APP.AppType) 
---			  and Results.Output.AppRecord.HS_APP.StartParams = pre(AppRecord.HS_APP.StartParams) 
-			  and copy_taskinfo
+			  and copy_hs_taskinfo
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_START
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppState = waitting
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppTimer = TIME_OUT;
+
+ 
+			guarantee "restart CI app ": true -> 
+			(Args.ES_RestartApp.Activiated = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 6
+			and pre(AppRecord.CI_APP.StateRecord.AppState) = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 6
+			  and Results.Output.AppRecord.CI_APP.RecordUsed = pre(AppRecord.CI_APP.RecordUsed)
+			  and Results.Output.AppRecord.CI_APP.AppType = pre(AppRecord.CI_APP.AppType) 
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_START
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppState = waitting
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppTimer = TIME_OUT;
+			  
+			guarantee "restart TO app ": true -> 
+			(Args.ES_RestartApp.Activiated = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 7
+			and pre(AppRecord.TO_APP.StateRecord.AppState) = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 7
+			  and Results.Output.AppRecord.TO_APP.RecordUsed = pre(AppRecord.TO_APP.RecordUsed)
+			  and Results.Output.AppRecord.TO_APP.AppType = pre(AppRecord.TO_APP.AppType) 
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppControlRequest = SYS_START
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppState = waitting
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppTimer = TIME_OUT;
 			
 			**};
 	end RestartApp;
@@ -217,11 +250,35 @@ public
 			  and Results.ReturnValue.Modified_Id = 5
 			  and Results.Output.AppRecord.HS_APP.RecordUsed = pre(AppRecord.HS_APP.RecordUsed)
 			  and Results.Output.AppRecord.HS_APP.AppType = pre(AppRecord.HS_APP.AppType) 
---			  and Results.Output.AppRecord.HS_APP.StartParams = pre(AppRecord.HS_APP.StartParams) 
 			  and copy_taskinfo
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_DELETE
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppState = waitting
 			  and Results.Output.AppRecord.HS_APP.StateRecord.AppTimer = TIME_OUT;
+			
+
+			guarantee "delete CI app ": true -> 
+			(Args.a.Activiated = true and  not check_is_core and Args.a.AppId = 6
+			and AppRecord.CI_APP.StateRecord.AppState = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 6
+			  and Results.Output.AppRecord.CI_APP.RecordUsed = pre(AppRecord.CI_APP.RecordUsed)
+			  and Results.Output.AppRecord.CI_APP.AppType = pre(AppRecord.CI_APP.AppType) 
+			  and copy_taskinfo
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_DELETE
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppState = waitting
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppTimer = TIME_OUT;
+			
+			guarantee "delete TO app ": true -> 
+			(Args.a.Activiated = true and  not check_is_core and Args.a.AppId = 7
+			and AppRecord.TO_APP.StateRecord.AppState = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 7
+			  and Results.Output.AppRecord.TO_APP.RecordUsed = pre(AppRecord.TO_APP.RecordUsed)
+			  and Results.Output.AppRecord.TO_APP.AppType = pre(AppRecord.TO_APP.AppType) 
+			  and copy_taskinfo
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppControlRequest = SYS_DELETE
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppState = waitting
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppTimer = TIME_OUT;
 			  
 			**};
 	end DeleteApp;
@@ -264,8 +321,23 @@ public
 			Args.HS.Activiated = true  and not EXCEPTION_CONTROLCMD => 
 			Results.ReturnValue.Cmd_Called = SUCCESS 
 			and Results.ReturnValue.Modified_Id = 5
-			and Results.Output.TaskRecord.HS_APP.ExecutionCounter =
-( pre(TaskRecord.HS_APP.ExecutionCounter) + 1);
+			and Results.Output.TaskRecord.HS_APP.ExecutionCounter = (pre(TaskRecord.HS_APP.ExecutionCounter) + 1);
+
+			guarantee "update CI_app" : Results.Output.TaskRecord.CI_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(Args.CI.Activiated = true) 
+		 				then pre(TaskRecord.CI_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.CI_APP.ExecutionCounter)
+		 			) 
+		 		);
+		 		
+		  guarantee "update TO_app" : Results.Output.TaskRecord.TO_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(Args.TO_APP.Activiated = true) 
+		 				then pre(TaskRecord.TO_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.TO_APP.ExecutionCounter)
+		 			) 
+		 		);
 			
 			
 			--0: running 1: restart, 2:waitting

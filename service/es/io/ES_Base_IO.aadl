@@ -15,6 +15,8 @@ public
 			EVS: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 			TIME1: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 			HS_APP: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			CI_APP: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			TO_APP: out data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 	end TaskRecordOutput;
 
 	feature group TaskRecordInput
@@ -24,6 +26,8 @@ public
 			EVS: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 			TIME1: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
 			HS_APP: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			CI_APP: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t;
+			TO_APP: in data port Core_Types::Base_struct.CFE_ES_TaskRecord_t; 
 	inverse of TaskRecordOutput
 	end TaskRecordInput;
 	
@@ -34,6 +38,9 @@ public
 			EVS: out data port Base_Types::Integer;
 			TIME1: out data port Base_Types::Integer;
 			HS_APP: out data port Base_Types::Integer;
+			CI_APP: out data port Base_Types::Integer;
+			TO_APP: out data port Base_Types::Integer;
+
 	end TaskRecordReturnValue;
 
 	feature group TaskRecordEvaluteValue
@@ -43,6 +50,9 @@ public
 			EVS: in data port Base_Types::Integer;
 			TIME1: in data port Base_Types::Integer;
 			HS_APP: in data port Base_Types::Integer;
+			CI_APP: in data port Base_Types::Integer;
+			TO_APP: in data port Base_Types::Integer;
+
 	inverse of TaskRecordReturnValue
 	end TaskRecordEvaluteValue;
 
@@ -54,6 +64,8 @@ public
 			EVS: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 			TIME1: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 			HS_APP: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			CI_APP: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			TO_APP: out data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 	end AppRecordOutput;
 
 	feature group AppRecordInput
@@ -64,6 +76,9 @@ public
 			EVS: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 			TIME1: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
 			HS_APP: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			CI_APP: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			TO_APP: in data port Core_Types::Base_struct.CFE_ES_AppRecord_t;
+			
 	inverse of AppRecordOutput
 	end AppRecordInput;
 
@@ -74,6 +89,8 @@ public
 			EVS: out data port Base_Types::Integer;
 			TIME1: out data port Base_Types::Integer;
 			HS_APP: out data port Base_Types::Integer;
+			CI_APP: out data port Base_Types::Integer;
+			TO_APP: out data port Base_Types::Integer;
 	end AppRecordReturnValue;
 
 	feature group AppRecordEvaluteValue
@@ -83,6 +100,9 @@ public
 			EVS: in data port Base_Types::Integer;
 			TIME1: in data port Base_Types::Integer;
 			HS_APP: in data port Base_Types::Integer;
+			CI_APP: in data port Base_Types::Integer;
+			TO_APP: in data port Base_Types::Integer;
+
 	inverse of AppRecordReturnValue
 	end AppRecordEvaluteValue;
 	
