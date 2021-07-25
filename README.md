@@ -44,10 +44,58 @@ TO do:
 这里假设所有的函数功能，在一次调用后将结果更新至sharedata，即调用和更新发生在一个周期，
 tricks：在初始化阶段，屏蔽所有函数调用	
 
-## 现有的核心服务app
+# 新增的三个app
+## CI
+从地面获取cmd
+## TO Telemetry Output
+ is responsible to interact with the cFE Software bus, send the HK packet and the OutData packet.
+ typedef struct
+{
+    uint8   ucTlmHeader[CFE_SB_TLM_HDR_SIZE];
+    uint16  usCmdCnt;           /**< Count of all commands received           */
+    uint16  usCmdErrCnt;        /**< Count of command errors                  */
+    uint16  usMsgSubCnt;        /**< Count of subscribed messages by all 
+                                     telemetry pipe.                          */
+    uint16  usMsgSubErrCnt;     /**< Count of subscription errors             */
+    uint16  usTblUpdateCnt;     /**< Count of table updates through CFE_TBL   */
+    uint16  usTblErrCnt;        /**< Count of table update errors             */
+    uint16  usConfigRoutes;     /**< Current mask of configured routes        */
+    uint16  usEnabledRoutes;    /**< Current mask of enabled routes           */
+} TO_HkTlm_t;
+## hk
+发送命令的处理情况、正确数、错误数
+typedef struct
+{
+    uint8   TlmHeader[CFE_SB_TLM_HDR_SIZE];/**< \brief cFE Software Bus Telemetry Message Header */
+ 
+    uint8   CmdCounter;         /**< \hktlmmnemonic \HK_CMDPC
+                                \brief Count of valid commands received */
+    uint8   ErrCounter;         /**< \hktlmmnemonic \HK_CMDEC
+                                \brief Count of invalid commands received */
+    uint16  Padding;			/**< \hktlmmnemonic \HK_PADDING
+                                \brief Padding to force 32 bit alignment */
+    uint16  CombinedPacketsSent;/**< \hktlmmnemonic \HK_CMBPKTSSENT
+                                \brief Count of combined tlm pkts sent */
+    uint16  MissingDataCtr;     /**< \hktlmmnemonic \HK_MISSDATACTR
+                                \brief Number of times missing data was detected */ 
+    uint32  MemPoolHandle;      /**< \hktlmmnemonic \HK_MEMPOOLHNDL
+                                \brief Memory pool handle used to get mempool diags */
+
+} HK_HkPacket_t;
+# 现有的核心服务app
 四个核心服务的app实际现在不具有实用性，
-用于接收地面传来的命令执行对应的操作
-现在没有加入遥测、遥控指令
+## ES APP
+HS调ES_Restart, ES_Restart修改ProcessControlRequest，使得重启指令发出
+CFE_ES_ScanAppTable，负责重启、删除app
+CFE_ES_ProcessControlRequest（i）,CFE_ES_RUNSTATUS_APP_EXIT,CFE_ES_RUNSTATUS_SYS_DELETE,CFE_ES_RUNSTATUS_SYS_RESTART
+## EVS APP
+验证地面消息命令的有效性，管理事件过滤器
+## SB APP
+将路由消息、管道结构发送回地面
+## TIME APP
+将时间发送回地面
+
+
 
 ### newList
 add maintain function to es
