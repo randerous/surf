@@ -25,7 +25,7 @@ public
          	probability: 1.0E-5 ;
 			duration: permanent;
 			}
-		**};
+		**}; 
 	end TOApp;
 
 	thread implementation TOApp.impl extends Component::AppComponent.default
