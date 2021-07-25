@@ -32,7 +32,7 @@ public
 ---   UnCalled: -1;
 --    SUCCESS:0
 --    SB_BAD_ARGUMENT:3 
--- 	  CFE_ES_ERR_APP_REGISTER: 17;
+-- 	  SURF_ES_ERR_APP_REGISTER: 17;
 --we just need a sign to determine whether Task is registered or del,
 --so just need add a bool value sign to express it.	
 	feature group ReturnValue

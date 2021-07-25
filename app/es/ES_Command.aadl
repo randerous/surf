@@ -9,13 +9,13 @@ public
 	
 	abstract CommandRouter extends Component::CommandRouter
 		features
-			RestartApp: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			RestartApp: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
 	end CommandRouter;
 	
 	abstract RestartAppProcessor extends Generic::CommandProcessor
 		features
 			Result: refined to out data port Base_Types::Integer;
-			Command: refined to in data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			Command: refined to in data port Core_Types::Base_struct.SURF_SB_Msg_t;
 			SendEvent: feature group EVS_Interface::R_SendEvent;
 			RestartApp: feature group ES_Interface::R_RestartApp;
 	end RestartAppProcessor;

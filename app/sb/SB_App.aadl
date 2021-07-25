@@ -9,7 +9,7 @@ public
 			ESAPI: refined to feature group SB_Sugar::ESAPIOutput;
 		
 		annex agree{**
---			assume "": Command.MsgId > 0 and Command.EvtId > 0;
+ 
 			
 		**};
 	end SBAPP;
@@ -18,21 +18,12 @@ public
 		subcomponents
 			Medium: refined to abstract SB_Sugar::Medium;
 			Checker: refined to abstract SB_Sugar::Checker;
-			-------------Command processor
-
-			-------------Base task
+ 
 
 		connections			
-			----------------Route connection
-			
-			----------------Medium API Out
 			MediumESAPI: feature group Medium.ESAPI -> ESAPI;
 			
-			----------------Task data needed
-			
-			----------------Checker result in
-			
-			----------------Medium processor api call collecttion connection			
+ 		
 
 	end SBAPP.impl;
 end SB_App;

@@ -15,9 +15,9 @@ public
 			Results: refined to feature group EVS_Result_IO::RegisterOutput;
 			LocalDatas: refined to feature group EVS_Base_IO::AppDataInput;
 		annex agree{**
-			eq Valid_AppId: bool = (Args.a.AppId >= 0 and Args.a.AppId <= 5);
+			eq Valid_AppId: bool = (Args.a.AppId >= 0 and Args.a.AppId <= 7);
 			eq Valid_EvtId: bool = (Args.a.Filters.EventID >= 0);
-			eq Arg_Valid: bool = ((Args.a.AppId >= 0 and Args.a.AppId <= 5) and (Args.a.Filters.EventID >= 0));
+			eq Arg_Valid: bool = ((Args.a.AppId >= 0 and Args.a.AppId <= 7) and (Args.a.Filters.EventID >= 0));
 			
 			
 			guarantee "check args": (Args.a.Activiated = true and ( not Arg_Valid)) 
@@ -25,7 +25,7 @@ public
 			eq SUCCESS : int = 0;
 			eq BAD_ARGUMENT: int  = 3;	
 			
-			guarantee "keep silence for no call": Args.a.Activiated = false or Args.a.AppId  = 4 
+			guarantee "keep silence for no call": Args.a.Activiated = false  
 			=>Results.ReturnValue.Cmd_Called = -1;
 			
 			

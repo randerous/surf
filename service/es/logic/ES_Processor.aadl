@@ -21,17 +21,17 @@ public
 			--error num is defined in Results defining.
 			--    for return value
 			--    SUCCESS:0 
-			--    CFE_ES_ERR_APP_REGISTER: 17
+			--    SURF_ES_ERR_APP_REGISTER: 17
 			--    UnCalled: -1
 			eq SUCCESS : int = 0;
-			eq CFE_ES_ERR_APP_REGISTER: int  = 17;
+			eq SURF_ES_ERR_APP_REGISTER: int  = 17;
 			eq MAX_APPID : int  = 512;
 			
 			eq Check_Args_False : bool = Args.a.TaskId >  MAX_APPID or Args.a.TaskId   < 0;
 			guarantee "return null for No Call ": Args.a.Activiated = false => Results.ReturnValue.Cmd_Called = -1;
 			guarantee "send error event when getting in trouble by return error num": true -> 
 			true-> (Args.a.Activiated = true and Check_Args_False = true) =>
-			 Results.ReturnValue.Cmd_Called = CFE_ES_ERR_APP_REGISTER;
+			 Results.ReturnValue.Cmd_Called = SURF_ES_ERR_APP_REGISTER;
 			
 			guarantee "activiate es taskRecord when call register basing on localData":  
 			true->(Args.a.Activiated = true and Check_Args_False = false and Args.a.TaskId = 0) =>
@@ -150,6 +150,48 @@ public
 			);
 
  
+
+
+			guarantee "set cmd restart hs app ": true -> 
+			(Args.HS_MonitorApplications_RestartApp.Activiated = true and  not check_is_core_HsCall and Args.HS_MonitorApplications_RestartApp.AppId = 5
+			and pre(AppRecord.HS_APP.StateRecord.AppState) = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 5
+			  and Results.Output.AppRecord.HS_APP.RecordUsed = pre(AppRecord.HS_APP.RecordUsed)
+			  and Results.Output.AppRecord.HS_APP.AppType = pre(AppRecord.HS_APP.AppType) 
+			  and Results.Output.AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_START
+			  and Results.Output.AppRecord.HS_APP.StateRecord.AppState = pre(AppRecord.HS_APP.StateRecord.AppState) 
+			  and Results.Output.AppRecord.HS_APP.StateRecord.AppTimer =  pre(AppRecord.HS_APP.StateRecord.AppTimer) ;
+			
+			
+			guarantee "set cmd restart CI app ": true -> 
+			(Args.HS_MonitorApplications_RestartApp.Activiated = true 
+				and not check_is_core_HsCall 
+				and Args.HS_MonitorApplications_RestartApp.AppId = 6
+				and pre(AppRecord.CI_APP.StateRecord.AppState) = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 6
+			  and Results.Output.AppRecord.CI_APP.RecordUsed = pre(AppRecord.CI_APP.RecordUsed)
+			  and Results.Output.AppRecord.CI_APP.AppType = pre(AppRecord.CI_APP.AppType) 
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_START
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppState = pre(AppRecord.CI_APP.StateRecord.AppState) 
+			  and Results.Output.AppRecord.CI_APP.StateRecord.AppTimer =  pre(AppRecord.CI_APP.StateRecord.AppTimer) ;
+			
+			
+ 			guarantee "set cmd restart TO app ": true -> 
+			(Args.HS_MonitorApplications_RestartApp.Activiated = true and  not check_is_core_HsCall and Args.HS_MonitorApplications_RestartApp.AppId = 7
+			and pre(AppRecord.TO_APP.StateRecord.AppState) = running)
+			=> Results.ReturnValue.Cmd_Called = SUCCESS
+			  and Results.ReturnValue.Modified_Id = 7
+			  and Results.Output.AppRecord.TO_APP.RecordUsed = pre(AppRecord.TO_APP.RecordUsed)
+			  and Results.Output.AppRecord.TO_APP.AppType = pre(AppRecord.TO_APP.AppType) 
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppControlRequest = SYS_START
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppState = pre(AppRecord.TO_APP.StateRecord.AppState) 
+			  and Results.Output.AppRecord.TO_APP.StateRecord.AppTimer = pre(AppRecord.TO_APP.StateRecord.AppTimer) ;
+			
+ 		
+			  
+			 
 			guarantee "restart hs app ": true -> 
 			(Args.ES_RestartApp.Activiated = true and  not check_is_core_EsCall and Args.ES_RestartApp.AppId = 5
 			and pre(AppRecord.HS_APP.StateRecord.AppState) = running)
@@ -301,7 +343,7 @@ public
 			eq ES_ERR_APPID: int = 1; 		 
 			
 			eq EXCEPTION_APP_CONTROL: int = 24;
-			eq CFE_ES_APP_STATE_INITIALIZING : int = 4;
+			eq SURF_ES_APP_STATE_INITIALIZING : int = 4;
 			guarantee "return null for No Call ": Args.HS.Activiated = false  => 
 			Results.ReturnValue.Cmd_Called = -1;
 			
@@ -349,6 +391,16 @@ public
 			Args.HS.Activiated = true  and not EXCEPTION_CONTROLCMD and
  			pre(AppRecord.HS_APP.StateRecord.AppState = initializating) => 
 			Results.Output.AppRecord.HS_APP.StateRecord.AppState = running;
+			
+			guarantee "change ci appstate from initializing to running": true ->
+			Args.CI.Activiated = true  and not EXCEPTION_CONTROLCMD and
+ 			pre(AppRecord.CI_APP.StateRecord.AppState = initializating) => 
+			Results.Output.AppRecord.CI_APP.StateRecord.AppState = running;
+			
+			guarantee "change to appstate from initializing to running": true ->
+			Args.TO_APP.Activiated = true  and not EXCEPTION_CONTROLCMD and
+ 			pre(AppRecord.TO_APP.StateRecord.AppState = initializating) => 
+			Results.Output.AppRecord.TO_APP.StateRecord.AppState = running;
 			**};
 	end RunLoop;
 end ES_Processor;

@@ -7,24 +7,24 @@ public
 ------------------------------Pipe---------------------------------
 	feature group PipeOutput
 		features
-			ES_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			SB_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			EVS_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			TIME_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			HS_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			CI_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			TO_CmdPipe: out data port Core_Types::Base_struct.CFE_SB_PipeD_t;
+			ES_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			SB_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			EVS_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			TIME_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			HS_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			CI_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			TO_CmdPipe: out data port Core_Types::Base_struct.SURF_SB_PipeD_t;
 	end PipeOutput;
 
 	feature group PipeInput
 		features   
-			ES_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			SB_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			EVS_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			TIME_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			HS_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			CI_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
-			TO_CmdPipe: in data port Core_Types::Base_struct.CFE_SB_PipeD_t;
+			ES_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			SB_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			EVS_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			TIME_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			HS_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			CI_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
+			TO_CmdPipe: in data port Core_Types::Base_struct.SURF_SB_PipeD_t;
 	inverse of PipeOutput
 	end PipeInput;
 
@@ -71,20 +71,20 @@ public
 ------------------------------Route---------------------------------
 	feature group RouteOutput
 		features
---			ES_CmdPipe_ES_Command: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
---			SB_CmdPipe_SB_Command: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
---			EVS_CmdPipe_EVS_Command: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
---			TIME_CmdPipe_TIME_Command: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
-			Event_Router: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
-			Core_Msg_Router: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
-			Common_Msg_Router: out data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
+--			ES_CmdPipe_ES_Command: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+--			SB_CmdPipe_SB_Command: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+--			EVS_CmdPipe_EVS_Command: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+--			TIME_CmdPipe_TIME_Command: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+			Event_Router: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+			Core_Msg_Router: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+			Common_Msg_Router: out data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
 	end RouteOutput;
 
 	feature group RouteInput
 		features
-			Event_Router: in data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
-			Core_Msg_Router: in data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
-			Common_Msg_Router: in data port Core_Types::Base_struct.CFE_SB_RouteEntry_t;
+			Event_Router: in data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+			Core_Msg_Router: in data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
+			Common_Msg_Router: in data port Core_Types::Base_struct.SURF_SB_RouteEntry_t;
 	inverse of RouteOutput
 	end RouteInput;
 	

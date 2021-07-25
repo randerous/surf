@@ -7,26 +7,26 @@ public
 
 --task for heart beating checking
 -----------------------------ES------------------------------------
-	data implementation Base_struct.CFE_ES_TaskRecord_t
+	data implementation Base_struct.SURF_ES_TaskRecord_t
 		subcomponents
 			RecordUsed: data Base_Types::Boolean;
 			AppId: data Base_Types::Unsigned_32;
 			TaskId: data Base_Types::Unsigned_32;
 			ExecutionCounter: data Base_Types::Unsigned_32;
 			TaskName: data Base_Types::boolean;
-	end Base_struct.CFE_ES_TaskRecord_t;
+	end Base_struct.SURF_ES_TaskRecord_t;
 
 --appRecord for app state 
-	data implementation Base_struct.CFE_ES_AppRecord_t
+	data implementation Base_struct.SURF_ES_AppRecord_t
 		subcomponents
 			RecordUsed: data Base_Types::Boolean;
 			AppType: data Base_Types::Unsigned_32;
-			StartParams: data Base_struct.CFE_ES_AppStartParams_t;
-			StateRecord: data Base_struct.CFE_ES_AppState_t;
-			TaskInfo: data Base_struct.CFE_ES_MainTaskInfo_t;
-	end Base_struct.CFE_ES_AppRecord_t;
+			StartParams: data Base_struct.SURF_ES_AppStartParams_t;
+			StateRecord: data Base_struct.SURF_ES_AppState_t;
+			TaskInfo: data Base_struct.SURF_ES_MainTaskInfo_t;
+	end Base_struct.SURF_ES_AppRecord_t;
 
-	data implementation Base_struct.CFE_ES_AppStartParams_t
+	data implementation Base_struct.SURF_ES_AppStartParams_t
 		subcomponents
 			Name: data Base_Types::boolean;
 			EntryPoint: data Base_Types::boolean;
@@ -36,27 +36,27 @@ public
 			ModuleId: data Base_Types::Unsigned_32;
 			ExceptionAction: data Base_Types::Unsigned_16;
 			Priority: data Base_Types::Unsigned_16;
-	end Base_struct.CFE_ES_AppStartParams_t;
+	end Base_struct.SURF_ES_AppStartParams_t;
     
-	data implementation Base_struct.CFE_ES_AppState_t
+	data implementation Base_struct.SURF_ES_AppState_t
 		subcomponents
 			AppControlRequest: data Base_Types::Unsigned_32;
 			AppState: data Base_Types::Unsigned_32;--0: running 1: restart, 2:waiting, 4: initializing
 			AppTimer: data Base_Types::Integer_32;
-	end Base_struct.CFE_ES_AppState_t;
+	end Base_struct.SURF_ES_AppState_t;
 
-	data implementation Base_struct.CFE_ES_MainTaskInfo_t
+	data implementation Base_struct.SURF_ES_MainTaskInfo_t
 		subcomponents
 			MainTaskId: data Base_Types::Unsigned_32;
 			MainTaskName: data Base_Types::boolean;
 			NumOfChildTasks: data Base_Types::Integer_32;
-	end Base_struct.CFE_ES_MainTaskInfo_t;
+	end Base_struct.SURF_ES_MainTaskInfo_t;
 -------------------------------------------------------------------
 -----------------------------SB------------------------------------
  
  
 	
-	data implementation Base_struct.CFE_SB_PipeD_t
+	data implementation Base_struct.SURF_SB_PipeD_t
 		subcomponents
 			InUse: data Base_Types::boolean;
 			PipeId: data Base_Types::Unsigned_8;
@@ -68,45 +68,45 @@ public
 			LastSender: data Base_Types::Unsigned_32;
 			QueueDepth: data Base_Types::Unsigned_16;
 			SendErrors: data Base_Types::Unsigned_16;
-			CurrentBuff: data Base_struct.CFE_SB_BufferD_t;
-			ToTrashBuff: data Base_struct.CFE_SB_BufferD_t;
+			CurrentBuff: data Base_struct.SURF_SB_BufferD_t;
+			ToTrashBuff: data Base_struct.SURF_SB_BufferD_t;
 			MsgQueue: data Base_Types::boolean;
 			MsgId: data Base_Types::Integer;
 			ReadIdx: data Base_Types::Unsigned_8;
 			WriteIdx: data Base_Types::Unsigned_8;
-	end Base_struct.CFE_SB_PipeD_t;
+	end Base_struct.SURF_SB_PipeD_t;
 	
-	data implementation Base_struct.CFE_SB_BufferD_t
+	data implementation Base_struct.SURF_SB_BufferD_t
 		subcomponents
 			MsgId: data Base_Types::Unsigned_16;
 			UseCount: data Base_Types::Unsigned_16;
 			Size: data Base_Types::Unsigned_32;
 			Buffer: data Base_Types::boolean;
-			Sender: data Base_struct.CFE_SB_SenderId_t;
-	end Base_struct.CFE_SB_BufferD_t;
+			Sender: data Base_struct.SURF_SB_SenderId_t;
+	end Base_struct.SURF_SB_BufferD_t;
 	
-	data implementation Base_struct.CFE_SB_SenderId_t
+	data implementation Base_struct.SURF_SB_SenderId_t
 		subcomponents
 			ProcessorId: data Base_Types::Unsigned_32;
 			AppName: data Base_Types::boolean;
-	end Base_struct.CFE_SB_SenderId_t;
+	end Base_struct.SURF_SB_SenderId_t;
 	
 	--router entry 
 	--for each Event, has a list of  pipes that subscribed it.
 	--Destinations denote the sum of pipes
 	--RouteList denote a link list to store pipes' name
-	data implementation Base_struct.CFE_SB_RouteEntry_t
+	data implementation Base_struct.SURF_SB_RouteEntry_t
 		subcomponents
 			MsgId: data Base_Types::Unsigned_16;
 			Destinations: data Base_Types::Unsigned_16;
 			SeqCnt: data Base_Types::Unsigned_32;
-			RouteList: data Base_struct.CFE_SB_DestinationD_t;
-	end Base_struct.CFE_SB_RouteEntry_t;
+			RouteList: data Base_struct.SURF_SB_DestinationD_t;
+	end Base_struct.SURF_SB_RouteEntry_t;
 	
 	
 	--the struct is so far to express list, in Lustre, it can't descripe a dynamic behavior
 	--we need set static varibles for activiating
-	data implementation Base_struct.CFE_SB_DestinationD_t
+	data implementation Base_struct.SURF_SB_DestinationD_t
 		subcomponents
 --			PipeId: data Base_Types::Unsigned_8;
 --			Active: data Base_Types::Unsigned_8;
@@ -127,9 +127,9 @@ public
 			
 			
 			
-	end Base_struct.CFE_SB_DestinationD_t;
+	end Base_struct.SURF_SB_DestinationD_t;
 	
-	data implementation Base_struct.CFE_SB_Msg_t
+	data implementation Base_struct.SURF_SB_Msg_t
 		subcomponents
 			--MsgId = -1 denotes null, No msg
 			--for all events, msgid is same, but different evtID
@@ -139,7 +139,7 @@ public
 			EvtId: data Base_Types::Unsigned_16;
 			Content: data Base_Types::boolean;
 			AppId: data Base_Types::Unsigned_16;
-	end Base_struct.CFE_SB_Msg_t;
+	end Base_struct.SURF_SB_Msg_t;
 -------------------------------------------------------------------
 -----------------------------EVS------------------------------------
 	data implementation Base_struct.EVS_AppData_t
@@ -164,24 +164,24 @@ public
 	end Base_struct.EVS_BinFilter_t;
 -------------------------------------------------------------------
 -----------------------------Time------------------------------------
-	data implementation Base_struct.CFE_TIME_SysTime_t
+	data implementation Base_struct.SURF_TIME_SysTime_t
 		subcomponents
 			Seconds: data Base_Types::Unsigned_32;
 			Subseconds: data Base_Types::Unsigned_32;
-	end Base_struct.CFE_TIME_SysTime_t;
+	end Base_struct.SURF_TIME_SysTime_t;
 	
-	data implementation Base_struct.CFE_TIME_Reference_t
+	data implementation Base_struct.SURF_TIME_Reference_t
 		subcomponents
-			AtToneMET: data Base_struct.CFE_TIME_SysTime_t;
-			AtToneSTCF: data Base_struct.CFE_TIME_SysTime_t;
+			AtToneMET: data Base_struct.SURF_TIME_SysTime_t;
+			AtToneSTCF: data Base_struct.SURF_TIME_SysTime_t;
 			AtToneLeaps: data Base_Types::Unsigned_16;
 			ClockSetState: data Base_Types::Unsigned_16;
 			ClockFlyState: data Base_Types::Unsigned_16;
-			AtToneLatch: data Base_struct.CFE_TIME_SysTime_t;
-			CurrentLatch: data Base_struct.CFE_TIME_SysTime_t;
-			TimeSinceTone: data Base_struct.CFE_TIME_SysTime_t;
-			CurrentMET: data Base_struct.CFE_TIME_SysTime_t;
-	end Base_struct.CFE_TIME_Reference_t;
+			AtToneLatch: data Base_struct.SURF_TIME_SysTime_t;
+			CurrentLatch: data Base_struct.SURF_TIME_SysTime_t;
+			TimeSinceTone: data Base_struct.SURF_TIME_SysTime_t;
+			CurrentMET: data Base_struct.SURF_TIME_SysTime_t;
+	end Base_struct.SURF_TIME_Reference_t;
 -------------------------------------------------------------------
 -----------------------------HS------------------------------------
 	data implementation Base_struct.HS_AMTEntry_t

@@ -24,8 +24,8 @@ annex agree {**
 	   val_out=  if (trigger) then alt_val else val_in;
 	tel; 
 	
-	node dataseg_seu(val_in: Core_Types::Base_struct.CFE_SB_PipeD_t,  trigger: bool)
-	returns(val_out : Core_Types::Base_struct.CFE_SB_PipeD_t);
+	node dataseg_seu(val_in: Core_Types::Base_struct.SURF_SB_PipeD_t,  trigger: bool)
+	returns(val_out : Core_Types::Base_struct.SURF_SB_PipeD_t);
 	let
 		
 		val_out = if(trigger) then val_in{MsgId := 0} else val_in;

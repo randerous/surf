@@ -47,7 +47,7 @@ public
 			AppId: in data port Base_Types::Unsigned_32;
 			EvtId: in data port Base_Types::Unsigned_16;
 			EvtType: in data port Base_Types::Unsigned_16;
---			Msg: out data port Data_SB::Base_struct.CFE_SB_Msg_t;
+--			Msg: out data port Data_SB::Base_struct.SURF_SB_Msg_t;
 	end P_SendEvent;
 
 	feature group R_SendEvent extends Generic::Require_Generic_Function_API
@@ -55,7 +55,7 @@ public
 			AppId: out data port Base_Types::Unsigned_32;
 			EvtId: out data port Base_Types::Unsigned_16;
 			EvtType: out data port Base_Types::Unsigned_16;
---			Msg: out data port Data_SB::Base_struct.CFE_SB_Msg_t;
+--			Msg: out data port Data_SB::Base_struct.SURF_SB_Msg_t;
 	inverse of P_SendEvent
 	end R_SendEvent;
 end EVS_Interface;

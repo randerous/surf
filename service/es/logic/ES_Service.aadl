@@ -65,10 +65,32 @@ public
 		 		 --0: running 1: restart, 2:waiting, 4: initializing
 		 		 eq waitting: int = 2;
 		 		 eq running: int = 0;
-		 		guarantee "restart app": true -> 
-		 		 RestartAppArgs.ES_RestartApp.Activiated = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
-		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
-		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
+--		 		guarantee "restart app": true -> 
+--		 		 RestartAppArgs.ES_RestartApp.Activiated = true and RestartAppArgs.ES_RestartApp.AppId  = 5 and
+--		 		 pre(AppRecord.HS_APP.StateRecord.AppState = running)
+--		 		=>  AppRecord.HS_APP.StateRecord.AppState = waitting;
+		 		
+		 		
+		 		guarantee  "set cmd restart CI app": true -> 
+		 		RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true and  RestartAppArgs.HS_MonitorApplications_RestartApp.AppId  = 6 and
+		 		 pre(AppRecord.CI_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_START;
+		 		
+		 		guarantee  "set cmd restart TO app": true -> 
+		 		RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true and  RestartAppArgs.HS_MonitorApplications_RestartApp.AppId  = 7 and
+		 		 pre(AppRecord.TO_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.TO_APP.StateRecord.AppControlRequest = SYS_START;
+		 		eq SYS_START : int = 5;
+		 		
+		 		guarantee  "restart CI app": true -> 
+		 		RestartAppArgs.ES_RestartApp.Activiated = true and  RestartAppArgs.ES_RestartApp.AppId  = 6 and
+		 		 pre(AppRecord.CI_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.CI_APP.StateRecord.AppState = waitting;
+		 		
+		 		guarantee  "restart TO app": true -> 
+		 		RestartAppArgs.ES_RestartApp.Activiated = true and  RestartAppArgs.ES_RestartApp.AppId  = 7 and
+		 		 pre(AppRecord.TO_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.TO_APP.StateRecord.AppState = waitting;
 		 		
 		 		guarantee "update CI_app" : TaskRecord.CI_APP.ExecutionCounter = (0 -> 
 		 			(
@@ -245,22 +267,20 @@ public
 				eq waitting: int = 2;
 				eq initializating : int = 4;
 				
-			eq copy_taskinfo: bool =(
-				OldAppRecordData.HS_APP.TaskInfo.MainTaskId = pre (OldAppRecordData.HS_APP.TaskInfo.MainTaskId)
-				and OldAppRecordData.HS_APP.TaskInfo.MainTaskName = pre(OldAppRecordData.HS_APP.TaskInfo.MainTaskName)
-				and OldAppRecordData.HS_APP.TaskInfo.NumOfChildTasks = pre( OldAppRecordData.HS_APP.TaskInfo.NumOfChildTasks)				
-			);
+				eq copy_hs_taskinfo: bool =(
+					OldAppRecordData.HS_APP.TaskInfo.MainTaskId = pre (OldAppRecordData.HS_APP.TaskInfo.MainTaskId)
+					and OldAppRecordData.HS_APP.TaskInfo.MainTaskName = pre(OldAppRecordData.HS_APP.TaskInfo.MainTaskName)
+					and OldAppRecordData.HS_APP.TaskInfo.NumOfChildTasks = pre( OldAppRecordData.HS_APP.TaskInfo.NumOfChildTasks)				
+				);
 				guarantee "manage HS_AppRecord for runloop": true -> 
 				(RunLoopResult.EvaluteValue.Cmd_Called = SUCCESS
 				and RunLoopResult.EvaluteValue.Modified_Id = 5) 
-				=> 
-				OldAppRecordData.HS_APP.StateRecord.AppState = running
-			  and OldAppRecordData.HS_APP.RecordUsed = pre(OldAppRecordData.HS_APP.RecordUsed)
-			  and OldAppRecordData.HS_APP.AppType = pre(OldAppRecordData.HS_APP.AppType) 
---			  and OldAppRecordData.HS_APP.StartParams = pre(OldAppRecordData.HS_APP.StartParams) 
-			  and copy_taskinfo
-			  and OldAppRecordData.HS_APP.StateRecord.AppControlRequest = pre(OldAppRecordData.HS_APP.StateRecord.AppControlRequest)
-			  and OldAppRecordData.HS_APP.StateRecord.AppTimer = pre(OldAppRecordData.HS_APP.StateRecord.AppTimer);
+				=> 	OldAppRecordData.HS_APP.StateRecord.AppState = running
+				and OldAppRecordData.HS_APP.RecordUsed = pre(OldAppRecordData.HS_APP.RecordUsed)
+				and OldAppRecordData.HS_APP.AppType = pre(OldAppRecordData.HS_APP.AppType) 
+				and copy_hs_taskinfo
+				and OldAppRecordData.HS_APP.StateRecord.AppControlRequest = pre(OldAppRecordData.HS_APP.StateRecord.AppControlRequest)
+			    and OldAppRecordData.HS_APP.StateRecord.AppTimer = pre(OldAppRecordData.HS_APP.StateRecord.AppTimer);
 				
 				-- there is no need to maintain for no runloop and no delete and no restart, 
 				-- Consider, 

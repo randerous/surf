@@ -21,21 +21,32 @@ public
 			guarantee "cmd to call * RestartApp": true ->  (Command.MsgId = 0 and Command.EvtId = 0) =>
 			ESAPI.RestartAppArgs.RestartApp.AppId = Command.AppId;
 			
+			
+			--App State: this is for change the appstate to 1:restart 
+			--0: running 1: restart, 2:waiting, 4: initialazing
 			--check appstate, send event to restart
-			guarantee "check es": true ->  AppRecord.ES.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 0;
-			guarantee "check sb": true ->  AppRecord.SB.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 1;
-			guarantee "check evs": true ->  AppRecord.EVS.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 2; 
-			guarantee "check time": true ->  AppRecord.TIME1.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 3;			
-			guarantee "check hs": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 5;
-			guarantee "check ci": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 6;
-			guarantee "check to": true ->  AppRecord.HS_APP.StateRecord.AppState = 1 => 
-			EVSAPI.SendEventArgs.RestartApp.AppId = 7;
+			eq SYS_START: int = 5;
+			guarantee "check es": true ->  pre(AppRecord.ES.StateRecord.AppControlRequest = SYS_START) => 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 0;
+			guarantee "check sb": true ->  pre(AppRecord.SB.StateRecord.AppControlRequest = SYS_START) => 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 1;
+			guarantee "check evs": true ->  pre(AppRecord.EVS.StateRecord.AppControlRequest = SYS_START) => 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 2; 
+			guarantee "check time": true ->  pre(AppRecord.TIME1.StateRecord.AppControlRequest = SYS_START)=> 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 3;			
+			guarantee "check hs": true ->  pre(AppRecord.HS_APP.StateRecord.AppControlRequest = SYS_START) => 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 5;
+			guarantee "check ci": true ->  pre(AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_START) => 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 6;
+			guarantee "check to": true ->  pre(AppRecord.TO_APP.StateRecord.AppControlRequest = SYS_START) => 
+			ESAPI.RestartAppArgs.RestartApp.Activiated = true 
+			and ESAPI.RestartAppArgs.RestartApp.AppId = 7;
 			
 			
 		**};

@@ -15,11 +15,12 @@ public
 		
 	process Surf
 	features
-			GroundCommand: in data port Core_Types::Base_struct.CFE_SB_Msg_t;
+			GroundCommand: in data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			TelemetryOutput: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
---		 guarantee "": true;
+ 
 	**};
 	end Surf;
 	
@@ -36,7 +37,7 @@ public
 			TO_APP: thread TO_APP::TOAPP;
 			
 			Medium: abstract Surf_Medium::Medium;
-			RunLoopAgent: abstract Surf_Medium::RunLoopAgent;
+			ESAPIAgent: abstract Surf_Medium::ESAPIAgent;
 		connections
 			---------------------core data provide---------------------------
 			ES_AppRecord: feature group Core.AppRecord -> ES.AppRecord;
@@ -48,6 +49,10 @@ public
 			---------------------------Medium--------------------------------
 			MediumIn: feature group Core.MsgOutput -> Medium.MsgInput;
 			
+			---------------------------restart cmd---------------------------
+			HS_Mon:  feature group HS.ESAPI -> ESAPIAgent.HS_Restart;
+			ES_Mon:  feature group ES.ESAPI -> ESAPIAgent.ES_Restart;
+			
 			----------------------------Msg----------------------------------
 			ES_Command: port Medium.ES_CmdPipe_ES_Command -> ES.Command;
 			SB_Command: port Medium.SB_CmdPipe_SB_Command -> SB.Command;
@@ -57,10 +62,11 @@ public
 			TO_Command: port Medium.TO_CmdPipe_TO_Command -> TO_APP.Command;
 
 			CI_GroundCommand: port GroundCommand -> CI.Command;
+			TelemetryOutput1: port TO_APP.TelemetryOutput -> TelemetryOutput;
 
-			CI_Run: feature group CI.ESAPI <-> RunLoopAgent.CI_Run;
-			TO_Run: feature group TO_APP.ESAPI <-> RunLoopAgent.TO_Run; 
-			RunInfo: feature group RunLoopAgent.ESAPI <-> Core.ESAPI;
+			CI_Run: feature group CI.ESAPI <-> ESAPIAgent.CI_Run;
+			TO_Run: feature group TO_APP.ESAPI <-> ESAPIAgent.TO_Run; 
+			RunInfo: feature group ESAPIAgent.ESAPI <-> Core.ESAPI;
 		
 			annex agree{**
 			--0: running 1: restart   2: wait
@@ -95,12 +101,7 @@ public
 			eq EVS_ERROR: int = 3;
 			eq ERR_REPORT: int = 5;
 			
---			lemma "ci keep alive":
---			true -> Core.ESAPI.RunLoopArgs.CI.ESAPI.CI.Activiated = true;
---			
---			lemma "update CI_app" : Core.AppRecord.CI_APP.StateRecord.AppTimer = (0 -> 
---		 			 pre(Core.AppRecord.CI_APP.StateRecord.AppTimer) +1 );
-		 		
+
 	
 			
 			lemma "hs monitor event, send error Msg for reporting": 
@@ -108,7 +109,7 @@ public
 			(	
 				(HS.Command.MsgId = 0 and HS.Command.EvtId = EVS_ERROR)
 				=> HS.EVSAPI.SendEventArgs.Default.Msg.EvtId = ERR_REPORT
---HS.EVSAPI.SendEventArgs.Default.EvtId = ERR_REPORT
+ 
 			);
 			
 			lemma "monitor es, send a cmd to restart es whenever es stuck": true-> 
@@ -131,9 +132,17 @@ public
 			(HS.TaskRecord.HS_APP.ExecutionCounter = pre(HS.TaskRecord.HS_APP.ExecutionCounter)) =>
 			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
 			
+			
+			eq SYS_START : int = 5;
 			lemma "monitor CI_APP, send a cmd to restart CI_APP whenever CI_APP stuck": true-> 
-			(HS.TaskRecord.CI_APP.ExecutionCounter = pre(HS.TaskRecord.CI_APP.ExecutionCounter)) =>
-			HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 6;
+			((HS.TaskRecord.CI_APP.ExecutionCounter = pre(HS.TaskRecord.CI_APP.ExecutionCounter)) 
+			and pre(Core.AppRecord.CI_APP.StateRecord.AppState = running))
+		 		=>  Core.AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_START;
+		 		
+		    lemma "restart CI_APP whenever CI_APP stuck": true-> 
+			(pre(Core.AppRecord.CI_APP.StateRecord.AppState) = running 
+			and pre( Core.AppRecord.CI_APP.StateRecord.AppControlRequest = SYS_START))
+		 		=>  Core.AppRecord.CI_APP.StateRecord.AppState = waitting ;
 			
 			lemma "monitor TO_APP, send a cmd to restart TO_APP whenever TO_APP stuck": true-> 
 			(HS.TaskRecord.TO_APP.ExecutionCounter = pre(HS.TaskRecord.TO_APP.ExecutionCounter)) =>
@@ -153,12 +162,7 @@ public
 			--0: running 1: restart, 2:waiting, 4: initializing
 		 	eq waitting: int = 2;
 		 	eq running: int = 0;
-		 	lemma "restart app": true -> 
-		 		 Core.ESAPI.RestartAppArgs.ES_RestartApp.Activiated = true and  Core.ESAPI.RestartAppArgs.ES_RestartApp.AppId  = 5 and
-		 		 pre(Core.AppRecord.HS_APP.StateRecord.AppState = running)
-		 		=>  Core.AppRecord.HS_APP.StateRecord.AppState = waitting;
-			
-
+ 
 		    --assume for sb
 			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
 				assert "No Create and Delete pipe at the same time": not(Core.SBAPI.CreatePipeArgs.a.Activiated = true

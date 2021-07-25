@@ -3,6 +3,9 @@
   <featureInstance name="GroundCommand">
     <feature xsi:type="aadl2:DataPort" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.0"/>
   </featureInstance>
+  <featureInstance name="TelemetryOutput" direction="out">
+    <feature xsi:type="aadl2:DataPort" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.1"/>
+  </featureInstance>
   <componentInstance name="Core">
     <featureInstance name="ESAPI" category="featureGroup" direction="in out">
       <featureInstance name="RegisterAppArgs" category="featureGroup" direction="in out">
@@ -9056,7 +9059,7 @@
     <index>0</index>
     <classifier xsi:type="aadl2:AbstractType" href="../Surf_Medium.aadl#Surf_Medium.Medium"/>
   </componentInstance>
-  <componentInstance name="RunLoopAgent">
+  <componentInstance name="ESAPIAgent">
     <featureInstance name="CI_Run" category="featureGroup" direction="in out">
       <featureInstance name="HS" category="featureGroup" direction="in out">
         <featureInstance name="Call" category="eventDataPort">
@@ -10209,9 +10212,198 @@
       </featureInstance>
       <feature xsi:type="aadl2:FeatureGroup" href="../Surf_Medium.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.2"/>
     </featureInstance>
+    <featureInstance name="HS_Restart" category="featureGroup" direction="in out">
+      <featureInstance name="RestartAppCollection" category="featureGroup" direction="in out">
+        <featureInstance name="MonitorApplications_SB" category="featureGroup" direction="in out">
+          <featureInstance name="Call" category="eventDataPort">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:EventDataPort" href="../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+          </featureInstance>
+          <featureInstance name="Result" category="eventDataPort" direction="out">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+                  <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:EventDataPort" href="../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+          </featureInstance>
+          <featureInstance name="Activiated">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:DataPort" href="../interface/ES_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedDataPort.0"/>
+          </featureInstance>
+          <featureInstance name="AppId">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+                  <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:DataPort" href="../interface/ES_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedDataPort.1"/>
+          </featureInstance>
+          <feature xsi:type="aadl2:FeatureGroup" href="../app/hs/HS_Sugar.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroup.0"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../app/hs/HS_Sugar.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../Surf_Medium.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.3"/>
+    </featureInstance>
+    <featureInstance name="ES_Restart" category="featureGroup" direction="in out">
+      <featureInstance name="RestartAppCollection" category="featureGroup" direction="in out">
+        <featureInstance name="RestartApp" category="featureGroup" direction="in out">
+          <featureInstance name="Call" category="eventDataPort">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:EventDataPort" href="../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.0"/>
+          </featureInstance>
+          <featureInstance name="Result" category="eventDataPort" direction="out">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+                  <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:EventDataPort" href="../common/Generic.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventDataPort.1"/>
+          </featureInstance>
+          <featureInstance name="Activiated">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:DataPort" href="../interface/ES_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedDataPort.0"/>
+          </featureInstance>
+          <featureInstance name="AppId">
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Data_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.4/@ownedPropertyType/@ownedLiteral.6"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Number_Representation"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:NamedValue">
+                  <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#/0/@ownedProperty.13/@ownedPropertyType/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.0"/>
+            </ownedPropertyAssociation>
+            <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+              <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Memory_Properties.aadl#Memory_Properties.Data_Size"/>
+              <ownedValue>
+                <ownedValue xsi:type="aadl2:IntegerLiteral" value="4">
+                  <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
+                </ownedValue>
+              </ownedValue>
+              <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedPropertyAssociation.1"/>
+            </ownedPropertyAssociation>
+            <feature xsi:type="aadl2:DataPort" href="../interface/ES_Interface.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedDataPort.1"/>
+          </featureInstance>
+          <feature xsi:type="aadl2:FeatureGroup" href="../app/es/ES_Sugar.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFeatureGroup.0"/>
+        </featureInstance>
+        <feature xsi:type="aadl2:FeatureGroup" href="../app/es/ES_Sugar.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedFeatureGroup.0"/>
+      </featureInstance>
+      <featureInstance name="DeleteAppCollection" category="featureGroup" direction="in out">
+        <feature xsi:type="aadl2:FeatureGroup" href="../app/es/ES_Sugar.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedFeatureGroup.1"/>
+      </featureInstance>
+      <feature xsi:type="aadl2:FeatureGroup" href="../Surf_Medium.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.4"/>
+    </featureInstance>
     <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.2"/>
     <index>0</index>
-    <classifier xsi:type="aadl2:AbstractType" href="../Surf_Medium.aadl#Surf_Medium.RunLoopAgent"/>
+    <classifier xsi:type="aadl2:AbstractType" href="../Surf_Medium.aadl#Surf_Medium.ESAPIAgent"/>
   </componentInstance>
   <componentInstance name="ES" category="thread">
     <featureInstance name="SBAPI" category="featureGroup" direction="in out">
@@ -11866,6 +12058,9 @@
       </featureInstance>
       <feature xsi:type="aadl2:FeatureGroup" href="../app/to/TO_App.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.1"/>
     </featureInstance>
+    <featureInstance name="TelemetryOutput" direction="out">
+      <feature xsi:type="aadl2:DataPort" href="../app/to/TO_App.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.0"/>
+    </featureInstance>
     <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedThreadSubcomponent.7"/>
     <index>0</index>
     <classifier xsi:type="aadl2:ThreadType" href="../app/to/TO_App.aadl#TO_App.TOApp"/>
@@ -12136,39 +12331,39 @@
       <connection xsi:type="aadl2:PortConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.CI_Run.HS.Result -> CI.ESAPI.HS.Result" complete="true" kind="portConnection" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.1" source="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1">
+  <connectionInstance name="ESAPIAgent.CI_Run.HS.Result -> CI.ESAPI.HS.Result" complete="true" kind="portConnection" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.1" source="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.1" reverse="true">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
-    </connectionReference>
-  </connectionInstance>
-  <connectionInstance name="RunLoopAgent.CI_Run.CI.Result -> CI.ESAPI.CI.Result" complete="true" kind="portConnection" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.1" source="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.1">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.1" reverse="true">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
-    </connectionReference>
-  </connectionInstance>
-  <connectionInstance name="RunLoopAgent.CI_Run.TO_APP.Result -> CI.ESAPI.TO_APP.Result" complete="true" kind="portConnection" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.1" source="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.1">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.1" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.1" reverse="true">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
-    </connectionReference>
-  </connectionInstance>
-  <connectionInstance name="RunLoopAgent.TO_Run.HS.Result -> TO_APP.ESAPI.HS.Result" complete="true" kind="portConnection" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.1" reverse="true">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
-    </connectionReference>
-  </connectionInstance>
-  <connectionInstance name="RunLoopAgent.TO_Run.CI.Result -> TO_APP.ESAPI.CI.Result" complete="true" kind="portConnection" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.1">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.1" reverse="true">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
-    </connectionReference>
-  </connectionInstance>
-  <connectionInstance name="RunLoopAgent.TO_Run.TO_APP.Result -> TO_APP.ESAPI.TO_APP.Result" complete="true" kind="portConnection" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.1">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.1" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.1" reverse="true">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
-    </connectionReference>
-  </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RegisterAppArgs.a.Call -> Core.ES.RegisterApp.Args.a.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0">
-    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ESAPIAgent.CI_Run.CI.Result -> CI.ESAPI.CI.Result" complete="true" kind="portConnection" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.1" source="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ESAPIAgent.CI_Run.TO_APP.Result -> CI.ESAPI.TO_APP.Result" complete="true" kind="portConnection" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.1" source="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.1" destination="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ESAPIAgent.TO_Run.HS.Result -> TO_APP.ESAPI.HS.Result" complete="true" kind="portConnection" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ESAPIAgent.TO_Run.CI.Result -> TO_APP.ESAPI.CI.Result" complete="true" kind="portConnection" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ESAPIAgent.TO_Run.TO_APP.Result -> TO_APP.ESAPI.TO_APP.Result" complete="true" kind="portConnection" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.1" destination="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.1" reverse="true">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ESAPIAgent.ESAPI.RegisterAppArgs.a.Call -> Core.ES.RegisterApp.Args.a.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
@@ -12177,9 +12372,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.2"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RegisterAppArgs.a.Activiated -> Core.ES.RegisterApp.Args.a.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.RegisterAppArgs.a.Activiated -> Core.ES.RegisterApp.Args.a.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
@@ -12188,9 +12383,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.2"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RegisterAppArgs.a.TaskId -> Core.ES.RegisterApp.Args.a.TaskId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.RegisterAppArgs.a.TaskId -> Core.ES.RegisterApp.Args.a.TaskId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
@@ -12199,9 +12394,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.2"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RestartAppArgs.ES_RestartApp.Call -> Core.ES.RestartApp.Args.ES_RestartApp.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0">
+  <connectionInstance name="ESAPIAgent.ESAPI.RestartAppArgs.ES_RestartApp.Call -> Core.ES.RestartApp.Args.ES_RestartApp.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
@@ -12210,9 +12405,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RestartAppArgs.ES_RestartApp.Activiated -> Core.ES.RestartApp.Args.ES_RestartApp.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.RestartAppArgs.ES_RestartApp.Activiated -> Core.ES.RestartApp.Args.ES_RestartApp.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
@@ -12221,9 +12416,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RestartAppArgs.ES_RestartApp.AppId -> Core.ES.RestartApp.Args.ES_RestartApp.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.RestartAppArgs.ES_RestartApp.AppId -> Core.ES.RestartApp.Args.ES_RestartApp.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
@@ -12232,9 +12427,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Call -> Core.ES.RestartApp.Args.HS_MonitorApplications_RestartApp.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.1/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0">
+  <connectionInstance name="ESAPIAgent.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Call -> Core.ES.RestartApp.Args.HS_MonitorApplications_RestartApp.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.1/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
@@ -12243,9 +12438,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated -> Core.ES.RestartApp.Args.HS_MonitorApplications_RestartApp.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.1/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated -> Core.ES.RestartApp.Args.HS_MonitorApplications_RestartApp.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.1/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
@@ -12254,9 +12449,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.AppId -> Core.ES.RestartApp.Args.HS_MonitorApplications_RestartApp.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.1/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.AppId -> Core.ES.RestartApp.Args.HS_MonitorApplications_RestartApp.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.1/@featureInstance.1/@featureInstance.1/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
@@ -12265,9 +12460,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.DeleteAppArgs.a.Call -> Core.ES.DeleteApp.Args.a.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0">
+  <connectionInstance name="ESAPIAgent.ESAPI.DeleteAppArgs.a.Call -> Core.ES.DeleteApp.Args.a.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.2"/>
@@ -12276,9 +12471,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.10"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.DeleteAppArgs.a.Activiated -> Core.ES.DeleteApp.Args.a.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.DeleteAppArgs.a.Activiated -> Core.ES.DeleteApp.Args.a.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.2"/>
@@ -12287,9 +12482,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.10"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.DeleteAppArgs.a.AppId -> Core.ES.DeleteApp.Args.a.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.DeleteAppArgs.a.AppId -> Core.ES.DeleteApp.Args.a.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.2/@featureInstance.0/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.2"/>
@@ -12298,9 +12493,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.10"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.HS.Call -> Core.ES.RunLoop.Args.HS.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.HS.Call -> Core.ES.RunLoop.Args.HS.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.0/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12309,9 +12504,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.HS.Activiated -> Core.ES.RunLoop.Args.HS.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.HS.Activiated -> Core.ES.RunLoop.Args.HS.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.0/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12320,9 +12515,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.HS.AppId -> Core.ES.RunLoop.Args.HS.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.HS.AppId -> Core.ES.RunLoop.Args.HS.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.0/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12331,9 +12526,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.CI.Call -> Core.ES.RunLoop.Args.CI.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.1/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.0">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.CI.Call -> Core.ES.RunLoop.Args.CI.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.1/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.1/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12342,9 +12537,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.CI.Activiated -> Core.ES.RunLoop.Args.CI.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.1/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.CI.Activiated -> Core.ES.RunLoop.Args.CI.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.1/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.1/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.1/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12353,9 +12548,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.CI.AppId -> Core.ES.RunLoop.Args.CI.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.1/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.CI.AppId -> Core.ES.RunLoop.Args.CI.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.1/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.1/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.1/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.1/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12364,9 +12559,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.TO_APP.Call -> Core.ES.RunLoop.Args.TO_APP.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.2/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.0">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.TO_APP.Call -> Core.ES.RunLoop.Args.TO_APP.Call" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.2/@featureInstance.0" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.2/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.2/@featureInstance.0" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12375,9 +12570,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.TO_APP.Activiated -> Core.ES.RunLoop.Args.TO_APP.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.2/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.2">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.TO_APP.Activiated -> Core.ES.RunLoop.Args.TO_APP.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.2/@featureInstance.2" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.2" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.2/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.2/@featureInstance.2" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.2">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12386,9 +12581,9 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="RunLoopAgent.ESAPI.RunLoopArgs.TO_APP.AppId -> Core.ES.RunLoop.Args.TO_APP.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.2/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.3">
+  <connectionInstance name="ESAPIAgent.ESAPI.RunLoopArgs.TO_APP.AppId -> Core.ES.RunLoop.Args.TO_APP.AppId" complete="true" kind="portConnection" destination="//@componentInstance.0/@componentInstance.2/@componentInstance.3/@featureInstance.1/@featureInstance.2/@featureInstance.3" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.3" destination="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.2/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.7"/>
     </connectionReference>
     <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@featureInstance.0/@featureInstance.3/@featureInstance.2/@featureInstance.3" destination="//@componentInstance.0/@componentInstance.2/@featureInstance.3/@featureInstance.2/@featureInstance.3">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../core/Core.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
@@ -12397,99 +12592,139 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../service/es/logic/ES_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.14"/>
     </connectionReference>
   </connectionInstance>
+  <connectionInstance name="ES.ESAPI.RestartAppArgs.RestartApp.Call -> ESAPIAgent.ES_Restart.RestartAppCollection.RestartApp.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.3/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ES.ESAPI.RestartAppArgs.RestartApp.Activiated -> ESAPIAgent.ES_Restart.RestartAppCollection.RestartApp.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.2" source="//@componentInstance.3/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.2">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.2">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ES.ESAPI.RestartAppArgs.RestartApp.AppId -> ESAPIAgent.ES_Restart.RestartAppCollection.RestartApp.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.3" source="//@componentInstance.3/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.3">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.0/@featureInstance.0/@featureInstance.3">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ES.ESAPI.DeleteAppArgs -> ESAPIAgent.ES_Restart.DeleteAppCollection" complete="true" kind="featureGroupConnection" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.1" source="//@componentInstance.3/@featureInstance.4/@featureInstance.1">
+    <connectionReference context="/" source="//@componentInstance.3/@featureInstance.4/@featureInstance.1" destination="//@componentInstance.2/@featureInstance.4/@featureInstance.1">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+    </connectionReference>
+  </connectionInstance>
   <connectionInstance name="ES.HSControlCommand -> HS.ControlCommand" complete="true" kind="portConnection" destination="//@componentInstance.7/@featureInstance.3" source="//@componentInstance.3/@featureInstance.6">
     <connectionReference context="/" source="//@componentInstance.3/@featureInstance.6" destination="//@componentInstance.7/@featureInstance.3">
       <connection xsi:type="aadl2:PortConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.HS.Call -> RunLoopAgent.CI_Run.HS.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.0">
+  <connectionInstance name="HS.ESAPI.RestartAppArgs.MonitorApplications_SB.Call -> ESAPIAgent.HS_Restart.RestartAppCollection.MonitorApplications_SB.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.7/@featureInstance.5/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.7/@featureInstance.5/@featureInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="HS.ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated -> ESAPIAgent.HS_Restart.RestartAppCollection.MonitorApplications_SB.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0/@featureInstance.2" source="//@componentInstance.7/@featureInstance.5/@featureInstance.0/@featureInstance.0/@featureInstance.2">
+    <connectionReference context="/" source="//@componentInstance.7/@featureInstance.5/@featureInstance.0/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0/@featureInstance.2">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="HS.ESAPI.RestartAppArgs.MonitorApplications_SB.AppId -> ESAPIAgent.HS_Restart.RestartAppCollection.MonitorApplications_SB.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0/@featureInstance.3" source="//@componentInstance.7/@featureInstance.5/@featureInstance.0/@featureInstance.0/@featureInstance.3">
+    <connectionReference context="/" source="//@componentInstance.7/@featureInstance.5/@featureInstance.0/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.3/@featureInstance.0/@featureInstance.0/@featureInstance.3">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="CI.ESAPI.HS.Call -> ESAPIAgent.CI_Run.HS.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.HS.Activiated -> RunLoopAgent.CI_Run.HS.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.2">
+  <connectionInstance name="CI.ESAPI.HS.Activiated -> ESAPIAgent.CI_Run.HS.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.HS.AppId -> RunLoopAgent.CI_Run.HS.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.3">
+  <connectionInstance name="CI.ESAPI.HS.AppId -> ESAPIAgent.CI_Run.HS.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.0/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.CI.Call -> RunLoopAgent.CI_Run.CI.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.0" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.0">
+  <connectionInstance name="CI.ESAPI.CI.Call -> ESAPIAgent.CI_Run.CI.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.0" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.CI.Activiated -> RunLoopAgent.CI_Run.CI.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.2" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.2">
+  <connectionInstance name="CI.ESAPI.CI.Activiated -> ESAPIAgent.CI_Run.CI.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.2" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.CI.AppId -> RunLoopAgent.CI_Run.CI.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.3" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.3">
+  <connectionInstance name="CI.ESAPI.CI.AppId -> ESAPIAgent.CI_Run.CI.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.3" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.1/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.1/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.TO_APP.Call -> RunLoopAgent.CI_Run.TO_APP.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.0" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.0">
+  <connectionInstance name="CI.ESAPI.TO_APP.Call -> ESAPIAgent.CI_Run.TO_APP.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.0" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.TO_APP.Activiated -> RunLoopAgent.CI_Run.TO_APP.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.2" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.2">
+  <connectionInstance name="CI.ESAPI.TO_APP.Activiated -> ESAPIAgent.CI_Run.TO_APP.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.2" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="CI.ESAPI.TO_APP.AppId -> RunLoopAgent.CI_Run.TO_APP.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.3" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.3">
+  <connectionInstance name="CI.ESAPI.TO_APP.AppId -> ESAPIAgent.CI_Run.TO_APP.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.3" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.9/@featureInstance.5/@featureInstance.2/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.0/@featureInstance.2/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.5"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.HS.Call -> RunLoopAgent.TO_Run.HS.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.0">
+  <connectionInstance name="TO_APP.ESAPI.HS.Call -> ESAPIAgent.TO_Run.HS.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.HS.Activiated -> RunLoopAgent.TO_Run.HS.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.2">
+  <connectionInstance name="TO_APP.ESAPI.HS.Activiated -> ESAPIAgent.TO_Run.HS.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.HS.AppId -> RunLoopAgent.TO_Run.HS.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.3">
+  <connectionInstance name="TO_APP.ESAPI.HS.AppId -> ESAPIAgent.TO_Run.HS.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.0/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.CI.Call -> RunLoopAgent.TO_Run.CI.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.0">
+  <connectionInstance name="TO_APP.ESAPI.CI.Call -> ESAPIAgent.TO_Run.CI.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.CI.Activiated -> RunLoopAgent.TO_Run.CI.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.2">
+  <connectionInstance name="TO_APP.ESAPI.CI.Activiated -> ESAPIAgent.TO_Run.CI.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.CI.AppId -> RunLoopAgent.TO_Run.CI.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.3">
+  <connectionInstance name="TO_APP.ESAPI.CI.AppId -> ESAPIAgent.TO_Run.CI.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.1/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.1/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.TO_APP.Call -> RunLoopAgent.TO_Run.TO_APP.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.0" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.0">
+  <connectionInstance name="TO_APP.ESAPI.TO_APP.Call -> ESAPIAgent.TO_Run.TO_APP.Call" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.0" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.0" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.0">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.TO_APP.Activiated -> RunLoopAgent.TO_Run.TO_APP.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.2" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.2">
+  <connectionInstance name="TO_APP.ESAPI.TO_APP.Activiated -> ESAPIAgent.TO_Run.TO_APP.Activiated" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.2" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.2">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.2" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.2">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="TO_APP.ESAPI.TO_APP.AppId -> RunLoopAgent.TO_Run.TO_APP.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.3" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.3">
+  <connectionInstance name="TO_APP.ESAPI.TO_APP.AppId -> ESAPIAgent.TO_Run.TO_APP.AppId" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.3" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.3">
     <connectionReference context="/" source="//@componentInstance.10/@featureInstance.5/@featureInstance.2/@featureInstance.3" destination="//@componentInstance.2/@featureInstance.1/@featureInstance.2/@featureInstance.3">
-      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="TO_APP.TelemetryOutput -> TelemetryOutput" kind="portConnection" destination="//@featureInstance.1" source="//@componentInstance.10/@featureInstance.6">
+    <connectionReference context="/" source="//@componentInstance.10/@featureInstance.6" destination="//@featureInstance.1">
+      <connection xsi:type="aadl2:PortConnection" href="../Surf.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.8"/>
     </connectionReference>
   </connectionInstance>
   <systemOperationMode name="No Modes"/>

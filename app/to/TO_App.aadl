@@ -4,16 +4,17 @@ public
 	with TO_Sugar;
 	with TO_Command;
 	with ES_Arg_IO;
+	with Core_Types;
 
 	thread TOApp extends Component::AppComponent
 		features
 			SBAPI: refined to feature group TO_Sugar::SBAPIOutput;
 			ESAPI: refined to feature group ES_Arg_IO::R_RunLoopArgs;
+			TelemetryOutput: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
 		annex agree{**
---			guarantee "deliver ground cmd": true -> (
---				Command.MsgId <> 0 => SBAPI.SendMsgArgs.Activiated = true and 
---				SBAPI.SendMsgArgs.Msg = Command
---			);
+			guarantee "deliver telemetry data": true -> (
+				TelemetryOutput = Command
+			);
 			guarantee "update heart beat by runloop": true -> ESAPI.CI.Activiated = true;
 			
 		**};

@@ -1,21 +1,30 @@
 package Surf_Medium
 public
 	with SB_Route_Table;
+
 	with Core_Types;
+
 	with ES_Arg_IO;
+
 	with Core;
+
+	with ES_Interface;
+
+	with ES_Sugar;
+
+	with HS_Sugar;
+
 	--test for the ability of AGREE to model equaling of structs, it does 
 --	abstract test
 --		features
 --			MsgInput: feature group SB_Route_Table::RouteInput;
 --			
---			ES_CmdPipe_ES_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
+--			ES_CmdPipe_ES_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
 --		annex agree{**
 --			assume " ": MsgInput.ES_CmdPipe_ES_Command.MsgId = 2;
 --			guarantee "": ES_CmdPipe_ES_Command.MsgId = 3;
 --		**};	
 --	end test;
-	
 --	abstract implementation test.impl
 --		subcomponents
 --			Me: abstract Medium;
@@ -30,37 +39,39 @@ public
 	abstract Medium
 		features
 			MsgInput: feature group SB_Route_Table::RouteInput;
-			
-			ES_CmdPipe_ES_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-			SB_CmdPipe_SB_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-			EVS_CmdPipe_EVS_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-			TIME_CmdPipe_TIME_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-			HS_CmdPipe_HS_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-			CI_CmdPipe_CI_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-			TO_CmdPipe_TO_Command: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
---			EVS_EVENT_MSG: out data port Core_Types::Base_struct.CFE_SB_Msg_t;
-        -- for transfer cmd msg to target app 
-        annex agree{**
+			ES_CmdPipe_ES_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			SB_CmdPipe_SB_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			EVS_CmdPipe_EVS_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			TIME_CmdPipe_TIME_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			HS_CmdPipe_HS_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			CI_CmdPipe_CI_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			TO_CmdPipe_TO_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+--			EVS_EVENT_MSG: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+				-- for transfer cmd msg to target app 
+		annex agree {**
         	guarantee  "to target es": ES_CmdPipe_ES_Command = MsgInput.ES_CmdPipe_ES_Command;
         	guarantee  "to target sb": SB_CmdPipe_SB_Command = MsgInput.SB_CmdPipe_SB_Command;
         	guarantee  "to target evs": EVS_CmdPipe_EVS_Command = MsgInput.EVS_CmdPipe_EVS_Command;
         	guarantee  "to target time": TIME_CmdPipe_TIME_Command = MsgInput.TIME_CmdPipe_TIME_Command;
-        	guarantee  "to target hs": HS_CmdPipe_HS_Command = MsgInput.HS_CmdPipe_HS_Command;
-        **};
-        
-        
+        	guarantee  "to target hs": HS_CmdPipe_HS_Command = MsgInput.HS_CmdPipe_HS_Command;**};
 	end Medium;
 
-
-	abstract RunLoopAgent 
+	abstract ESAPIAgent
 		features
 			CI_Run: feature group ES_Arg_IO::RunLoopArgs;
 			TO_Run: feature group ES_Arg_IO::RunLoopArgs;
 			ESAPI: feature group Core::R_ESAPI;
-		
-		annex agree{**
+			HS_Restart: feature group HS_Sugar::ESAPIInput;
+			ES_Restart: feature group ES_Sugar::ESAPIInput;
+		annex agree {**
 			guarantee "transfer runloop info" : ESAPI.RunLoopArgs.CI.Activiated = CI_Run.CI.Activiated
 			and  ESAPI.RunLoopArgs.TO_APP.Activiated = TO_Run.TO_APP.Activiated;
-		**};
-	end RunLoopAgent;
+			
+			guarantee "transfer hs restart cmd" :  ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = HS_Restart.RestartAppCollection.MonitorApplications_SB.Activiated
+			and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.AppId = HS_Restart.RestartAppCollection.MonitorApplications_SB.AppId;
+
+			guarantee "transfer es restart cmd" :  ESAPI.RestartAppArgs.ES_RestartApp.Activiated = ES_Restart.RestartAppCollection.RestartApp.Activiated
+			and ESAPI.RestartAppArgs.ES_RestartApp.AppId = ES_Restart.RestartAppCollection.RestartApp.AppId;
+			**};
+	end ESAPIAgent;
 end Surf_Medium;

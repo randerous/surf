@@ -18,6 +18,8 @@ public
 	
 	feature group RestartAppArgs
 		features
+			--HS set restartRequest to need restart
+			--ES really restart app
 			ES_RestartApp: feature group ES_Interface::P_RestartApp;
 			HS_MonitorApplications_RestartApp: feature group ES_Interface::P_RestartApp;
 --			ES_ScanAppTable_ES: feature group ES_Interface::P_RestartApp;

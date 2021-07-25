@@ -30,31 +30,38 @@ public
 			--to be simpler and efficiently, suppose it is sound.
  			guarantee "monitor es, send a cmd to restart es whenever es stuck": true-> 
 			(TaskRecord.ES.ExecutionCounter = pre(TaskRecord.ES.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 0
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
 			guarantee "monitor sb, send a cmd to restart sb whenever sb stuck": true-> 
 			(TaskRecord.SB.ExecutionCounter = pre(TaskRecord.SB.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 1;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 1
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
 			guarantee "monitor evs, send a cmd to restart evs whenever evs stuck": true-> 
 			(TaskRecord.EVS.ExecutionCounter = pre(TaskRecord.EVS.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 2;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 2
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
 			guarantee "monitor TIME, send a cmd to restart TIME whenever TIME stuck": true-> 
 			(TaskRecord.TIME1.ExecutionCounter = pre(TaskRecord.TIME1.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 3;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 3
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 					
 			guarantee "monitor HS_APP, send a cmd to restart HS_APP whenever HS_APP stuck": true-> 
 			(TaskRecord.HS_APP.ExecutionCounter = pre(TaskRecord.HS_APP.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 5
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
 			guarantee "monitor CI_APP, send a cmd to restart CI_APP whenever CI_APP stuck": true-> 
 			(TaskRecord.CI_APP.ExecutionCounter = pre(TaskRecord.CI_APP.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 6;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 6
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
 			guarantee "monitor TO_APP, send a cmd to restart TO_APP whenever TO_APP stuck": true-> 
 			(TaskRecord.TO_APP.ExecutionCounter = pre(TaskRecord.TO_APP.ExecutionCounter)) =>
-			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 7;
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 7
+			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
 		**};
 	end HSAPP;
