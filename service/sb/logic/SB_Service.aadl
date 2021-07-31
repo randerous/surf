@@ -20,6 +20,10 @@ public
 			SendMsgArgs: feature group SB_Arg_IO::SendMsgArgs;
 			SendEvtArgs: feature group EVS_Arg_IO::SendEventArgs;
 			OutMsgs: feature group SB_Route_Table::RouteOutput;
+			
+			--data out for router info
+			OutRouter: feature group SB_Base_IO::RouteOutput;
+			PipeData: feature group SB_Base_IO::PipeOutput;
 --			RcvMsg: feature group SB_Interface::P_RcvMsg;
 
 			annex agree{**
@@ -78,6 +82,9 @@ public
 			
 			ShareData: abstract   ShareData.impl;
 		connections
+			RouteOut: feature group ShareData.OldRouteData -> OutRouter;
+			PipeDataOut: feature group ShareData.OldPipeData -> PipeData;
+			
 			CreatePipeArg: feature group CreatePipeArgs <-> CreatePipe.Args;
 			CreatePipeLocalData: feature group ShareData.OldPipeData -> CreatePipe.LocalDatas;
 			CreatePipeResult: feature group CreatePipe.Results -> ShareData.CreatePipeResult;

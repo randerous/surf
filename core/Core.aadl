@@ -14,6 +14,7 @@ public
 	with SB_Route_Table;
 	with ES_Base_IO;
 	
+	with SB_Base_IO;
 	with SB_Interface;
 	abstract Core
 		features
@@ -24,6 +25,8 @@ public
 			MsgOutput: feature group SB_Route_Table::RouteOutput;
 			AppRecord: feature group ES_Base_IO::AppRecordOutput;
 			TaskRecord: feature group ES_Base_IO::TaskRecordOutput;
+			OutRouter: feature group SB_Base_IO::RouteOutput;
+			PipeData: feature group SB_Base_IO::PipeOutput;
 		annex agree{**
 				--assume for sb
 			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
@@ -194,6 +197,9 @@ public
 			-----------------------Data output----------------------
 			AppRecordOutput: feature group ES.AppRecord -> AppRecord;
 			TaskRecordOutput: feature group ES.TaskRecord -> TaskRecord;
+			
+			RouterOutput: feature group SB.OutRouter -> OutRouter;
+			PipeDataOutPut: feature group SB.PipeData -> PipeData;
 --			
 --			
 			
