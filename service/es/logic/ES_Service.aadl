@@ -80,6 +80,11 @@ public
 		 		RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true and  RestartAppArgs.HS_MonitorApplications_RestartApp.AppId  = 7 and
 		 		 pre(AppRecord.TO_APP.StateRecord.AppState = running)
 		 		=>  AppRecord.TO_APP.StateRecord.AppControlRequest = SYS_START;
+
+				guarantee  "set cmd restart HK app": true -> 
+		 		RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = true and  RestartAppArgs.HS_MonitorApplications_RestartApp.AppId  = 8 and
+		 		 pre(AppRecord.HK_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.HK_APP.StateRecord.AppControlRequest = SYS_START;
 		 		eq SYS_START : int = 5;
 		 		
 		 		guarantee  "restart CI app": true -> 
@@ -91,6 +96,11 @@ public
 		 		RestartAppArgs.ES_RestartApp.Activiated = true and  RestartAppArgs.ES_RestartApp.AppId  = 7 and
 		 		 pre(AppRecord.TO_APP.StateRecord.AppState = running)
 		 		=>  AppRecord.TO_APP.StateRecord.AppState = waitting;
+		 		
+				guarantee  "restart HK app": true -> 
+		 		RestartAppArgs.ES_RestartApp.Activiated = true and  RestartAppArgs.ES_RestartApp.AppId  = 8 and
+		 		 pre(AppRecord.HK_APP.StateRecord.AppState = running)
+		 		=>  AppRecord.HK_APP.StateRecord.AppState = waitting;
 		 		
 		 		guarantee "update CI_app" : TaskRecord.CI_APP.ExecutionCounter = (0 -> 
 		 			(
@@ -105,6 +115,14 @@ public
 		 				if(RunLoopArgs.TO_APP.Activiated = true) 
 		 				then pre(TaskRecord.TO_APP.ExecutionCounter) +1 
 		 				else pre(TaskRecord.TO_APP.ExecutionCounter)
+		 			) 
+		 		);
+
+				guarantee "update HK_APP" : TaskRecord.HK_APP.ExecutionCounter = (0 -> 
+		 			(
+		 				if(RunLoopArgs.HK.Activiated = true) 
+		 				then pre(TaskRecord.HK_APP.ExecutionCounter) +1 
+		 				else pre(TaskRecord.HK_APP.ExecutionCounter)
 		 			) 
 		 		);
 			 
@@ -211,11 +229,13 @@ public
 					else OldTaskRecordData.HS_APP.ExecutionCounter = pre(OldTaskRecordData.HS_APP.ExecutionCounter )
 				);
 				
-				guarantee "manage CI , TO TaskRecord": 
+				guarantee "manage CI , TO, HK TaskRecord": 
 				OldTaskRecordData.CI_APP.ExecutionCounter = (0 -> 
 				RunLoopResult.Input.TaskRecord.CI_APP.ExecutionCounter) and 
 				OldTaskRecordData.TO_APP.ExecutionCounter = (0 -> 
-				RunLoopResult.Input.TaskRecord.TO_APP.ExecutionCounter);
+				RunLoopResult.Input.TaskRecord.TO_APP.ExecutionCounter) and 
+				OldTaskRecordData.HK_APP.ExecutionCounter = (0 -> 
+				RunLoopResult.Input.TaskRecord.HK_APP.ExecutionCounter);
 				
 				
 				--Notice, there will not be runloop when restart or delete this app
@@ -252,11 +272,26 @@ public
 				=> 
 				OldAppRecordData.TO_APP = RestartAppResult.Input.AppRecord.TO_APP;
 				
-				guarantee "manage TO_APPRecord for delete app": true -> 
+				guarantee "manage TO_AppRecord for delete app": true -> 
 				(DeleteAppResult.EvaluteValue.Cmd_Called = SUCCESS
 				and DeleteAppResult.EvaluteValue.Modified_Id = 7) 
 				=> 
 				OldAppRecordData.TO_APP = DeleteAppResult.Input.AppRecord.TO_APP;
+
+
+				guarantee "manage HK_APPRecord for restart app": true -> 
+				(RestartAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and RestartAppResult.EvaluteValue.Modified_Id = 8) 
+				=> 
+				OldAppRecordData.HK_APP = RestartAppResult.Input.AppRecord.HK_APP;
+
+				guarantee "manage HK_APPRecord for delete app": true -> 
+				(DeleteAppResult.EvaluteValue.Cmd_Called = SUCCESS
+				and DeleteAppResult.EvaluteValue.Modified_Id = 8) 
+				=> 
+				OldAppRecordData.HK_APP = DeleteAppResult.Input.AppRecord.HK_APP;
+
+				 
 				
 				
 				

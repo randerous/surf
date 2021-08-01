@@ -2,13 +2,22 @@ package SB_App
 public
 	with Component;
 	with SB_Sugar;
-	
+	with SB_Base_IO;
+	with SB_Interface;
 	thread SBAPP extends Component::Component
 		features
 			EVSAPI: refined to feature group SB_Sugar::EVSAPIOutput;
 			ESAPI: refined to feature group SB_Sugar::ESAPIOutput;
-		
+			SBAPI: refined to feature group SB_Sugar::SBAPIOutput;
+			OutRouter: feature group SB_Base_IO::RouteInput;
+			PipeData: feature group SB_Base_IO::PipeInput;
+			
 		annex agree{**
+
+			guarantee "Send HK info": true ->  (Command.MsgId = 1) =>
+			SBAPI.SendMsgArgs.Activiated = true 
+			and SBAPI.SendMsgArgs.Msg.MsgId = 1
+			and SBAPI.SendMsgArgs.Msg.AppId = 1;
  
 			
 		**};

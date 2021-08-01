@@ -16,6 +16,7 @@ public
 	
 	with SB_Base_IO;
 	with SB_Interface;
+	with EVS_Base_IO;
 	abstract Core
 		features
 			ESAPI: feature group ESAPI;
@@ -27,6 +28,7 @@ public
 			TaskRecord: feature group ES_Base_IO::TaskRecordOutput;
 			OutRouter: feature group SB_Base_IO::RouteOutput;
 			PipeData: feature group SB_Base_IO::PipeOutput;
+			EvsFilter: feature group EVS_Base_IO::AppDataOutput;
 		annex agree{**
 				--assume for sb
 			-- we use lock to sychronize the operation to shared data,such as Pipe info and Route info
@@ -171,7 +173,7 @@ public
 			EVS: abstract EVS_Service::Service.impl;
 			ES: abstract ES_Service::Service.impl;
 			TIME: abstract TIME_Service::Service.impl;
---			Medium: abstract Core_Sugar::Medium;--medium is useless
+ 
 		connections
 			RegisterApp: feature group ESAPI.RegisterAppArgs -> ES.RegisterAppArgs;
 			RestartApp: feature group ESAPI.RestartAppArgs -> ES.RestartAppArgs;
@@ -200,6 +202,8 @@ public
 			
 			RouterOutput: feature group SB.OutRouter -> OutRouter;
 			PipeDataOutPut: feature group SB.PipeData -> PipeData;
+			
+			FilterOutput: feature group EVS.OutEvsFilter -> EvsFilter;
 --			
 --			
 			

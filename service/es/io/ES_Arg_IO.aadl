@@ -57,6 +57,7 @@ public
 			HS: feature group ES_Interface::P_RunLoop;
 			CI: feature group ES_Interface::P_RunLoop;
 			TO_APP: feature group ES_Interface::P_RunLoop;
+			HK: feature group ES_Interface::P_RunLoop;
 	end RunLoopArgs;
 	
 	feature group R_RunLoopArgs
@@ -64,6 +65,7 @@ public
 			HS: feature group ES_Interface::R_RunLoop;
 			CI: feature group ES_Interface::R_RunLoop;
 			TO_APP: feature group ES_Interface::R_RunLoop;
+			HK: feature group ES_Interface::R_RunLoop;
 		inverse of RunLoopArgs
 	end RunLoopArgs;
 	

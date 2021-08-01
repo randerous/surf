@@ -121,10 +121,10 @@ public
 			EVS_Pipe: data Base_Types::Boolean;
 			TIME_Pipe: data Base_Types::Boolean;
 			HS_Pipe: data Base_Types::Boolean;
-			Sample_APP_Pipe: data Base_Types::Boolean;
+			
 			CI_Pipe: data Base_Types::Boolean;
 			TO_Pipe: data Base_Types::Boolean;
-			
+			HK_Pipe: data Base_Types::Boolean;
 			
 			
 	end Base_struct.SURF_SB_DestinationD_t;
@@ -197,15 +197,6 @@ public
 			EventID: data Base_Types::Unsigned_16;
 			ActionType: data Base_Types::Unsigned_16;
 	end Base_struct.HS_EMTEntry_t;
-	
-	data p
-		
-	end p;
-	
-	data implementation p.t
-		subcomponents
-			a: data Base_struct.HS_EMTEntry_t;
-			b: data Base_Types::Unsigned_16;
-	end p.t;
+ 
 	
 end Core_Types;

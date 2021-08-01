@@ -4,6 +4,7 @@ public
 	with ES_Interface;
 	with Component;
 	with Base_Types;
+	with SB_Interface;
 	-------------------------------Call Output-------------------------------
 	feature group SendEventArgs extends Component::SendEventArgs
 
@@ -47,6 +48,13 @@ public
 			SendEventCollection: refined to feature group SendEventCollection;
 	inverse of EVSAPIOutput
 	end EVSAPIInput;
+	
+			-------------------------------API Output-------------------------------
+	feature group SBAPIOutput
+		features
+			SendMsgArgs: feature group SB_Interface::R_SendMsg;
+	end SBAPIOutput;
+	
 	-------------------------------Medium-------------------------------
 	abstract Medium extends Component::Medium
 		features

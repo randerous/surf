@@ -1,3 +1,5 @@
+# 工具部署时注意事项
+需要打开Preference->Agree->Analysis->PDR -> 99
 # agree 已知bug
 1 agree大于2.4版本不支持a.b.c语句
 2 agree不支持connection时，连接元素组成超过1个".",即a.b可以，但是a.b.c不支持
@@ -5,6 +7,8 @@
 
 # 解决的bug （fixed)
 connections连接数,原因是连接时不能超过一个"."
+
+
 
 --
 # 进度
@@ -23,6 +27,7 @@ now,
     HS: 5
     CI: 6
     TO: 7
+    HK: 8
 
 App State:
 this is for change the appstate to 1:restart
@@ -37,8 +42,9 @@ we should cut msgId into three classes
 ### MsgId 0: for event
 eventType: DEBUG:0x1,INFORMATION:0x2,ERROR:0x4,CRITICAL:0x8,
 
-MsgId 1: for core app's msg 
-MsgId 2: for sample app's msg
+### modify coreMsgId to HKinfo
+MsgId 1: for HK's msg 
+MsgId 2: for common  msg
 
 TO do:
 这里假设所有的函数功能，在一次调用后将结果更新至sharedata，即调用和更新发生在一个周期，

@@ -13,6 +13,7 @@ public
 			SendEventArgs: feature group EVS_Arg_IO::SendEventArgs;
 			
 			OutEvents: feature group EVS_Arg_IO::OutEvtArgs;
+			OutEvsFilter: feature group EVS_Base_IO::AppDataOutput;
 		annex agree{**
 			assume "No register and unregister at the same time":
 			not(RegisterArgs.a.Activiated = true  and UnregisterArgs.a.Activiated = true );
@@ -51,6 +52,8 @@ public
 			SendEventLocalData: feature group ShareData.AppData -> SendEvent.LocalDatas;
 			SendEventResult: feature group SendEvent.Results <-> ShareData.SendEventResult;
 			SendEventOutEvent: feature group SendEvent.OutEvents -> OutEvents;
+			
+			FilterOutput: feature group ShareData.AppData -> OutEvsFilter;
 		annex agree{**
 --			lemma " true": true;
 		**};
@@ -164,6 +167,19 @@ public
 			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
 				and RegisterResult.EvaluteValue.Modified_Id = 7
 			) => AppData.TO_APP.RegisterFlag = False);
+
+			guarantee "manage HK filter":AppData.SB.RegisterFlag = false ->  
+			((RegisterResult.EvaluteValue.Cmd_Called = -1 and 
+			UnregisterResult.EvaluteValue.Cmd_Called = -1) 
+			=> AppData.HK = pre(AppData.HK))
+			and 
+			((RegisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 8
+			) => AppData.HK = RegisterResult.Input.HK)
+			and 
+			((UnregisterResult.EvaluteValue.Cmd_Called = SUCCESS 
+				and RegisterResult.EvaluteValue.Modified_Id = 8
+			) => AppData.HK.RegisterFlag = False);
 			
 		**};
 	end ShareData;

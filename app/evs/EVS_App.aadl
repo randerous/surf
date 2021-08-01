@@ -2,13 +2,19 @@ package EVS_App
 public
 	with Component;
 	with EVS_Sugar;
+	with EVS_Base_IO;
 	
 	thread EVSAPP extends Component::Component
 		features
 			EVSAPI: refined to feature group EVS_Sugar::EVSAPIOutput;
 			ESAPI: refined to feature group EVS_Sugar::ESAPIOutput;
+			EvsFilter: feature group EVS_Base_IO::AppDataInput;
+			SBAPI: refined to feature group EVS_Sugar::SBAPIOutput;
 		annex agree{**
-			
+			guarantee "Send HK info": true ->  (Command.MsgId = 1) =>
+			SBAPI.SendMsgArgs.Activiated = true 
+			and SBAPI.SendMsgArgs.Msg.MsgId = 1
+			and SBAPI.SendMsgArgs.Msg.AppId = 2;
 		**};
 	end EVSAPP;
 	

@@ -11,7 +11,8 @@ public
 			HS_CmdPipe_HS_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
 			CI_CmdPipe_CI_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
 			TO_CmdPipe_TO_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
---			EVS_EVENT_MSG: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			HK_CmdPipe_HK_Command: out data port Core_Types::Base_struct.SURF_SB_Msg_t;
+ 
 	end RouteOutput;
 	
 	feature group RouteInput
@@ -23,6 +24,7 @@ public
 			HS_CmdPipe_HS_Command: in data port Core_Types::Base_struct.SURF_SB_Msg_t;
 			CI_CmdPipe_CI_Command: in data port Core_Types::Base_struct.SURF_SB_Msg_t;
 			TO_CmdPipe_TO_Command: in data port Core_Types::Base_struct.SURF_SB_Msg_t;
+			HK_CmdPipe_HK_Command: in data port Core_Types::Base_struct.SURF_SB_Msg_t;
 	inverse of RouteOutput
 	end RouteInput;
 end SB_Route_Table;

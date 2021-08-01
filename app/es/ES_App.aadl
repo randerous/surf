@@ -11,16 +11,24 @@ public
 		features
 			EVSAPI: refined to feature group ES_Sugar::EVSAPIOutput;
 			ESAPI: refined to feature group ES_Sugar::ESAPIOutput;			
+			SBAPI: refined to feature group ES_Sugar::SBAPIOutput;
 			AppRecord: feature group ES_Base_IO::AppRecordInput;
+
+			
 			
 			--control common app
 			--send cmd to app, app control its state, something ridiculous,need to change
 			HSControlCommand: out data port Base_Types::Integer;
 		annex agree{**
-			-- cmd to call * RestartApp
+--			-- cmd to call * RestartApp
 			guarantee "cmd to call * RestartApp": true ->  (Command.MsgId = 0 and Command.EvtId = 0) =>
 			ESAPI.RestartAppArgs.RestartApp.AppId = Command.AppId;
 			
+			-- msgId = 1 for hk info 
+			guarantee "Send HK info": true ->  (Command.MsgId = 1) =>
+			SBAPI.SendMsgArgs.Activiated = true 
+			and SBAPI.SendMsgArgs.Msg.MsgId = 1
+			and SBAPI.SendMsgArgs.Msg.AppId = 0;
 			
 			--App State: this is for change the appstate to 1:restart 
 			--0: running 1: restart, 2:waiting, 4: initialazing

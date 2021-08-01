@@ -1,0 +1,46 @@
+package HK_App
+public
+	with Component;
+	with ES_Base_IO;
+	with HK_Base_Task;
+	with HK_Sugar;
+	with Core;
+
+	
+	thread HKAPP extends Component::AppComponent
+		features
+			EVSAPI: refined to feature group HK_Sugar::EVSAPIOutput;
+			ESAPI: refined to feature group HK_Sugar::ESAPIOutput;
+			SBAPI: refined to feature group Core::SBAPI;
+			AppRecord: feature group ES_Base_IO::AppRecordInput;
+		
+		annex agree{**
+			guarantee "Subscribe all HK msg": true -> (SBAPI.CreatePipeArgs.a.Activiated = true and SBAPI.CreatePipeArgs.a.AppId = 8) and 
+					(SBAPI.SubscribeArgs.a.Activiated = true and SBAPI.SubscribeArgs.a.MsgId = 1 and SBAPI.SubscribeArgs.a.PipeId = 8);
+
+			guarantee "Send all HK info": true ->  (Command.MsgId = 1) =>
+			SBAPI.MsgInput.Activiated = true 
+			and SBAPI.MsgInput.a.Msg.MsgId = 1
+			and SBAPI.MsgInput.a.Msg.AppId = 8;
+		**};
+
+	end HKAPP;
+	
+	thread implementation HKAPP.impl extends Component::AppComponent.default
+		subcomponents
+			Medium: refined to abstract HK_Sugar::Medium;
+			Checker: refined to abstract HK_Sugar::Checker;
+--			MonitorApplications: abstract HK_Base_Task::MonitorApplications;
+--		connections
+--			CheckerResult: port Checker.Result -> MonitorApplications.Execution;
+			
+			----------------Task data needed
+--			MonitorApplications_AppRecord: feature group AppRecord -> MonitorApplications.AppRecord;
+			
+			----------------Medium processor api call collecttion connection			
+--			MonitorApplications_RestartApp: feature group MonitorApplications.RestartApp.SB <-> Medium.ESAPIIn.RestartAppCollection.MonitorApplications_SB;
+	 annex agree{**
+	 	
+	 **};
+	end HKAPP.impl;
+end HK_App;

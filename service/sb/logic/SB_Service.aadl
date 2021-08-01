@@ -84,7 +84,7 @@ public
 		connections
 			RouteOut: feature group ShareData.OldRouteData -> OutRouter;
 			PipeDataOut: feature group ShareData.OldPipeData -> PipeData;
-			
+
 			CreatePipeArg: feature group CreatePipeArgs <-> CreatePipe.Args;
 			CreatePipeLocalData: feature group ShareData.OldPipeData -> CreatePipe.LocalDatas;
 			CreatePipeResult: feature group CreatePipe.Results -> ShareData.CreatePipeResult;
@@ -211,6 +211,15 @@ public
 			then (OldPipeData.TO_CmdPipe.InUse = false)
 			else OldPipeData.TO_CmdPipe = pre(OldPipeData.TO_CmdPipe); 
 			
+			guarantee "manage HK_Cmd_Pipe": OldPipeData.HK_CmdPipe.InUse = true -> 
+			if (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 8)
+			then (OldPipeData.HK_CmdPipe  = CreatePipeResult.Input.HK_CmdPipe)
+			else if  (CreatePipeResult.EvaluteValue.Cmd_Called = SUCCESS and 
+				CreatePipeResult.EvaluteValue.Modified_PipeId = 8)
+			then (OldPipeData.HK_CmdPipe.InUse = false)
+			else OldPipeData.HK_CmdPipe = pre(OldPipeData.HK_CmdPipe); 
+			
 			
 		   eq Router_Changed : bool = (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS )or
 						(UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS);
@@ -224,18 +233,20 @@ public
 				OldRouteData.Event_Router.RouteList.TIME_Pipe = false and 
 				OldRouteData.Event_Router.RouteList.CI_Pipe = false and
 				OldRouteData.Event_Router.RouteList.TO_Pipe = false and
-				OldRouteData.Event_Router.RouteList.HS_Pipe = true 
+				OldRouteData.Event_Router.RouteList.HS_Pipe = true and 
+				OldRouteData.Event_Router.RouteList.HK_Pipe = false 
 			) -> true;
 			
-			guarantee "initialize all subscription to core msg into false mode":
+			guarantee "initialize all subscription to hk msg into false mode":
 			(
-				OldRouteData.Core_Msg_Router.RouteList.ES_Pipe = false and 
-				OldRouteData.Core_Msg_Router.RouteList.SB_Pipe = false and 
-				OldRouteData.Core_Msg_Router.RouteList.EVS_Pipe = false and 
-				OldRouteData.Core_Msg_Router.RouteList.TIME_Pipe = false and
-				OldRouteData.Core_Msg_Router.RouteList.CI_Pipe = false and
-				OldRouteData.Core_Msg_Router.RouteList.TO_Pipe = false and 
-				OldRouteData.Core_Msg_Router.RouteList.HS_Pipe = false 
+				OldRouteData.HK_Msg_Router.RouteList.ES_Pipe = false and 
+				OldRouteData.HK_Msg_Router.RouteList.SB_Pipe = false and 
+				OldRouteData.HK_Msg_Router.RouteList.EVS_Pipe = false and 
+				OldRouteData.HK_Msg_Router.RouteList.TIME_Pipe = false and
+				OldRouteData.HK_Msg_Router.RouteList.CI_Pipe = false and
+				OldRouteData.HK_Msg_Router.RouteList.TO_Pipe = false and 
+				OldRouteData.HK_Msg_Router.RouteList.HS_Pipe = false and 
+				OldRouteData.HK_Msg_Router.RouteList.HK_Pipe = false 
 			) -> true;
 			
 			guarantee "initialize all subscription to common msg into false mode":
@@ -246,7 +257,8 @@ public
 				OldRouteData.Common_Msg_Router.RouteList.TIME_Pipe = false and
 				OldRouteData.Common_Msg_Router.RouteList.CI_Pipe = false and
 				OldRouteData.Common_Msg_Router.RouteList.TO_Pipe = false and  
-				OldRouteData.Common_Msg_Router.RouteList.HS_Pipe = false 
+				OldRouteData.Common_Msg_Router.RouteList.HS_Pipe = false and 
+				OldRouteData.Common_Msg_Router.RouteList.HK_Pipe = false 
 			) -> true;
 			
 			guarantee "manage event router": true -> 
@@ -259,14 +271,14 @@ public
 			else OldRouteData.Event_Router = pre(OldRouteData.Event_Router);
 			
 			
-			guarantee "manage core msg router": true -> 
+			guarantee "manage hk msg router": true -> 
 			if (SubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				SubscribeResult.EvaluteValue.Modified_RouteId = 0)
-			then (OldRouteData.Core_Msg_Router  = SubscribeResult.Input.Core_Msg_Router)
+			then (OldRouteData.HK_Msg_Router  = SubscribeResult.Input.HK_Msg_Router)
 			else if (UnsubscribeResult.EvaluteValue.Cmd_Called = SUCCESS and 
 				UnsubscribeResult.EvaluteValue.Modified_RouteId = 0)
-			then (OldRouteData.Core_Msg_Router  = UnsubscribeResult.Input.Core_Msg_Router)
-			else OldRouteData.Core_Msg_Router = pre(OldRouteData.Core_Msg_Router);
+			then (OldRouteData.HK_Msg_Router  = UnsubscribeResult.Input.HK_Msg_Router)
+			else OldRouteData.HK_Msg_Router = pre(OldRouteData.HK_Msg_Router);
 			
 			
 			guarantee "manage common msg router": true -> 

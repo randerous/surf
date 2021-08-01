@@ -71,6 +71,12 @@ public
 				and Results.Output.TO_APP.BinFilters.Padding  = Args.a.Filters.Padding
 			);
 
+			eq copy_HK_struct: bool = (Results.Output.HK.BinFilters.EventID  = Args.a.Filters.EventID
+				and Results.Output.HK.BinFilters.Mask  = Args.a.Filters.Mask
+				and Results.Output.HK.BinFilters.Count  = Args.a.Filters.Count
+				and Results.Output.HK.BinFilters.Padding  = Args.a.Filters.Padding
+			);
+
 
 
 			guarantee "register es ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 0 
@@ -121,6 +127,13 @@ public
 			and Results.Output.TO_APP.ActiveFlag = true
 			and Results.Output.TO_APP.RegisterFlag = true
 			and copy_toAPP_struct; 
+
+			guarantee "register hk ": true -> (Args.a.Activiated = true and  Arg_Valid) and Args.a.AppId = 8 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 8
+			and Results.Output.HK.ActiveFlag = true
+			and Results.Output.HK.RegisterFlag = true
+			and copy_HK_struct; 
 			 		 
 			
 			
@@ -173,6 +186,10 @@ public
 			guarantee "unregister to ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 7 
 			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
 			and Results.ReturnValue.Modified_Id = 7;  
+
+			guarantee "unregister hk ": true -> (Args.a.Activiated = true and  Valid_AppId) and Args.a.AppId = 8 
+			=> 	Results.ReturnValue.Cmd_Called = SUCCESS
+			and Results.ReturnValue.Modified_Id = 8;  
 			
 			
 		**};

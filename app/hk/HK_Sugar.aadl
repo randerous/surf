@@ -1,8 +1,9 @@
-package Sample_Sugar
+package HK_Sugar
 public
 	with EVS_Interface;
 	with Component;
 	with Base_Types;
+	with SB_Interface;
 	-------------------------------Call Output-------------------------------
 	feature group SendEventArgs extends Component::SendEventArgs
 
@@ -27,12 +28,20 @@ public
 
 	inverse of ESAPIOutput
 	end ESAPIInput;
+
+	-------------------------------API Output-------------------------------
+	feature group SBAPIOutput
+		features
+			SendMsgArgs: feature group SB_Interface::R_SendMsg;
+	end SBAPIOutput;
+	
 	
 	feature group EVSAPIInput extends Component::EVSAPIInput
 		features
 			SendEventCollection: refined to feature group SendEventCollection;
 	inverse of EVSAPIOutput
 	end EVSAPIInput;
+	
 	-------------------------------Medium-------------------------------
 	abstract Medium extends Component::Medium
 		features
@@ -46,4 +55,4 @@ public
 	abstract Checker extends Component::Checker
 		
 	end Checker;
-end Sample_Sugar;
+end HK_Sugar;

@@ -6,7 +6,7 @@ public
 	with EVS_App;
 	with TIME_App;
 	with HS_App;
-	with Sample_App;
+	with HK_App;
 	with Surf_Medium;
 	with CI_APP;
 	with TO_APP;
@@ -20,7 +20,7 @@ public
 	
 	-- no real meaning, just AGREE tool needs annex clause in component type
 	annex agree{**
- 
+ 		
 	**};
 	end Surf;
 	
@@ -32,7 +32,7 @@ public
 			EVS: thread EVS_App::EVSAPP;
 			TIME: thread TIME_App::TIMEApp;
 			HS: thread HS_App::HSApp;
-			Sample: thread Sample_App::SampleApp;
+			HK_App: thread HK_App::HKApp;
 			CI: thread CI_APP::CIAPP;
 			TO_APP: thread TO_APP::TOAPP;
 			
@@ -42,6 +42,10 @@ public
 			---------------------core data provide---------------------------
 			ES_AppRecord: feature group Core.AppRecord -> ES.AppRecord;
 			HS_AppRecord: feature group Core.AppRecord -> HS.AppRecord;
+			SB_PipeInfo: feature group Core.PipeData -> SB.PipeData;
+			SB_RouteInfo: feature group Core.OutRouter -> SB.OutRouter;
+			EVS_FilterInfo: feature group Core.EvsFilter -> EVS.EvsFilter;
+			
 			
 			----------------------------Control command---------------------
 			HS_Control: port ES.HSControlCommand -> HS.ControlCommand;
@@ -250,7 +254,7 @@ end Surf;
 --			ES_RestartApp_RestartApp: feature group ES.ESAPI.RestartAppArgs.RestartApp <-> Core.ESAPI.RestartAppArgs.ES_RestartApp;
 --			HS_MonitorApplications_RestartApp: feature group HS.ESAPI.RestartAppArgs.MonitorApplications_SB 
 --				<-> Core.ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp;
---			
+--			 
 --			ES_Default_SendEvent: feature group ES.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.ES_Default;
 --			SB_Default_SendEvent: feature group SB.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.SB_Default;
 --			EVS_Default_SendEvent: feature group EVS.EVSAPI.SendEventArgs.Default <-> Core.EVSAPI.SendEventArgs.EVS_Default;

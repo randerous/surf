@@ -12,6 +12,7 @@ public
 			HS: out data port Core_Types::Base_struct.EVS_AppData_t;
 			CI: out data port Core_Types::Base_struct.EVS_AppData_t;
 			TO_APP: out data port Core_Types::Base_struct.EVS_AppData_t;
+			HK: out data port Core_Types::Base_struct.EVS_AppData_t;
 	end AppDataOutput;
 	feature group AppDataInput
 		features 
@@ -22,6 +23,7 @@ public
 			HS: in data port Core_Types::Base_struct.EVS_AppData_t;
 			CI: in data port Core_Types::Base_struct.EVS_AppData_t;
 			TO_APP: in data port Core_Types::Base_struct.EVS_AppData_t;
+			HK: in data port Core_Types::Base_struct.EVS_AppData_t;
 	inverse of AppDataOutput
 	end AppDataInput;
 	
