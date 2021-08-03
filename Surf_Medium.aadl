@@ -60,12 +60,14 @@ public
 		features
 			CI_Run: feature group ES_Arg_IO::RunLoopArgs;
 			TO_Run: feature group ES_Arg_IO::RunLoopArgs;
+			HK_Run: feature group ES_Arg_IO::RunLoopArgs;
 			ESAPI: feature group Core::R_ESAPI;
 			HS_Restart: feature group HS_Sugar::ESAPIInput;
 			ES_Restart: feature group ES_Sugar::ESAPIInput;
 		annex agree {**
 			guarantee "transfer runloop info" : ESAPI.RunLoopArgs.CI.Activiated = CI_Run.CI.Activiated
-			and  ESAPI.RunLoopArgs.TO_APP.Activiated = TO_Run.TO_APP.Activiated;
+			and  ESAPI.RunLoopArgs.TO_APP.Activiated = TO_Run.TO_APP.Activiated
+			and  ESAPI.RunLoopArgs.HK.Activiated = HK_Run.HK.Activiated;
 			
 			guarantee "transfer hs restart cmd" :  ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.Activiated = HS_Restart.RestartAppCollection.MonitorApplications_SB.Activiated
 			and ESAPI.RestartAppArgs.HS_MonitorApplications_RestartApp.AppId = HS_Restart.RestartAppCollection.MonitorApplications_SB.AppId;

@@ -11,6 +11,7 @@ public
 			SBAPI: refined to feature group CI_Sugar::SBAPIOutput;
 			ESAPI: refined to feature group ES_Arg_IO::R_RunLoopArgs;
 		annex agree{**
+				
 			guarantee "deliver ground cmd": true -> (
 				Command.MsgId <> 0 => SBAPI.SendMsgArgs.Activiated = true and 
 				SBAPI.SendMsgArgs.Msg = Command

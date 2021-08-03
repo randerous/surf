@@ -5,12 +5,13 @@ public
 	with HK_Base_Task;
 	with HK_Sugar;
 	with Core;
+	with ES_Arg_IO;
 
 	
 	thread HKAPP extends Component::AppComponent
 		features
 			EVSAPI: refined to feature group HK_Sugar::EVSAPIOutput;
-			ESAPI: refined to feature group HK_Sugar::ESAPIOutput;
+			ESAPI: refined to feature group ES_Arg_IO::R_RunLoopArgs;
 			SBAPI: refined to feature group Core::SBAPI;
 			AppRecord: feature group ES_Base_IO::AppRecordInput;
 		
@@ -22,6 +23,17 @@ public
 			SBAPI.MsgInput.Activiated = true 
 			and SBAPI.MsgInput.a.Msg.MsgId = 1
 			and SBAPI.MsgInput.a.Msg.AppId = 8;
+			
+			guarantee "update heart beat by runloop": true -> ESAPI.HK.Activiated = true;
+		**};
+		
+		annex safety{**
+			 fault crash_fault3 "component crash":  faults.crash_seu {
+			inputs: val_in <- ESAPI.HK.Activiated;     
+			outputs: ESAPI.HK.Activiated <- val_out;    
+         	probability: 1.0E-5 ;
+			duration: permanent;
+			}
 		**};
 
 	end HKAPP;

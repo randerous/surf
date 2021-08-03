@@ -15,7 +15,7 @@ public
 			guarantee "deliver telemetry data": true -> (
 				TelemetryOutput = Command
 			);
-			guarantee "update heart beat by runloop": true -> ESAPI.CI.Activiated = true;
+			guarantee "update heart beat by runloop": true -> ESAPI.TO_APP.Activiated = true;
 			
 		**};
 		annex safety{**

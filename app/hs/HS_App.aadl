@@ -63,6 +63,10 @@ public
 			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 7
 			and ESAPI.RestartAppArgs.MonitorApplications_SB.Activiated = true;
 			
+			guarantee "monitor HK_APP, send a cmd to restart HK_APP whenever HK_APP stuck": true-> 
+			(TaskRecord.HK_APP.ExecutionCounter = pre(TaskRecord.HK_APP.ExecutionCounter)) =>
+			ESAPI.RestartAppArgs.MonitorApplications_SB.AppId = 8;
+			
 		**};
 	end HSAPP;
 	
