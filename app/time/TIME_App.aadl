@@ -2,12 +2,14 @@ package TIME_App
 public
 	with Component;
 	with TIME_Sugar;
+	with Core;
 	
 	thread TIMEAPP extends Component::Component
 		features
 			EVSAPI: refined to feature group TIME_Sugar::EVSAPIOutput;
 			ESAPI: refined to feature group TIME_Sugar::ESAPIOutput;
 			SBAPI: refined to feature group TIME_Sugar::SBAPIOutput;
+			TIMEAPI: refined to feature group Core::TIMEAPIR;
 		
 		annex agree{**
 			guarantee "Send HK info": true ->  (Command.MsgId = 1) =>

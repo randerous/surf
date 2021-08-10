@@ -7,4 +7,10 @@ public
 		features
 			a: feature group TIME_Interface::P_GetTime;
 	end GetTimeArgs;
+	
+	feature group GetTimeArgsR
+		features
+			a: feature group TIME_Interface::R_GetTime;
+		inverse of GetTimeArgs
+	end GetTimeArgsR;
 end TIME_Arg_IO;

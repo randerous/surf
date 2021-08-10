@@ -694,13 +694,16 @@
     <featureInstance name="TO_CmdPipe_TO_Command" direction="out">
       <feature xsi:type="aadl2:DataPort" href="../../io/SB_Route_Table.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
     </featureInstance>
+    <featureInstance name="HK_CmdPipe_HK_Command" direction="out">
+      <feature xsi:type="aadl2:DataPort" href="../../io/SB_Route_Table.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
+    </featureInstance>
     <feature xsi:type="aadl2:FeatureGroup" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.6"/>
   </featureInstance>
   <featureInstance name="OutRouter" category="featureGroup" direction="in out">
     <featureInstance name="Event_Router" direction="out">
       <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.0"/>
     </featureInstance>
-    <featureInstance name="Core_Msg_Router" direction="out">
+    <featureInstance name="HK_Msg_Router" direction="out">
       <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.1"/>
     </featureInstance>
     <featureInstance name="Common_Msg_Router" direction="out">
@@ -729,6 +732,9 @@
     </featureInstance>
     <featureInstance name="TO_CmdPipe" direction="out">
       <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
+    </featureInstance>
+    <featureInstance name="HK_CmdPipe" direction="out">
+      <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
     </featureInstance>
     <feature xsi:type="aadl2:FeatureGroup" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.8"/>
   </featureInstance>
@@ -918,6 +924,9 @@
         <featureInstance name="TO_CmdPipe" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../../io/SB_Result_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedFeatureGroup.0"/>
       </featureInstance>
       <featureInstance name="ReturnValue" category="featureGroup" direction="in out">
@@ -970,6 +979,9 @@
       </featureInstance>
       <featureInstance name="TO_CmdPipe">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
+      </featureInstance>
+      <featureInstance name="HK_CmdPipe">
+        <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
       </featureInstance>
       <feature xsi:type="aadl2:FeatureGroup" href="../SB_Processor.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.2"/>
     </featureInstance>
@@ -1153,6 +1165,9 @@
       <featureInstance name="TO_CmdPipe">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
       </featureInstance>
+      <featureInstance name="HK_CmdPipe">
+        <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+      </featureInstance>
       <feature xsi:type="aadl2:FeatureGroup" href="../SB_Processor.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.2"/>
     </featureInstance>
     <subcomponent xsi:type="aadl2:AbstractSubcomponent" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedAbstractSubcomponent.1"/>
@@ -1285,7 +1300,7 @@
         <featureInstance name="Event_Router" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.0"/>
         </featureInstance>
-        <featureInstance name="Core_Msg_Router" direction="out">
+        <featureInstance name="HK_Msg_Router" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.1"/>
         </featureInstance>
         <featureInstance name="Common_Msg_Router" direction="out">
@@ -1326,7 +1341,7 @@
       <featureInstance name="Event_Router">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
       </featureInstance>
-      <featureInstance name="Core_Msg_Router">
+      <featureInstance name="HK_Msg_Router">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
       </featureInstance>
       <featureInstance name="Common_Msg_Router">
@@ -1464,7 +1479,7 @@
         <featureInstance name="Event_Router" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.0"/>
         </featureInstance>
-        <featureInstance name="Core_Msg_Router" direction="out">
+        <featureInstance name="HK_Msg_Router" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.1"/>
         </featureInstance>
         <featureInstance name="Common_Msg_Router" direction="out">
@@ -1505,7 +1520,7 @@
       <featureInstance name="Event_Router">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
       </featureInstance>
-      <featureInstance name="Core_Msg_Router">
+      <featureInstance name="HK_Msg_Router">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
       </featureInstance>
       <featureInstance name="Common_Msg_Router">
@@ -1678,7 +1693,7 @@
       <featureInstance name="Event_Router">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
       </featureInstance>
-      <featureInstance name="Core_Msg_Router">
+      <featureInstance name="HK_Msg_Router">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
       </featureInstance>
       <featureInstance name="Common_Msg_Router">
@@ -1707,6 +1722,9 @@
       </featureInstance>
       <featureInstance name="TO_CmdPipe_TO_Command" direction="out">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Route_Table.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
+      </featureInstance>
+      <featureInstance name="HK_CmdPipe_HK_Command" direction="out">
+        <feature xsi:type="aadl2:DataPort" href="../../io/SB_Route_Table.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
       </featureInstance>
       <feature xsi:type="aadl2:FeatureGroup" href="../SB_Processor.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFeatureGroup.3"/>
     </featureInstance>
@@ -1737,13 +1755,16 @@
       <featureInstance name="TO_CmdPipe" direction="out">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
       </featureInstance>
+      <featureInstance name="HK_CmdPipe" direction="out">
+        <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
+      </featureInstance>
       <feature xsi:type="aadl2:FeatureGroup" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.0"/>
     </featureInstance>
     <featureInstance name="OldRouteData" category="featureGroup" direction="in out">
       <featureInstance name="Event_Router" direction="out">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.0"/>
       </featureInstance>
-      <featureInstance name="Core_Msg_Router" direction="out">
+      <featureInstance name="HK_Msg_Router" direction="out">
         <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.1"/>
       </featureInstance>
       <featureInstance name="Common_Msg_Router" direction="out">
@@ -1773,6 +1794,9 @@
         </featureInstance>
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
+        </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
         </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../../io/SB_Result_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
       </featureInstance>
@@ -1843,7 +1867,7 @@
         <featureInstance name="Event_Router">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
         </featureInstance>
-        <featureInstance name="Core_Msg_Router">
+        <featureInstance name="HK_Msg_Router">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
         </featureInstance>
         <featureInstance name="Common_Msg_Router">
@@ -1885,7 +1909,7 @@
         <featureInstance name="Event_Router">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
         </featureInstance>
-        <featureInstance name="Core_Msg_Router">
+        <featureInstance name="HK_Msg_Router">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
         </featureInstance>
         <featureInstance name="Common_Msg_Router">
@@ -1966,13 +1990,16 @@
         <featureInstance name="TO_CmdPipe" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
       </featureInstance>
       <featureInstance name="OldRouteData" category="featureGroup" direction="in out">
         <featureInstance name="Event_Router" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.0"/>
         </featureInstance>
-        <featureInstance name="Core_Msg_Router" direction="out">
+        <featureInstance name="HK_Msg_Router" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.1"/>
         </featureInstance>
         <featureInstance name="Common_Msg_Router" direction="out">
@@ -2002,6 +2029,9 @@
           </featureInstance>
           <featureInstance name="TO_CmdPipe">
             <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
+          </featureInstance>
+          <featureInstance name="HK_CmdPipe">
+            <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
           </featureInstance>
           <feature xsi:type="aadl2:FeatureGroup" href="../../io/SB_Result_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedFeatureGroup.0"/>
         </featureInstance>
@@ -2072,7 +2102,7 @@
           <featureInstance name="Event_Router">
             <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
           </featureInstance>
-          <featureInstance name="Core_Msg_Router">
+          <featureInstance name="HK_Msg_Router">
             <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
           </featureInstance>
           <featureInstance name="Common_Msg_Router">
@@ -2114,7 +2144,7 @@
           <featureInstance name="Event_Router">
             <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
           </featureInstance>
-          <featureInstance name="Core_Msg_Router">
+          <featureInstance name="HK_Msg_Router">
             <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.1"/>
           </featureInstance>
           <featureInstance name="Common_Msg_Router">
@@ -2199,6 +2229,9 @@
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
       </featureInstance>
       <featureInstance name="outData" category="featureGroup" direction="in out">
@@ -2222,6 +2255,9 @@
         </featureInstance>
         <featureInstance name="TO_CmdPipe" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
+        </featureInstance>
+        <featureInstance name="HK_CmdPipe" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
         </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.1"/>
       </featureInstance>
@@ -2252,6 +2288,9 @@
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
       </featureInstance>
       <featureInstance name="outData" category="featureGroup" direction="in out">
@@ -2275,6 +2314,9 @@
         </featureInstance>
         <featureInstance name="TO_CmdPipe" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
+        </featureInstance>
+        <featureInstance name="HK_CmdPipe" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
         </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.1"/>
       </featureInstance>
@@ -2305,6 +2347,9 @@
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.0"/>
       </featureInstance>
       <featureInstance name="outData" category="featureGroup" direction="in out">
@@ -2328,6 +2373,9 @@
         </featureInstance>
         <featureInstance name="TO_CmdPipe" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
+        </featureInstance>
+        <featureInstance name="HK_CmdPipe" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
         </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroup.1"/>
       </featureInstance>
@@ -2358,6 +2406,9 @@
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.0"/>
       </featureInstance>
       <featureInstance name="inDataA" category="featureGroup" direction="in out">
@@ -2381,6 +2432,9 @@
         </featureInstance>
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
+        </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
         </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.1"/>
       </featureInstance>
@@ -2406,6 +2460,9 @@
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.2"/>
       </featureInstance>
       <featureInstance name="inDataC" category="featureGroup" direction="in out">
@@ -2430,6 +2487,9 @@
         <featureInstance name="TO_CmdPipe">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.6"/>
         </featureInstance>
+        <featureInstance name="HK_CmdPipe">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataPort.7"/>
+        </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.3"/>
       </featureInstance>
       <featureInstance name="outData" category="featureGroup" direction="in out">
@@ -2453,6 +2513,9 @@
         </featureInstance>
         <featureInstance name="TO_CmdPipe" direction="out">
           <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.6"/>
+        </featureInstance>
+        <featureInstance name="HK_CmdPipe" direction="out">
+          <feature xsi:type="aadl2:DataPort" href="../../io/SB_Base_IO.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedDataPort.7"/>
         </featureInstance>
         <feature xsi:type="aadl2:FeatureGroup" href="../Redundant_Pipe.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedFeatureGroup.4"/>
       </featureInstance>
@@ -2495,6 +2558,11 @@
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.5"/>
       </connectionReference>
     </connectionInstance>
+    <connectionInstance name="mainTask.OldPipeData.HK_CmdPipe -> leader.inData.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.0/@featureInstance.7" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.0/@featureInstance.7">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.5"/>
+      </connectionReference>
+    </connectionInstance>
     <connectionInstance name="mainTask.OldPipeData.ES_CmdPipe -> voterA.inData.ES_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.1/@featureInstance.0/@featureInstance.0" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.0">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.5/@componentInstance.1/@featureInstance.0/@featureInstance.0">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.6"/>
@@ -2527,6 +2595,11 @@
     </connectionInstance>
     <connectionInstance name="mainTask.OldPipeData.TO_CmdPipe -> voterA.inData.TO_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.1/@featureInstance.0/@featureInstance.6" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.6">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.6" destination="//@componentInstance.5/@componentInstance.1/@featureInstance.0/@featureInstance.6">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.6"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="mainTask.OldPipeData.HK_CmdPipe -> voterA.inData.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.1/@featureInstance.0/@featureInstance.7" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.1/@featureInstance.0/@featureInstance.7">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.6"/>
       </connectionReference>
     </connectionInstance>
@@ -2565,6 +2638,11 @@
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.7"/>
       </connectionReference>
     </connectionInstance>
+    <connectionInstance name="mainTask.OldPipeData.HK_CmdPipe -> voterB.inData.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.2/@featureInstance.0/@featureInstance.7" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.2/@featureInstance.0/@featureInstance.7">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.7"/>
+      </connectionReference>
+    </connectionInstance>
     <connectionInstance name="mainTask.OldPipeData.ES_CmdPipe -> voterC.inData.ES_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.3/@featureInstance.0/@featureInstance.0" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.0">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.0" destination="//@componentInstance.5/@componentInstance.3/@featureInstance.0/@featureInstance.0">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.8"/>
@@ -2597,6 +2675,11 @@
     </connectionInstance>
     <connectionInstance name="mainTask.OldPipeData.TO_CmdPipe -> voterC.inData.TO_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.3/@featureInstance.0/@featureInstance.6" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.6">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.6" destination="//@componentInstance.5/@componentInstance.3/@featureInstance.0/@featureInstance.6">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.8"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="mainTask.OldPipeData.HK_CmdPipe -> voterC.inData.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.3/@featureInstance.0/@featureInstance.7" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.3/@featureInstance.0/@featureInstance.7">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.8"/>
       </connectionReference>
     </connectionInstance>
@@ -2635,6 +2718,11 @@
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.9"/>
       </connectionReference>
     </connectionInstance>
+    <connectionInstance name="voterA.outData.HK_CmdPipe -> leader.inDataA.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.1/@featureInstance.7" source="//@componentInstance.5/@componentInstance.1/@featureInstance.1/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.1/@featureInstance.1/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.1/@featureInstance.7">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.9"/>
+      </connectionReference>
+    </connectionInstance>
     <connectionInstance name="voterB.outData.ES_CmdPipe -> leader.inDataB.ES_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.2/@featureInstance.0" source="//@componentInstance.5/@componentInstance.2/@featureInstance.1/@featureInstance.0">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.2/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.2/@featureInstance.0">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.10"/>
@@ -2670,6 +2758,11 @@
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.10"/>
       </connectionReference>
     </connectionInstance>
+    <connectionInstance name="voterB.outData.HK_CmdPipe -> leader.inDataB.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.2/@featureInstance.7" source="//@componentInstance.5/@componentInstance.2/@featureInstance.1/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.2/@featureInstance.1/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.2/@featureInstance.7">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.10"/>
+      </connectionReference>
+    </connectionInstance>
     <connectionInstance name="voterC.outData.ES_CmdPipe -> leader.inDataC.ES_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.3/@featureInstance.0" source="//@componentInstance.5/@componentInstance.3/@featureInstance.1/@featureInstance.0">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.3/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.3/@featureInstance.0">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.11"/>
@@ -2702,6 +2795,11 @@
     </connectionInstance>
     <connectionInstance name="voterC.outData.TO_CmdPipe -> leader.inDataC.TO_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.3/@featureInstance.6" source="//@componentInstance.5/@componentInstance.3/@featureInstance.1/@featureInstance.6">
       <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.3/@featureInstance.1/@featureInstance.6" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.3/@featureInstance.6">
+        <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.11"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="voterC.outData.HK_CmdPipe -> leader.inDataC.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.3/@featureInstance.7" source="//@componentInstance.5/@componentInstance.3/@featureInstance.1/@featureInstance.7">
+      <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.3/@featureInstance.1/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.4/@featureInstance.3/@featureInstance.7">
         <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.11"/>
       </connectionReference>
     </connectionInstance>
@@ -2900,6 +2998,14 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.0"/>
     </connectionReference>
   </connectionInstance>
+  <connectionInstance name="CreatePipe.Results.Output.HK_CmdPipe -> ShareData.mainTask.CreatePipeResult.Input.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.7" source="//@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.7">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.1/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.5/@featureInstance.2/@featureInstance.0/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
+    </connectionReference>
+    <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@featureInstance.2/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.2/@featureInstance.0/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
   <connectionInstance name="CreatePipe.Results.ReturnValue.Modified_PipeId -> ShareData.mainTask.CreatePipeResult.EvaluteValue.Modified_PipeId" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.2/@featureInstance.1/@featureInstance.0" source="//@componentInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.0">
     <connectionReference context="/" source="//@componentInstance.0/@featureInstance.1/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.5/@featureInstance.2/@featureInstance.1/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.4"/>
@@ -2958,7 +3064,7 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.2"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="Subscribe.Results.Output.Core_Msg_Router -> ShareData.mainTask.SubscribeResult.Input.Core_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.4/@featureInstance.0/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+  <connectionInstance name="Subscribe.Results.Output.HK_Msg_Router -> ShareData.mainTask.SubscribeResult.Input.HK_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.4/@featureInstance.0/@featureInstance.1" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1">
     <connectionReference context="/" source="//@componentInstance.2/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.5/@featureInstance.4/@featureInstance.0/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.10"/>
     </connectionReference>
@@ -3003,7 +3109,7 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.3"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="Unsubscribe.Results.Output.Core_Msg_Router -> ShareData.mainTask.UnsubscribeResult.Input.Core_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.5/@featureInstance.0/@featureInstance.1" source="//@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.1">
+  <connectionInstance name="Unsubscribe.Results.Output.HK_Msg_Router -> ShareData.mainTask.UnsubscribeResult.Input.HK_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.5/@componentInstance.0/@featureInstance.5/@featureInstance.0/@featureInstance.1" source="//@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.1">
     <connectionReference context="/" source="//@componentInstance.3/@featureInstance.1/@featureInstance.0/@featureInstance.1" destination="//@componentInstance.5/@featureInstance.5/@featureInstance.0/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.13"/>
     </connectionReference>
@@ -3080,6 +3186,11 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.17"/>
     </connectionReference>
   </connectionInstance>
+  <connectionInstance name="SendMsg.OutMsgs.HK_CmdPipe_HK_Command -> OutMsgs.HK_CmdPipe_HK_Command" kind="portConnection" destination="//@featureInstance.6/@featureInstance.7" source="//@componentInstance.4/@featureInstance.5/@featureInstance.7">
+    <connectionReference context="/" source="//@componentInstance.4/@featureInstance.5/@featureInstance.7" destination="//@featureInstance.6/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.17"/>
+    </connectionReference>
+  </connectionInstance>
   <connectionInstance name="ShareData.mainTask.OldRouteData.Event_Router -> OutRouter.Event_Router" kind="portConnection" destination="//@featureInstance.7/@featureInstance.0" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.0">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.0" destination="//@componentInstance.5/@featureInstance.1/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.4"/>
@@ -3088,7 +3199,7 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.0"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="ShareData.mainTask.OldRouteData.Core_Msg_Router -> OutRouter.Core_Msg_Router" kind="portConnection" destination="//@featureInstance.7/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
+  <connectionInstance name="ShareData.mainTask.OldRouteData.HK_Msg_Router -> OutRouter.HK_Msg_Router" kind="portConnection" destination="//@featureInstance.7/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.5/@featureInstance.1/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.4"/>
     </connectionReference>
@@ -3112,7 +3223,7 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.9"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="ShareData.mainTask.OldRouteData.Core_Msg_Router -> Subscribe.LocalDatas.Core_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.2/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
+  <connectionInstance name="ShareData.mainTask.OldRouteData.HK_Msg_Router -> Subscribe.LocalDatas.HK_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.2/@featureInstance.2/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.5/@featureInstance.1/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.4"/>
     </connectionReference>
@@ -3136,7 +3247,7 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.12"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="ShareData.mainTask.OldRouteData.Core_Msg_Router -> Unsubscribe.LocalDatas.Core_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.3/@featureInstance.2/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
+  <connectionInstance name="ShareData.mainTask.OldRouteData.HK_Msg_Router -> Unsubscribe.LocalDatas.HK_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.3/@featureInstance.2/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.5/@featureInstance.1/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.4"/>
     </connectionReference>
@@ -3160,7 +3271,7 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.16"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance name="ShareData.mainTask.OldRouteData.Core_Msg_Router -> SendMsg.LocalDatas.Core_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.4/@featureInstance.4/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
+  <connectionInstance name="ShareData.mainTask.OldRouteData.HK_Msg_Router -> SendMsg.LocalDatas.HK_Msg_Router" complete="true" kind="portConnection" destination="//@componentInstance.4/@featureInstance.4/@featureInstance.1" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.0/@featureInstance.1/@featureInstance.1" destination="//@componentInstance.5/@featureInstance.1/@featureInstance.1">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.4"/>
     </connectionReference>
@@ -3232,6 +3343,14 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
     </connectionReference>
   </connectionInstance>
+  <connectionInstance name="ShareData.leader.outData.HK_CmdPipe -> PipeData.HK_CmdPipe" kind="portConnection" destination="//@featureInstance.8/@featureInstance.7" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.7">
+    <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.7" destination="//@componentInstance.5/@featureInstance.0/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.12"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.5/@featureInstance.0/@featureInstance.7" destination="//@featureInstance.8/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.1"/>
+    </connectionReference>
+  </connectionInstance>
   <connectionInstance name="ShareData.leader.outData.ES_CmdPipe -> CreatePipe.LocalDatas.ES_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.0/@featureInstance.2/@featureInstance.0" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.0">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.0" destination="//@componentInstance.5/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.12"/>
@@ -3288,6 +3407,14 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
     </connectionReference>
   </connectionInstance>
+  <connectionInstance name="ShareData.leader.outData.HK_CmdPipe -> CreatePipe.LocalDatas.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.0/@featureInstance.2/@featureInstance.7" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.7">
+    <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.7" destination="//@componentInstance.5/@featureInstance.0/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.12"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.5/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.0/@featureInstance.2/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.3"/>
+    </connectionReference>
+  </connectionInstance>
   <connectionInstance name="ShareData.leader.outData.ES_CmdPipe -> DeletePipe.LocalDatas.ES_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.1/@featureInstance.2/@featureInstance.0" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.0">
     <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.0" destination="//@componentInstance.5/@featureInstance.0/@featureInstance.0">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.12"/>
@@ -3341,6 +3468,14 @@
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.12"/>
     </connectionReference>
     <connectionReference context="/" source="//@componentInstance.5/@featureInstance.0/@featureInstance.6" destination="//@componentInstance.1/@featureInstance.2/@featureInstance.6">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="ShareData.leader.outData.HK_CmdPipe -> DeletePipe.LocalDatas.HK_CmdPipe" complete="true" kind="portConnection" destination="//@componentInstance.1/@featureInstance.2/@featureInstance.7" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.7">
+    <connectionReference context="//@componentInstance.5" source="//@componentInstance.5/@componentInstance.4/@featureInstance.4/@featureInstance.7" destination="//@componentInstance.5/@featureInstance.0/@featureInstance.7">
+      <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedFeatureGroupConnection.12"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.5/@featureInstance.0/@featureInstance.7" destination="//@componentInstance.1/@featureInstance.2/@featureInstance.7">
       <connection xsi:type="aadl2:FeatureGroupConnection" href="../SB_Service.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedFeatureGroupConnection.6"/>
     </connectionReference>
   </connectionInstance>

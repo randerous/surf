@@ -84,7 +84,7 @@ public
 		connections
 			RouteOut: feature group ShareData.OldRouteData -> OutRouter;
 			PipeDataOut: feature group ShareData.OldPipeData -> PipeData;
-
+ 
 			CreatePipeArg: feature group CreatePipeArgs <-> CreatePipe.Args;
 			CreatePipeLocalData: feature group ShareData.OldPipeData -> CreatePipe.LocalDatas;
 			CreatePipeResult: feature group CreatePipe.Results -> ShareData.CreatePipeResult;
@@ -105,7 +105,7 @@ public
 			SendEvtArg: feature group SendEvtArgs <-> SendMsg.EvtArgs;
 			
 			SendMsgLocalData: feature group ShareData.OldRouteData -> SendMsg.LocalDatas;
---			SendMsgResult: feature group SendMsg.Results -> ShareData.SendMsgResult;
+ 
 			SendMsgOutMsg: feature group SendMsg.OutMsgs -> OutMsgs;
 		 
 			annex agree 
@@ -306,6 +306,7 @@ public
             DeletePipeResult_con: feature group DeletePipeResult -> mainTask.DeletePipeResult;
             SubscribeResult_con: feature group SubscribeResult -> mainTask.SubscribeResult;
             UnsubscribeResult_con: feature group UnsubscribeResult -> mainTask.UnsubscribeResult;
+            
             SendMsgLocalData_con: feature group mainTask.OldRouteData -> OldRouteData;
             
             

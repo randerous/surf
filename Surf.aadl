@@ -46,7 +46,7 @@ public
 			SB_PipeInfo: feature group Core.PipeData -> SB.PipeData;
 			SB_RouteInfo: feature group Core.OutRouter -> SB.OutRouter;
 			EVS_FilterInfo: feature group Core.EvsFilter -> EVS.EvsFilter;
-			
+			TimeGet: feature group Core.TIMEAPI <-> TIME.TIMEAPI;
 			
 			----------------------------Control command---------------------
 			HS_Control: port ES.HSControlCommand -> HS.ControlCommand;
@@ -106,11 +106,11 @@ public
 			
 			eq EVS_ERROR: int = 3;
 			eq ERR_REPORT: int = 5;
-			
---          for test stuck fault
+--			
+----          for test stuck fault
 --			lemma "update heart beat by runloop": true -> Core.TaskRecord.HK_APP.ExecutionCounter = 
 --			pre(Core.TaskRecord.HK_APP.ExecutionCounter)+1;
-			
+--			
 			lemma "hs monitor event, send error Msg for reporting": 
 			true -> 
 			(	

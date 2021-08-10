@@ -112,7 +112,7 @@ public
 				OldRouteData.Event_Router.RouteList.CI_Pipe = false and
 				OldRouteData.Event_Router.RouteList.TO_Pipe = false and
 				OldRouteData.Event_Router.RouteList.HS_Pipe = true and
-				OldRouteData.Event_Router.RouteList.HK_Pipe = true 
+				OldRouteData.Event_Router.RouteList.HK_Pipe = false 
 			) -> true;
 			
 			guarantee "initialize all subscription to hk msg into false mode":
@@ -124,7 +124,7 @@ public
 				OldRouteData.HK_Msg_Router.RouteList.CI_Pipe = false and
 				OldRouteData.HK_Msg_Router.RouteList.TO_Pipe = false and 
 				OldRouteData.HK_Msg_Router.RouteList.HS_Pipe = false and 
-				OldRouteData.Event_Router.RouteList.HK_Pipe = false 
+				OldRouteData.HK_Msg_Router.RouteList.HK_Pipe = false 
 			) -> true;
 			
 			guarantee "initialize all subscription to common msg into false mode":

@@ -273,4 +273,10 @@ public
 			GetTimeArgs: feature group TIME_Arg_IO::GetTimeArgs;
 	end TIMEAPI;
 	
+	feature group TIMEAPIR
+		features
+			GetTimeArgsR: feature group TIME_Arg_IO::GetTimeArgs;
+		inverse of TIMEAPI
+	end TIMEAPIR;
+	
 end Core;
