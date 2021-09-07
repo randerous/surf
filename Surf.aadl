@@ -253,7 +253,7 @@ public
 **};
 	   		
 	   		annex safety{**
-	   			analyze : max 2 fault
+	   			analyze : max 1 fault
 	   		**};
 end Surf.impl;
 end Surf;

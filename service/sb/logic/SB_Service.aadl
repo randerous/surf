@@ -327,7 +327,7 @@ public
          **};
          
          annex safety{**
-         	analyze: max 1 fault
+         	analyze: max 2 fault
          **};
 		 
 	end  ShareData.impl;
