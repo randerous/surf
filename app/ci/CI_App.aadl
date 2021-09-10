@@ -25,6 +25,7 @@ public
 			outputs: ESAPI.CI.Activiated <- val_out;    
          	probability: 1.0E-5 ;
 			duration: permanent;
+			propagate_type: symmetric;
 			}
 		**};
 	end CIAPP;
